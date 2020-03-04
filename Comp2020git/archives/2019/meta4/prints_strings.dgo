@@ -1,0 +1,33 @@
+package main;
+
+var b bool;
+var a int;
+
+func main() {
+	
+	var a int;
+	var f float32;
+
+	a = 10;
+	f = 10.12332
+
+	fmt.Println(f);
+	fmt.Println(a);
+	fmt.Println(1.000003);
+	fmt.Println(1.478347);
+
+	fmt.Println(0);
+	fmt.Println(-0);
+	fmt.Println(-0.00);
+
+	fmt.Println("sdjfhighi");
+	fmt.Println("\t tab");
+	fmt.Println("\n newline");
+	fmt.Println("\\ barra \\");
+	fmt.Println("\f feed");
+	fmt.Println("\r carriage");
+	fmt.Println("\"aspazita");
+	fmt.Println("\f varios \t  \\ \n \"");
+	fmt.Println("cena do printf %s %d %l %x");
+	fmt.Println("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis quis blandit tellus. Curabitur ornare elementum mollis. Pellentesque eleifend tempor justo in facilisis. Phasellus ut mattis ex. Etiam et imperdiet nisl. Nam sit amet justo ante. Proin semper varius luctus. Quisque a lorem neque. Ut nec augue eu sapien interdum euismod at nec urna. Nulla et nunc sodales, pulvinar erat in, sagittis quam. Duis vulputate augue finibus ligula mattis congue. Maecenas condimentum nunc ante, non facilisis est aliquam sed. Donec vel ex nec est pharetra aliquam a quis dui. Aenean ac quam hendrerit, suscipit orci et, vestibulum quam. Donec volutpat hendrerit mi sed placerat. Donec dignissim sapien feugiat felis placerat cursus. Suspendisse mattis magna non risus ornare, a auctor nisl consequat. Nam viverra risus ac dui pharetra, id posuere massa mattis. Nullam at pellentesque neque. Curabitur tempus molestie mi ac ornare. Aenean tortor nisl, condimentum eget ligula a, consequat bibendum justo. Donec nec viverra massa. ");
+}

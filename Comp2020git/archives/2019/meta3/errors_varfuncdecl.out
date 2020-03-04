@@ -1,0 +1,17 @@
+Line 11, column 6: Symbol f1 already defined
+Line 15, column 6: Symbol f2 already defined
+Line 19, column 5: Symbol f3 already defined
+Line 23, column 6: Symbol a1 already defined
+Line 26, column 6: Symbol bd already defined
+Line 31, column 9: Symbol f1 declared but never used
+Line 36, column 9: Symbol a2 already defined
+Line 39, column 16: Symbol a already defined
+Line 39, column 31: Symbol b already defined
+Line 40, column 9: Symbol a already defined
+Line 41, column 9: Symbol b already defined
+Line 46, column 5: Cannot find symbol ci(bool)
+Line 51, column 9: Symbol hmmmm_nome_grande_para_dar_aquele_segfault_do_fixe_se_nao_tiverem_cuidado_com_o_tamanho_da_string_ou_nao_usarem_malloc_ou_calloc_ou_qualquer_coisa_do_genero declared but never used
+Line 55, column 5: Cannot find symbol ci()
+Line 62, column 5: Incompatible type none in return statement
+Line 65, column 6: Symbol f9 already defined
+Line 7, column 5: Symbol gf already defined

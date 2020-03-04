@@ -1,0 +1,30 @@
+Arithmetic operators 
+
++   (Add)   sum                 integers, floats, strings
+-   (Sub)   difference          integers, floats
+*   (Mul)   product             integers, floats
+/   (Div)   quotient            integers, floats
+%   (Mod)   remainder           integers
+
+
+Comparison operators
+
+==  (Eq)    equal               integers, floats, strings, boolean
+!=  (Ne)    not equal           integers, floats, strings, boolean
+<   (Lt)    less                integers, floats, strings
+<=  (Le)    less or equal       integers, floats, strings
+>   (Gt)    greater             integers, floats, strings
+>=  (Ge)    greater or equal    integers, floats, strings
+
+
+Logical operators
+
+&&  (And)   and                 boolean
+||  (Or)    or                  boolean
+!   (Not)   not                 boolean
+
+
+Unary operators
+
++   (Plus)  plus                integers, floats
+-   (Minus) minus               integers, floats

@@ -1,0 +1,14 @@
+/*comentario//*/
+//comentario linha*/
+id /*comentario       */ id2;
+id3 //comentario linha
+"string\n";
+"string2\n"
+"string\N"
+"string\z"
+""""
+"''"
+"\\;
+;,
+"string nao terminada
+id4 /*comentario nao terminado

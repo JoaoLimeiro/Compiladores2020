@@ -1,0 +1,17 @@
+Line 10, column 5: Symbol i already defined
+Line 12, column 17: Cannot find symbol h()
+Line 13, column 6: Symbol f already defined
+Line 16, column 12: Symbol y declared but never used
+Line 18, column 11: Operator && cannot be applied to types int, int
+Line 19, column 13: Invalid octal constant: 008
+Line 20, column 5: Cannot find symbol h()
+Line 21, column 7: Operator ! cannot be applied to type int
+Line 22, column 7: Operator = cannot be applied to types int, float32
+Line 23, column 9: Incompatible type int in for statement
+Line 24, column 12: Incompatible type int in if statement
+Line 25, column 13: Cannot find symbol h(undef)
+Line 25, column 16: Operator + cannot be applied to types float32, int
+Line 32, column 11: Operator < cannot be applied to types int, undef
+Line 32, column 13: Cannot find symbol undeclared
+Line 39, column 11: Operator + cannot be applied to types int, float32
+Line 39, column 7: Operator = cannot be applied to types float32, undef

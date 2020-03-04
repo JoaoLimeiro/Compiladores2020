@@ -1,0 +1,19 @@
+STRLIT("a")
+SEMICOLON
+Line 2, column 1: unterminated string literal
+STRLIT("compiladores")
+SEMICOLON
+INTLIT(7654)
+SEMICOLON
+AND
+STRLIT("string")
+SEMICOLON
+Line 10, column 1: unterminated string literal
+Line 11, column 10: invalid escape sequence (\s)
+STRLIT("a")
+SEMICOLON
+Line 13, column 1: illegal character (@)
+ID(d)
+ASSIGN
+ID(g)
+SEMICOLON

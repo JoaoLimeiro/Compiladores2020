@@ -1,0 +1,36 @@
+
+package main
+
+var (n int;)
+
+func danglingelse(n int) {
+	for {
+		n = 0;
+		return new
+		return
+	}
+
+	for (n != 0) {
+		n = 0 == 1;
+		n = function()
+		{{return;};}
+		if 1 {
+			if(1){
+				n=0;
+			} else {
+				n=1
+			}
+
+		} else {
+		}
+		
+		function (n || x)
+		function (n, x)
+	}
+
+	n, _ = strconv.Atoi(os.Args[n])
+
+	fmt.Println(n)
+	"aksjd"
+	fmt.Println("\x")
+}

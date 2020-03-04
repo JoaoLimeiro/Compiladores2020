@@ -1,0 +1,16 @@
+package funcs
+
+func d(){
+	
+	return a||b&&c&&!(!b)||d||e||34&&teste;
+	id = 1==2<=3>4;
+	aa=56==2&&25;
+	kkk=a+b-c*d/e;
+	ttt=q*w*e*r*t;
+	git=100&&!-(-!+a+(b));
+	aeq= a==b&&gh||d||s;
+	r=3%2;
+}
+
+
+var a int;

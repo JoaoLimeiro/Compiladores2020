@@ -1,0 +1,16 @@
+// simple example showing pre-defined functions strconv.Atoi()
+// and fmt.Println() and pre-defined variable os.Args[]
+
+package main;
+
+// the deiGo language does not include imports so
+// these are needed to compile using standard Go:
+//import "fmt"
+//import "strconv"
+//import "os"
+
+func main() {
+  var argument int;
+  argument,_ = strconv.Atoi(os.Args[1]);
+  fmt.Println(argument);
+};

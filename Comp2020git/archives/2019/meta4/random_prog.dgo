@@ -1,0 +1,176 @@
+package main;
+
+var ia, ib, ic, id, ie int;
+
+var (fa, fb, fc, fd, fe float32;);
+
+var (ba, bb, bc, bd bool;);
+
+var sa, sb, sc string;
+
+func fca() {}
+
+func fcb() int {
+    var fafcb int;
+    fafcb = 132 + ia;
+    ia = fafcb;
+    fmt.Println(fafcb);
+    return fafcb;
+    fmt.Println("CANT PRINT....");
+}
+
+func fcd() float32 {
+    fmt.Println("random print");
+    return .1e1 + 0.007;
+}
+
+func fce() string {
+    var strfce string;
+    fmt.Println(strfce);
+    return strfce;
+}
+
+func fcf() bool {
+    var bafcf bool;
+    bafcf = 1 == 1;
+    fmt.Println(bafcf);
+    return bafcf;
+}
+
+func fcg(iafcg int, fafcg float32) int {
+    fmt.Println(fcd());
+    fmt.Println(">");
+    fmt.Println(fafcg);
+    if fcd() > fafcg {
+        fca();
+        fmt.Println("if true");
+        return iafcg;
+    }
+    fmt.Println("no prints for you");
+    return fcb();
+}
+
+func fch(iafch int, fafch float32, safch string) float32 {
+    fcg(
+        fcb(),
+        fcd());
+    fmt.Println(safch);
+    if bb {
+        iafch = ia + ib;
+        fafch = fa;
+        fb = fafch;
+        id = iafch;
+    }
+    return .01;
+}
+
+func fci(iafci int, ibfci int, fafci float32, fbfci float32, safci string) float32 {
+    fch(
+        fcg(
+            fcb(),
+            fcd()),
+        fcd(),
+        fce());
+    iafci = ibfci + 12 + ic + fcb();
+    if fcf() {
+        fmt.Println(safci);
+        return fch(ia, fa, sa);
+    } else {
+        fafci = fa * fbfci + fcd();
+        return fcd();
+    }
+}
+
+func fcj (iafcj int, ibfcj int, fafcj float32, fbfcj float32, bafcj bool) int {
+    var fcjia, fcjib int;
+    fcjia = ia + ib - ic * id % ie;
+    fmt.Println("Pinting");
+    fmt.Println(fcjia);
+    if fcjia > fcg(
+                    fcjia, 
+                    fci(
+                        fcb(),
+                        fcjib,
+                        fch(
+                            fcb(),
+                            fb,
+                            sa),
+                        fd,
+                        sb)) {
+                if ba {
+                    fc = .01;
+                } else {
+                    fc = fc + fe;
+                    if bafcj {
+                        for fcf() {
+                            fcjib = fcjia + fcb() / 12 + fcg(ia + iafcj, fa) - ibfcj;
+                            fbfcj = fafcj;
+                        }
+                    }
+                }
+            }
+    for bb {
+        if bc {
+            bd = bd && ba;
+            bd = ba && fcf() || bd && !bc;
+        }
+    }
+    return -101;
+}
+
+func main() {
+    ia = 1; ib = 1; ic = 1; id = 1; ie  = 1;
+
+    fa = .1; fb = .1; fc = .1; fd = .1; fe = .1;
+
+    fmt.Println(fa);
+
+    var mia, mib int;
+
+    mia = ia + ib;
+
+    for ia > ib && fcf() {
+        if fcb() > fcj(
+                        fcg(
+                            fcb(),
+                            fe),
+                        mia,
+                        fci(
+                            fcg(
+                                fcb(),
+                                fcd()),
+                             123,
+                             fch(
+                                 ia,
+                                 fcd(),
+                                 fce()),
+                              fcd(),
+                              sc),
+                        fcd(),
+                        fcf()) {
+
+                            mib = fcj(12, ia, fa, .1e12, ba);
+                            fmt.Println(mib);
+
+        } else {
+            mib = ia + fcb();
+            fmt.Println(mib);
+        }
+    }
+    mia = mib + fcj(
+                    123 + fcg( 456 + fcb(), fcd() + 123.321 ),
+                    ia + ib - ic / 12 + id * ie % fcg( fcb() , fa ),
+                    fci(ia + ib, 123, fa - fcd() / .1e12, fcd(), fce()),
+                    fch(312 + 12, fcd() + .1e23, fce()),
+                    fcf() && ba || bb);
+    fmt.Println(mia);
+    fmt.Println("if you print this, you might get 10 points... or not...")
+    fmt.Println("mooshak is located @ 1st floor @ dei. just saying");    
+    fmt.Println("");                       
+    fmt.Println("  /\\/\\   ___   ___  ___| |__   __ _| | __     ")   
+    fmt.Println(" /    \\ / _ \\ / _ \\/ __| '_ \\ / _` | |/ /   ")
+    fmt.Println("/ /\\/\\ \\ (_) | (_) \\__ \\ | | | (_| |   <   ")
+    fmt.Println("\\/    \\/\\___/ \\___/|___/_| |_|\\__,_|_|\\_\\")  
+    fmt.Println("") 
+
+}

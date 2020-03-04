@@ -1,0 +1,8 @@
+"string 1 \f" // comentario1
+id1	/* // comentario2 */
+id2 " unterminated string
+"string"
+id3  /*
+comentario */
+id4 /*  unterminated 
+comment

@@ -1,0 +1,101 @@
+package main;
+
+func oneFunc(){}
+
+func twoFunc(one int){}
+
+func treeFunc(one int, two float32){
+    var thisDoesNothingHere float32;
+
+    for one <= 123 {
+        thisDoesNothingHere = thisDoesNothingHere + two + .010e3;
+        one = one + one + one + one + 1;
+    };
+}
+
+func fourFunc(one int, two float32, three string){}
+
+func fiveFunc(one int, two float32, three string, four bool){}
+
+func sixFunc(one int) int {
+    var oneInSixFunc int;
+    oneInSixFunc = one;
+    return oneInSixFunc;
+}
+
+func sevenFunc(one int, two float32) float32 {
+    var oneTwoSevenFunc, twoTwoSevenFunc float32;
+
+    oneTwoSevenFunc = .52e4;
+
+    twoTwoSevenFunc = two + oneTwoSevenFunc;
+
+    if one == 1 {return twoTwoSevenFunc;};
+
+    return oneTwoSevenFunc;
+}
+
+func eightFunc(one int, two float32, three string) string {
+    return three;
+}
+
+func nineFunc(one int, two float32, three string, four bool) bool {
+    var oneThing bool;
+
+    if four {
+        return four;
+    }
+
+    return oneThing;
+}
+
+func tenFunc(one int) int {
+    var (a, b, c, d float32;);
+
+    var j int;
+
+    j = 6 + one;
+
+    a = .01;
+
+    b = .123 + a;
+
+    c = b + a;
+
+    a = c;
+
+    d = a + b;
+
+    a = d;
+
+    d = a + sevenFunc(j, a);
+
+    twoFunc(j);
+
+    treeFunc(j, a);
+
+    return j;
+}
+
+func variable_func_declarations() {
+
+    var stringThing string;
+
+    oneFunc();
+
+    twoFunc(sixFunc(1));
+
+    treeFunc(1, .123);
+
+    fourFunc(sixFunc(1), .321, stringThing);
+
+    fiveFunc(1, .2, stringThing, 1>2);
+
+    sixFunc(1);
+
+    eightFunc(1, .1, stringThing)
+
+    sevenFunc(1, .2);
+
+    tenFunc(1);
+}

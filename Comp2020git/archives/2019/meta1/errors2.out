@@ -1,0 +1,12 @@
+STRLIT("string 1 \f")
+SEMICOLON
+ID(id1)
+SEMICOLON
+ID(id2)
+Line 3, column 5: unterminated string literal
+STRLIT("string")
+SEMICOLON
+ID(id3)
+SEMICOLON
+ID(id4)
+Line 7, column 5: unterminated comment

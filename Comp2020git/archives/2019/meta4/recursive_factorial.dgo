@@ -1,0 +1,38 @@
+// output generated with call argument 10 - ./a.out 10
+package main;
+
+var global int;
+
+func main(){
+	var a int;
+	a = teste();
+	fmt.Println(a);
+	void();
+	var factorial_result int;
+	global = 5;
+	var argument int;
+	argument,_ = strconv.Atoi(os.Args[1]);
+	fmt.Println("Factorial of 5:");
+	factorial_result = factorial(global);
+	fmt.Println(factorial_result);
+	fmt.Println("Factorial of parseArgs argument:");
+	fmt.Println(argument);
+	factorial_result = factorial(argument);
+	fmt.Println(factorial_result); 
+	fmt.Println(teste());
+}
+
+func void(){
+	fmt.Println("No return here!");
+}
+
+func factorial(n int) int{
+	if(n == 1){
+		return 1;
+	}
+	return n * factorial(n-1);
+}
+
+func teste() int{
+	return 123;
+}

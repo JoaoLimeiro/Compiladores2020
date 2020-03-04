@@ -1,0 +1,44 @@
+package main;
+
+/* variaveis globais podem nao ser usadas */
+var (ci, rad, area, PI float32;);
+
+/* parametros podem nao ser usados */
+func main (unused bool) {
+
+    var i int;
+    var f float32;
+    var s string;
+    var b bool;
+
+    /* erro */
+    f,_ = strconv.Atoi(os.Args[f]);
+    f,_ = strconv.Atoi(os.Args[i]);
+    i,_ = strconv.Atoi(os.Args[f]);
+
+    /* nao dá erro */
+    i,_ = strconv.Atoi(os.Args[i]);
+
+    /* prints nao dao erros */
+    fmt.Println(f);
+    fmt.Println(i);
+    fmt.Println(s);
+    fmt.Println(b);
+
+    /* cenas de contas */
+    i = i + f;
+    i = f + i;
+    i = f + f;
+    i = b + b;
+    b = b + b;
+
+    /* erro */
+    b = b > b;
+    b = b <= b;
+
+    /* nao dá erro */
+    b = b == b;
+    b = b != b;
+
+    i = s + s;
+}

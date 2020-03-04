@@ -1,0 +1,11 @@
+Line 1, column 6: invalid escape sequence (\)
+Line 1, column 1: unterminated string literal
+Line 2, column 2: invalid escape sequence (\a)
+Line 2, column 1: unterminated string literal
+Line 3, column 5: invalid escape sequence (\g)
+Line 3, column 8: unterminated string literal
+STRLIT(" ")
+Line 4, column 5: unterminated string literal
+STRLIT("\n")
+SEMICOLON
+Line 6, column 8: invalid escape sequence (\|)

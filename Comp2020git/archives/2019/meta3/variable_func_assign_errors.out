@@ -1,0 +1,5 @@
+Line 12, column 6: Symbol globalVar_int already defined
+Line 28, column 2: Cannot find symbol function_1(int,int)
+Line 34, column 2: Cannot find symbol function_2(int,string)
+Line 41, column 13: Operator = cannot be applied to types float32, int
+Line 44, column 6: Symbol function_1 already defined

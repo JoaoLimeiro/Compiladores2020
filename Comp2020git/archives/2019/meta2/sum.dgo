@@ -1,0 +1,31 @@
+package main
+
+/*
+import (
+    "fmt"
+    "strconv"
+    "os"
+)
+*/
+
+// adaptado https://tour.golang.org/flowcontrol/3
+func main() {
+	// sum integers from 1 to n
+	var i, n, sum int;
+    n,_ = strconv.Atoi(os.Args[1]);
+	if n<0 {
+		fmt.Println("non-negative number please");
+		return;
+	} else {
+		sum=0;
+		i=1;
+		for i <= n {
+			sum = sum + i;
+			i = i+1;
+		}
+		fmt.Println(sum);
+	}
+	for {
+		fmt.Println("now you're trapped");
+	}
+}

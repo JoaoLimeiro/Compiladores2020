@@ -1,0 +1,79 @@
+// ./gocompiler < Comp2019/meta3/statements_expressions.dgo | sort
+package main;
+
+func func__(a int, b float32) {return 1;}
+
+func func_(a int, a int, b float32) string { return;}
+
+func func1(a int, b int, c float32, d float32) float32 {
+	var integer int;
+	return integer;
+}
+
+func func2(a string) int {
+}
+
+func func3(a bool) int {
+	return;
+}
+
+func func4(a int, b float32, c bool) float32 {
+	var a float32;
+	return a;
+}
+
+func main() {
+	var a, b, c int;
+	var d, e, f float32;
+	var g, h, i string;
+	var j, k, l, toBe bool;
+	f0(a, b, c, d);
+	d = func1(a, b, d, e) + f0(a, 1, d, 1.0);
+	a = func2(1, 1, 1.0, 1.0);
+	a , _ = strconv.Atoi(os.Args[func1(a, 123, .1e1, f)]);
+	a = func2
+    f = func1(func2(g), a + b + c, func1(a, b, d, e), c + e + f);
+    fmt.Println((func1(func2(g), a + b + c, func1(a, b, d, e), d + e + f)));
+    a , _ = strconv.Atoi(os.Args[func1(a >= b)]);
+    f = 1.1;
+    a = 1.0;
+    func3(j>k);
+    func3(l==j)
+    fmt.Println(j || k && l);
+    func3(a>f);
+    f , _ = strconv.Atoi(os.Args[i]);
+	func3(a>=c);
+	a = 12 == 32;
+	fmt.Println("((What a mess)) ");
+	j = 12 == 32;
+	for {
+		func3(f && l);
+		a = b + c;
+		for a == c {
+			func3(j || !l);
+			d = e + f;
+			a = func3();
+			for j >= l {
+				a , _ = strconv.Atoi(os.Args[func3(a >= b)]);
+				for f {
+					if l {
+						d = f;
+					} else {
+						a = a;
+					}
+				}
+				for toBe || !toBe {
+					if toBe {
+					} else {
+						if !toBe {
+							fmt.Println(func_(a, c, e));
+						} else {
+							toBe = !toBe;
+						}
+					}
+				}
+			}
+			noWhereToBeFound = noWhereToBeFound(a == b, c, d >= f);
+		}
+	}
+}

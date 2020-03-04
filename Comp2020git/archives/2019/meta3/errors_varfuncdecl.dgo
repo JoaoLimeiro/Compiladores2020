@@ -1,0 +1,69 @@
+package main;
+
+func main() {}
+
+/* nao pode haver duas vars com o mesmo nome no mesmo scope */
+var gf float32;
+var gf bool;
+
+/* so pode haver uma funcao com um nome aka nao ha overload */
+func f1(a int, b int) {};
+func f1() {};
+
+/* mesma coisa aqui */
+func f2() {};
+func f2(a int, b bool) {};
+
+/* tambem nao pode haver var global com nome de uma funcao */
+func f3() {};
+var f3 bool;
+
+/* nem uma funcao com nome de var global */
+var a1 int;
+func a1() {};
+
+var bd bool;
+func bd(a0 int, a2 float32, a3 bool) {};
+
+/* var locais (parametro ou var) podem ter nome de var globais */
+func f4(a1 int) {
+    /* erro de unused */
+    var f1 float32;
+};
+
+/* nao pode haver duas vars com o mesmo nome no mesmo scope */
+func f5(a2 int) {
+    var a2 int;
+}
+
+func f6(a int, a int, b bool, b bool) {
+    var a float32;
+    var b string;
+}
+
+func f7() {
+    var f1 bool;
+    ci(f1);
+}
+
+func f8() {
+    var ci bool;
+    var hmmmm_nome_grande_para_dar_aquele_segfault_do_fixe_se_nao_tiverem_cuidado_com_o_tamanho_da_string_ou_nao_usarem_malloc_ou_calloc_ou_qualquer_coisa_do_genero int;
+    ci = ci;
+
+    /* funcao nao existe */
+    ci();
+}
+
+/* cuidado com tabela de simbolos na redeclaraçao de uma funcao */
+func f9() int {
+    var i int;
+    i = 1;
+    return;
+}
+
+func f9() int {
+    /* acho que nao é suposto tratar destes erros */
+    var i bool;
+    i = 10;
+}

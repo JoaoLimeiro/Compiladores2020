@@ -1,0 +1,21 @@
+// for this program, your compiler should produce
+// the same four errors as the standard Go compiler
+
+package main;
+
+var n int;
+var x float32;
+
+func f(n int) bool {
+    return (n > );
+};
+
+func f2() {
+    f(&&);
+    n = n;
+    =;;
+};
+
+func main() {
+    n,_ = strconv.Atoi(/);
+};

@@ -1,0 +1,86 @@
+/*
+operators
+./gocompiler < Comp2019/meta3/operators.dgo | sort
+*/
+
+package main
+
+func main() {
+
+	var i1, i2 int;
+	var f1, f2 float32;
+	var b1, b2 bool;
+	var s1, s2 string;
+	
+	i1 = 1.2
+	f1 = 1
+	f1 = 1.2
+	i1 = 2
+
+	// Comparison operators
+	if b1 > b2 {}
+	if b1 < b2 {}	
+	if b1 >= b2 {}
+	if b1 <= b2 {}
+	if s2 == s1 {}
+	if b1 == b2 {}
+	if b1 != b2 {}
+	if f1 > i1 {}
+	if i1 == i2 {}
+	if f1 < i1 {}
+	if i1 >= f1 {}
+	if f1 > f2 {}
+	if s1 > s2 {}
+	if i2 <= i1 {}
+	if f1 == i1 {}
+	if f1 != i1 {}
+	if f2 != f1 {}
+	if i1 <= f1 {}
+
+	//Logical operators
+	b1 = i1 && f2
+	b2 = b1 || b2
+	b1 = i2 || f1
+	i1 = i1 && i2
+	b1 = b1 && b2
+	f1 = f2 || f1
+	f1 = f1 && f2
+	s1 = s2 || s1
+	b1 = !i1
+	b2 = !b1
+	b1 = !f1
+	b1 = !i1
+	b1 = !b2
+	b1 = !f1
+
+	//Arithmetic operators 
+	i1 = f1 + i2
+	f1 = f1 + f2
+	i2 = i1 * f2
+	f1 = i1 / f2
+	i1 = f1 % f2
+	i1 = f1 % i1
+	i1 = i2 + i1
+	s1 = s1 % s2
+	i2 = i1 % i2
+	f1 = s1 + s2
+	s1 = s1 + s2
+	s1 = s1 - s2
+	s2 = s2 * s1
+	i1 = i1 * i2
+	s1 = s1 / s2
+	
+	//Unary operators
+	i2 = -i1
+	i1 = +i2
+	i2 = -f1
+	f2 = +i1
+	f2 = -f1
+	f1 = +f2
+	s1 = +s2
+	s1 = -s2
+	b1 = -b2
+	b1 = +b2
+	f2 = +f2
+	
+}

@@ -1,0 +1,20 @@
+ID(compiladores)
+ID(e)
+ID(fixe)
+SEMICOLON
+RETURN
+SEMICOLON
+RPAR
+SEMICOLON
+RSQ
+SEMICOLON
+RBRACE
+SEMICOLON
+STRLIT("compiladores podia ser melhor")
+SEMICOLON
+REALLIT(1.e+0)
+SEMICOLON
+STRLIT("o melhor numero e")
+Line 12, column 21: illegal character (:)
+INTLIT(42)
+SEMICOLON

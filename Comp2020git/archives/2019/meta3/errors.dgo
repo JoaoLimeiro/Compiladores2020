@@ -1,0 +1,43 @@
+// ./gocompiler < errors.dgo | sort
+//
+// errors are sorted for uniform presentation
+
+package main;
+
+var a float32;
+
+var i int;
+var i bool;
+
+func f() { g(); h(); };
+func f() {};
+
+func main() {
+    var x, y int;
+    var b bool;
+    b = 1 && 1;
+    i = i + 008;
+    h();
+    h(!i);
+    x = 1.0;
+    for x {
+        if x {
+            h(a+x);
+            return;
+        };
+    };
+};
+
+func undef() {
+    for 1 < undeclared {
+    };
+};
+
+func types() {
+    var x float32;
+    var n int;
+    x = n + x;
+};
+
+func g() { };
+func h(q bool) int {};

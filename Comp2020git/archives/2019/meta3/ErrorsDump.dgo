@@ -1,0 +1,5090 @@
+// ./gocompiler < errors.dgo | sort
+//
+// errors are sorted for uniform presentation
+
+package main;
+
+var a int;
+var b float32;
+var c string;
+var d bool;
+
+var z int;
+var y float32;
+var x string;
+var w bool;
+
+// < | > | <= | >= | && | || | == | != | ! | + | - |
+
+func main() {
+    
+    a = 1 + c + c;
+
+    //Direct assigns to 'a'
+    a = 1
+    a = 1.0
+    a = 0x09
+    a = 009
+    a = -1
+    a = -1.0
+    a = -0x09
+    a = -009
+
+
+    //Direct bssigns to 'b'
+    b = 1
+    b = 1.0
+    b = 0x09
+    b = 009
+    b = -1
+    b = -1.0
+    b = -0x09
+    b = -009
+
+    //Direct cssigns to 'c'
+    c = 1
+    c = 1.0
+    c = 0x09
+    c = 009
+
+    //Direct dssigns to 'd'
+    d = 1
+    d = 1.0
+    b = 0x09
+    b = 009
+
+    //Unary assigned to 'a'
+    a = !a;
+    a = +a;
+    a = -a;
+    a = !b;
+    a = +b;
+    a = -b;
+    a = !c;
+    a = +c;
+    a = -c;
+    a = !d;
+    a = +d;
+    a = -d;
+
+    //Unary assigned to 'b'
+    b = !a;
+    b = +a;
+    b = -a;
+    b = !b;
+    b = +b;
+    b = -b;
+    b = !c;
+    b = +c;
+    b = -c;
+    b = !d;
+    b = +d;
+    b = -d;
+
+    //Unary assigned to 'c'
+    c = !a;
+    c = +a;
+    c = -a;
+    c = !b;
+    c = +b;
+    c = -b;
+    c = !c;
+    c = +c;
+    c = -c;
+    c = !d;
+    c = +d;
+    c = -d;
+
+    //Unary assigned to 'd'
+    d = !a;
+    d = +a;
+    d = -a;
+    d = !b;
+    d = +b;
+    d = -b;
+    d = !c;
+    d = +c;
+    d = -c;
+    d = !d;
+    d = !!d;
+    d = +d;
+    d = -d;
+
+    //Comps between 'a' and 'all' assigned to 'a'
+    a = a < a;
+    a = a > a;
+    a = a <= a;
+    a = a >= a;
+    a = a && a;
+    a = a || a;
+    a = a == a;
+    a = a != a;
+
+    a = a < b;
+    a = a > b;
+    a = a <= b;
+    a = a >= b;
+    a = a && b;
+    a = a || b;
+    a = a == b;
+    a = a != b;
+
+    a = a < c;
+    a = a > c;
+    a = a <= c;
+    a = a >= c;
+    a = a && c;
+    a = a || c;
+    a = a == c;
+    a = a != c;
+
+    a = a < d;
+    a = a > d;
+    a = a <= d;
+    a = a >= d;
+    a = a && d;
+    a = a || d;
+    a = a == d;
+    a = a != d;
+
+    //Comps between 'b' and 'all' assigned to 'a'
+    a = b < a;
+    a = b > a;
+    a = b <= a;
+    a = b >= a;
+    a = b && a;
+    a = b || a;
+    a = b == a;
+    a = b != a;
+
+    a = b < b;
+    a = b > b;
+    a = b <= b;
+    a = b >= b;
+    a = b && b;
+    a = b || b;
+    a = b == b;
+    a = b != b;
+
+    a = b < c;
+    a = b > c;
+    a = b <= c;
+    a = b >= c;
+    a = b && c;
+    a = b || c;
+    a = b == c;
+    a = b != c;
+
+    a = b < d;
+    a = b > d;
+    a = b <= d;
+    a = b >= d;
+    a = b && d;
+    a = b || d;
+    a = b == d;
+    a = b != d;
+
+    //Comps between 'c' and 'all' assigned to 'a'
+    a = c < a;
+    a = c > a;
+    a = c <= a;
+    a = c >= a;
+    a = c && a;
+    a = c || a;
+    a = c == a;
+    a = c != a;
+
+    a = c < b;
+    a = c > b;
+    a = c <= b;
+    a = c >= b;
+    a = c && b;
+    a = c || b;
+    a = c == b;
+    a = c != b;
+
+    a = c <  c;
+    a = c >  c;
+    a = c <= c;
+    a = c >= c;
+    a = c && c;
+    a = c || c;
+    a = c == c;
+    a = c != c;
+
+    a = c < d;
+    a = c > d;
+    a = c <= d;
+    a = c >= d;
+    a = c && d;
+    a = c || d;
+    a = c == d;
+    a = c != d;
+
+    //Comps between 'd' and 'all' assigned to 'a'
+    a = d < a;
+    a = d > a;
+    a = d <= a;
+    a = d >= a;
+    a = d && a;
+    a = d || a;
+    a = d == a;
+    a = d != a;
+
+    a = d < b;
+    a = d > b;
+    a = d <= b;
+    a = d >= b;
+    a = d && b;
+    a = d || b;
+    a = d == b;
+    a = d != b;
+
+    a = d < c;
+    a = d > c;
+    a = d <= c;
+    a = d >= c;
+    a = d && c;
+    a = d || c;
+    a = d == c;
+    a = d != c;
+
+    a = d < d;
+    a = d > d;
+    a = d <= d;
+    a = d >= d;
+    a = d && d;
+    a = d || d;
+    a = d == d;
+    a = d != d;
+
+
+    //Comps between 'a' and 'all' assigned to 'b'
+    b = a < a;
+    b = a > a;
+    b = a <= a;
+    b = a >= a;
+    b = a && a;
+    b = a || a;
+    b = a == a;
+    b = a != a;
+
+    b = a < b;
+    b = a > b;
+    b = a <= b;
+    b = a >= b;
+    b = a && b;
+    b = a || b;
+    b = a == b;
+    b = a != b;
+
+    b = a < c;
+    b = a > c;
+    b = a <= c;
+    b = a >= c;
+    b = a && c;
+    b = a || c;
+    b = a == c;
+    b = a != c;
+
+    b = a < d;
+    b = a > d;
+    b = a <= d;
+    b = a >= d;
+    b = a && d;
+    b = a || d;
+    b = a == d;
+    b = a != d;
+
+    //Comps between 'b' and 'all' assigned to 'b'
+    b = b < a;
+    b = b > a;
+    b = b <= a;
+    b = b >= a;
+    b = b && a;
+    b = b || a;
+    b = b == a;
+    b = b != a;
+
+    b = b < b;
+    b = b > b;
+    b = b <= b;
+    b = b >= b;
+    b = b && b;
+    b = b || b;
+    b = b == b;
+    b = b != b;
+
+    b = b < c;
+    b = b > c;
+    b = b <= c;
+    b = b >= c;
+    b = b && c;
+    b = b || c;
+    b = b == c;
+    b = b != c;
+
+    b = b < d;
+    b = b > d;
+    b = b <= d;
+    b = b >= d;
+    b = b && d;
+    b = b || d;
+    b = b == d;
+    b = b != d;
+
+    //Comps between 'c' and 'all' assigned to 'b'
+    b = c < a;
+    b = c > a;
+    b = c <= a;
+    b = c >= a;
+    b = c && a;
+    b = c || a;
+    b = c == a;
+    b = c != a;
+
+    b = c < b;
+    b = c > b;
+    b = c <= b;
+    b = c >= b;
+    b = c && b;
+    b = c || b;
+    b = c == b;
+    b = c != b;
+
+    b = c <  c;
+    b = c >  c;
+    b = c <= c;
+    b = c >= c;
+    b = c && c;
+    b = c || c;
+    b = c == c;
+    b = c != c;
+
+    b = c < d;
+    b = c > d;
+    b = c <= d;
+    b = c >= d;
+    b = c && d;
+    b = c || d;
+    b = c == d;
+    b = c != d;
+
+    //Comps between 'd' and 'all' assigned to 'b'
+    b = d < a;
+    b = d > a;
+    b = d <= a;
+    b = d >= a;
+    b = d && a;
+    b = d || a;
+    b = d == a;
+    b = d != a;
+
+    b = d < b;
+    b = d > b;
+    b = d <= b;
+    b = d >= b;
+    b = d && b;
+    b = d || b;
+    b = d == b;
+    b = d != b;
+
+    b = d < c;
+    b = d > c;
+    b = d <= c;
+    b = d >= c;
+    b = d && c;
+    b = d || c;
+    b = d == c;
+    b = d != c;
+
+    b = d < d;
+    b = d > d;
+    b = d <= d;
+    b = d >= d;
+    b = d && d;
+    b = d || d;
+    b = d == d;
+    b = d != d;
+
+
+    //Comps between 'a' and 'all' assigned to 'c'
+    c = a < a;
+    c = a > a;
+    c = a <= a;
+    c = a >= a;
+    c = a && a;
+    c = a || a;
+    c = a == a;
+    c = a != a;
+
+    c = a < b;
+    c = a > b;
+    c = a <= b;
+    c = a >= b;
+    c = a && b;
+    c = a || b;
+    c = a == b;
+    c = a != b;
+
+    c = a < c;
+    c = a > c;
+    c = a <= c;
+    c = a >= c;
+    c = a && c;
+    c = a || c;
+    c = a == c;
+    c = a != c;
+
+    c = a < d;
+    c = a > d;
+    c = a <= d;
+    c = a >= d;
+    c = a && d;
+    c = a || d;
+    c = a == d;
+    c = a != d;
+
+    //Comps between 'b' and 'all' assigned to 'c'
+    c = b < a;
+    c = b > a;
+    c = b <= a;
+    c = b >= a;
+    c = b && a;
+    c = b || a;
+    c = b == a;
+    c = b != a;
+
+    c = b < b;
+    c = b > b;
+    c = b <= b;
+    c = b >= b;
+    c = b && b;
+    c = b || b;
+    c = b == b;
+    c = b != b;
+
+    c = b < c;
+    c = b > c;
+    c = b <= c;
+    c = b >= c;
+    c = b && c;
+    c = b || c;
+    c = b == c;
+    c = b != c;
+
+    c = b < d;
+    c = b > d;
+    c = b <= d;
+    c = b >= d;
+    c = b && d;
+    c = b || d;
+    c = b == d;
+    c = b != d;
+
+    //Comps between 'c' and 'all' assigned to 'c'
+    c = c < a;
+    c = c > a;
+    c = c <= a;
+    c = c >= a;
+    c = c && a;
+    c = c || a;
+    c = c == a;
+    c = c != a;
+
+    c = c < b;
+    c = c > b;
+    c = c <= b;
+    c = c >= b;
+    c = c && b;
+    c = c || b;
+    c = c == b;
+    c = c != b;
+
+    c = c < c;
+    c = c > c;
+    c = c <= c;
+    c = c >= c;
+    c = c && c;
+    c = c || c;
+    c = c == c;
+    c = c != c;
+
+    c = c < d;
+    c = c > d;
+    c = c <= d;
+    c = c >= d;
+    c = c && d;
+    c = c || d;
+    c = c == d;
+    c = c != d;
+
+    //Comps between 'd' and 'all' assigned to 'c'
+    c = d < a;
+    c = d > a;
+    c = d <= a;
+    c = d >= a;
+    c = d && a;
+    c = d || a;
+    c = d == a;
+    c = d != a;
+
+    c = d < b;
+    c = d > b;
+    c = d <= b;
+    c = d >= b;
+    c = d && b;
+    c = d || b;
+    c = d == b;
+    c = d != b;
+
+    c = d < c;
+    c = d > c;
+    c = d <= c;
+    c = d >= c;
+    c = d && c;
+    c = d || c;
+    c = d == c;
+    c = d != c;
+
+    c = d < d;
+    c = d > d;
+    c = d <= d;
+    c = d >= d;
+    c = d && d;
+    c = d || d;
+    c = d == d;
+    c = d != d;
+
+
+    //Comps between 'a' and 'all' assigned to 'd'
+    d = a < a;
+    d = a > a;
+    d = a <= a;
+    d = a >= a;
+    d = a && a;
+    d = a || a;
+    d = a == a;
+    d = a != a;
+
+    d = a < b;
+    d = a > b;
+    d = a <= b;
+    d = a >= b;
+    d = a && b;
+    d = a || b;
+    d = a == b;
+    d = a != b;
+
+    d = a < c;
+    d = a > c;
+    d = a <= c;
+    d = a >= c;
+    d = a && c;
+    d = a || c;
+    d = a == c;
+    d = a != c;
+
+    d = a < d;
+    d = a > d;
+    d = a <= d;
+    d = a >= d;
+    d = a && d;
+    d = a || d;
+    d = a == d;
+    d = a != d;
+
+    //Comps between 'b' and 'all' assigned to 'd'
+    d = b < a;
+    d = b > a;
+    d = b <= a;
+    d = b >= a;
+    d = b && a;
+    d = b || a;
+    d = b == a;
+    d = b != a;
+
+    d = b < b;
+    d = b > b;
+    d = b <= b;
+    d = b >= b;
+    d = b && b;
+    d = b || b;
+    d = b == b;
+    d = b != b;
+
+    d = b < c;
+    d = b > c;
+    d = b <= c;
+    d = b >= c;
+    d = b && c;
+    d = b || c;
+    d = b == c;
+    d = b != c;
+
+    d = b < d;
+    d = b > d;
+    d = b <= d;
+    d = b >= d;
+    d = b && d;
+    d = b || d;
+    d = b == d;
+    d = b != d;
+
+    //Comps between 'c' and 'all' assigned to 'd'
+    d = c < a;
+    d = c > a;
+    d = c <= a;
+    d = c >= a;
+    d = c && a;
+    d = c || a;
+    d = c == a;
+    d = c != a;
+
+    d = c < b;
+    d = c > b;
+    d = c <= b;
+    d = c >= b;
+    d = c && b;
+    d = c || b;
+    d = c == b;
+    d = c != b;
+
+    d = c <  c;
+    d = c >  c;
+    d = c <= c;
+    d = c >= c;
+    d = c && c;
+    d = c || c;
+    d = c == c;
+    d = c != c;
+
+    d = c < d;
+    d = c > d;
+    d = c <= d;
+    d = c >= d;
+    d = c && d;
+    d = c || d;
+    d = c == d;
+    d = c != d;
+
+    //Comps between 'd' and 'all' assigned to 'd'
+    d = d < a;
+    d = d > a;
+    d = d <= a;
+    d = d >= a;
+    d = d && a;
+    d = d || a;
+    d = d == a;
+    d = d != a;
+
+    d = d < b;
+    d = d > b;
+    d = d <= b;
+    d = d >= b;
+    d = d && b;
+    d = d || b;
+    d = d == b;
+    d = d != b;
+
+    d = d < c;
+    d = d > c;
+    d = d <= c;
+    d = d >= c;
+    d = d && c;
+    d = d || c;
+    d = d == c;
+    d = d != c;
+
+    d = d < d;
+    d = d > d;
+    d = d <= d;
+    d = d >= d;
+    d = d && d;
+    d = d || d;
+    d = d == d;
+    d = d != d;
+    d = d || d || d;
+    d = d && d && d;
+    d = d && d || d;
+    d = d || d && d;
+    d = a || b || c || d;
+    d = a && b && c && d;
+    d = a || d || b || d || c || d;
+    d = a && d && b && d && c && d;
+
+
+    //Calc between 'a' and all assigned to 'a'
+
+    a = a + a;
+    a = a - a;
+    a = a * a;
+    a = a / a;
+    a = a % a;
+
+    a = a + b;
+    a = a - b;
+    a = a * b;
+    a = a / b;
+    a = a % b;
+
+    a = a + c;
+    a = a - c;
+    a = a * c;
+    a = a / c;
+    a = a % c;
+
+    a = a + d;
+    a = a - d;
+    a = a * d;
+    a = a / d;
+    a = a % d;
+
+
+    //Calc between 'b' and all assigned to 'a'
+
+    a = b + a;
+    a = b - a;
+    a = b * a;
+    a = b / a;
+    a = b % a;
+
+    a = b + b;
+    a = b - b;
+    a = b * b;
+    a = b / b;
+    a = b % b;
+
+    a = b + c;
+    a = b - c;
+    a = b * c;
+    a = b / c;
+    a = b % c;
+
+    a = b + d;
+    a = b - d;
+    a = b * d;
+    a = b / d;
+    a = b % d;
+
+
+    //Calc between 'c' and all assigned to 'a'
+
+    a = c + a;
+    a = c - a;
+    a = c * a;
+    a = c / a;
+    a = c % a;
+
+    a = c + b;
+    a = c - b;
+    a = c * b;
+    a = c / b;
+    a = c % b;
+
+    a = c + c;
+    a = c - c;
+    a = c * c;
+    a = c / c;
+    a = c % c;
+
+    a = c + d;
+    a = c - d;
+    a = c * d;
+    a = c / d;
+    a = c % d;
+
+
+    //Calc between 'd' and all assigned to 'a'
+
+    a = d + a;
+    a = d - a;
+    a = d * a;
+    a = d / a;
+    a = d % a;
+
+    a = d + b;
+    a = d - b;
+    a = d * b;
+    a = d / b;
+    a = d % b;
+
+    a = d + c;
+    a = d - c;
+    a = d * c;
+    a = d / c;
+    a = d % c;
+
+    a = d + d;
+    a = d - d;
+    a = d * d;
+    a = d / d;
+    a = d % d;
+
+
+    //Calc between 'a' and all assigned to 'b'
+
+    b = a + a;
+    b = a - a;
+    b = a * a;
+    b = a / a;
+    b = a % a;
+
+    b = a + b;
+    b = a - b;
+    b = a * b;
+    b = a / b;
+    b = a % b;
+
+    b = a + c;
+    b = a - c;
+    b = a * c;
+    b = a / c;
+    b = a % c;
+
+    b = a + d;
+    b = a - d;
+    b = a * d;
+    b = a / d;
+    b = a % d;
+
+
+    //Calc between 'b' and all assigned to 'b'
+
+    b = b + a;
+    b = b - a;
+    b = b * a;
+    b = b / a;
+    b = b % a;
+
+    b = b + b;
+    b = b - b;
+    b = b * b;
+    b = b / b;
+    b = b % b;
+
+    b = b + c;
+    b = b - c;
+    b = b * c;
+    b = b / c;
+    b = b % c;
+
+    b = b + d;
+    b = b - d;
+    b = b * d;
+    b = b / d;
+    b = b % d;
+
+
+    //Calc between 'c' and all assigned to 'b'
+
+    b = c + a;
+    b = c - a;
+    b = c * a;
+    b = c / a;
+    b = c % a;
+
+    b = c + b;
+    b = c - b;
+    b = c * b;
+    b = c / b;
+    b = c % b;
+
+    b = c + c;
+    b = c - c;
+    b = c * c;
+    b = c / c;
+    b = c % c;
+
+    b = c + d;
+    b = c - d;
+    b = c * d;
+    b = c / d;
+    b = c % d;
+
+
+    //Calc between 'd' and all assigned to 'b'
+
+    b = d + a;
+    b = d - a;
+    b = d * a;
+    b = d / a;
+    b = d % a;
+
+    b = d + b;
+    b = d - b;
+    b = d * b;
+    b = d / b;
+    b = d % b;
+
+    b = d + c;
+    b = d - c;
+    b = d * c;
+    b = d / c;
+    b = d % c;
+
+    b = d + d;
+    b = d - d;
+    b = d * d;
+    b = d / d;
+    b = d % d;
+
+
+    //Calc between 'a' and all assigned to 'c'
+
+    c = a + a;
+    c = a - a;
+    c = a * a;
+    c = a / a;
+    c = a % a;
+
+    c = a + b;
+    c = a - b;
+    c = a * b;
+    c = a / b;
+    c = a % b;
+
+    c = a + c;
+    c = a - c;
+    c = a * c;
+    c = a / c;
+    c = a % c;
+
+    c = a + d;
+    c = a - d;
+    c = a * d;
+    c = a / d;
+    c = a % d;
+
+
+    //Calc between 'b' and all assigned to 'c'
+
+    c = b + a;
+    c = b - a;
+    c = b * a;
+    c = b / a;
+    c = b % a;
+
+    c = b + b;
+    c = b - b;
+    c = b * b;
+    c = b / b;
+    c = b % b;
+
+    c = b + c;
+    c = b - c;
+    c = b * c;
+    c = b / c;
+    c = b % c;
+
+    c = b + d;
+    c = b - d;
+    c = b * d;
+    c = b / d;
+    c = b % d;
+
+
+    //Calc between 'c' and all assigned to 'c'
+
+    c = c + a;
+    c = c - a;
+    c = c * a;
+    c = c / a;
+    c = c % a;
+
+    c = c + b;
+    c = c - b;
+    c = c * b;
+    c = c / b;
+    c = c % b;
+
+    c = c + c;
+    c = c - c;
+    c = c * c;
+    c = c / c;
+    c = c % c;
+
+    c = c + d;
+    c = c - d;
+    c = c * d;
+    c = c / d;
+    c = c % d;
+
+
+    //Calc between 'd' and all assigned to 'c'
+
+    c = d + a;
+    c = d - a;
+    c = d * a;
+    c = d / a;
+    c = d % a;
+
+    c = d + b;
+    c = d - b;
+    c = d * b;
+    c = d / b;
+    c = d % b;
+
+    c = d + c;
+    c = d - c;
+    c = d * c;
+    c = d / c;
+    c = d % c;
+
+    c = d + d;
+    c = d - d;
+    c = d * d;
+    c = d / d;
+    c = d % d;
+
+
+    //Calc between 'a' and all assigned to 'd'
+
+    d = a + a;
+    d = a - a;
+    d = a * a;
+    d = a / a;
+    d = a % a;
+
+    d = a + b;
+    d = a - b;
+    d = a * b;
+    d = a / b;
+    d = a % b;
+
+    d = a + c;
+    d = a - c;
+    d = a * c;
+    d = a / c;
+    d = a % c;
+
+    d = a + d;
+    d = a - d;
+    d = a * d;
+    d = a / d;
+    d = a % d;
+
+
+    //Calc between 'b' and all assigned to 'd'
+
+    d = b + a;
+    d = b - a;
+    d = b * a;
+    d = b / a;
+    d = b % a;
+
+    d = b + b;
+    d = b - b;
+    d = b * b;
+    d = b / b;
+    d = b % b;
+
+    d = b + c;
+    d = b - c;
+    d = b * c;
+    d = b / c;
+    d = b % c;
+
+    d = b + d;
+    d = b - d;
+    d = b * d;
+    d = b / d;
+    d = b % d;
+
+
+    //Calc between 'c' and all assigned to 'd'
+
+    d = c + a;
+    d = c - a;
+    d = c * a;
+    d = c / a;
+    d = c % a;
+
+    d = c + b;
+    d = c - b;
+    d = c * b;
+    d = c / b;
+    d = c % b;
+
+    d = c + c;
+    d = c - c;
+    d = c * c;
+    d = c / c;
+    d = c % c;
+
+    d = c + d;
+    d = c - d;
+    d = c * d;
+    d = c / d;
+    d = c % d;
+
+
+    //Calc between 'd' and all assigned to 'd'
+
+    d = d + a;
+    d = d - a;
+    d = d * a;
+    d = d / a;
+    d = d % a;
+
+    d = d + b;
+    d = d - b;
+    d = d * b;
+    d = d / b;
+    d = d % b;
+
+    d = d + c;
+    d = d - c;
+    d = d * c;
+    d = d / c;
+    d = d % c;
+
+    d = d + d;
+    d = d - d;
+    d = d * d;
+    d = d / d;
+    d = d % d;
+
+    
+    //For with Unary 
+    for !a {}
+    for +a {}
+    for -a {}
+    for !b {}
+    for +b {}
+    for -b {}
+    for !c {}
+    for +c {}
+    for -c {}
+    for !d {}
+    for +d {}
+    for -d {}
+    
+
+    //For with comps between 'a' and 'all'
+    for a < a {}
+    for a > a {}
+    for a <= a {}
+    for a >= a {}
+    for a && a {}
+    for a || a {}
+    for a == a {}
+    for a != a {}
+
+    for a < b {}
+    for a > b {}
+    for a <= b {}
+    for a >= b {}
+    for a && b {}
+    for a || b {}
+    for a == b {}
+    for a != b {}
+
+    for a < c {}
+    for a > c {}
+    for a <= c {}
+    for a >= c {}
+    for a && c {}
+    for a || c {}
+    for a == c {}
+    for a != c {}
+
+    for a < d {}
+    for a > d {}
+    for a <= d {}
+    for a >= d {}
+    for a && d {}
+    for a || d {}
+    for a == d {}
+    for a != d {}
+
+    //For with comps between 'b' and 'all'
+    for b < a {}
+    for b > a {}
+    for b <= a {}
+    for b >= a {}
+    for b && a {}
+    for b || a {}
+    for b == a {}
+    for b != a {}
+
+    for b < b {}
+    for b > b {}
+    for b <= b {}
+    for b >= b {}
+    for b && b {}
+    for b || b {}
+    for b == b {}
+    for b != b {}
+
+    for b < c {}
+    for b > c {}
+    for b <= c {}
+    for b >= c {}
+    for b && c {}
+    for b || c {}
+    for b == c {}
+    for b != c {}
+
+    for b < d {}
+    for b > d {}
+    for b <= d {}
+    for b >= d {}
+    for b && d {}
+    for b || d {}
+    for b == d {}
+    for b != d {}
+
+    //For with comps between 'c' and 'all'
+    for c < a {}
+    for c > a {}
+    for c <= a {}
+    for c >= a {}
+    for c && a {}
+    for c || a {}
+    for c == a {}
+    for c != a {}
+
+    for c < b {}
+    for c > b {}
+    for c <= b {}
+    for c >= b {}
+    for c && b {}
+    for c || b {}
+    for c == b {}
+    for c != b {}
+
+    for c <  c {}
+    for c >  c {}
+    for c <= c {}
+    for c >= c {}
+    for c && c {}
+    for c || c {}
+    for c == c {}
+    for c != c {}
+
+    for c < d {}
+    for c > d {}
+    for c <= d {}
+    for c >= d {}
+    for c && d {}
+    for c || d {}
+    for c == d {}
+    for c != d {}
+
+    //For with comps between 'd' and 'all'
+    for d < a {}
+    for d > a {}
+    for d <= a {}
+    for d >= a {}
+    for d && a {}
+    for d || a {}
+    for d == a {}
+    for d != a {}
+
+    for d < b {}
+    for d > b {}
+    for d <= b {}
+    for d >= b {}
+    for d && b {}
+    for d || b {}
+    for d == b {}
+    for d != b {}
+
+    for d < c {}
+    for d > c {}
+    for d <= c {}
+    for d >= c {}
+    for d && c {}
+    for d || c {}
+    for d == c {}
+    for d != c {}
+
+    for d < d {}
+    for d > d {}
+    for d <= d {}
+    for d >= d {}
+    for d && d {}
+    for d || d {}
+    for d == d {}
+    for d != d {}
+
+
+    //For with calc between 'a' and all
+    for a + a {}
+    for a - a {}
+    for a * a {}
+    for a / a {}
+    for a % a {}
+
+    for a + b {}
+    for a - b {}
+    for a * b {}
+    for a / b {}
+    for a % b {}
+
+    for a + c {}
+    for a - c {}
+    for a * c {}
+    for a / c {}
+    for a % c {}
+
+    for a + d {}
+    for a - d {}
+    for a * d {}
+    for a / d {}
+    for a % d {}
+
+
+    //For with calc between 'b' and all
+    for b + a {}
+    for b - a {}
+    for b * a {}
+    for b / a {}
+    for b % a {}
+
+    for b + b {}
+    for b - b {}
+    for b * b {}
+    for b / b {}
+    for b % b {}
+
+    for b + c {}
+    for b - c {}
+    for b * c {}
+    for b / c {}
+    for b % c {}
+
+    for b + d {}
+    for b - d {}
+    for b * d {}
+    for b / d {}
+    for b % d {}
+
+
+    //For with calc between 'c' and all
+    for c + a {}
+    for c - a {}
+    for c * a {}
+    for c / a {}
+    for c % a {}
+
+    for c + b {}
+    for c - b {}
+    for c * b {}
+    for c / b {}
+    for c % b {}
+
+    for c + c {}
+    for c - c {}
+    for c * c {}
+    for c / c {}
+    for c % c {}
+
+    for c + d {}
+    for c - d {}
+    for c * d {}
+    for c / d {}
+    for c % d {}
+
+
+    //For with calc between 'd' and all
+    for d + a {}
+    for d - a {}
+    for d * a {}
+    for d / a {}
+    for d % a {}
+
+    for d + b {}
+    for d - b {}
+    for d * b {}
+    for d / b {}
+    for d % b {}
+
+    for d + c {}
+    for d - c {}
+    for d * c {}
+    for d / c {}
+    for d % c {}
+
+    for d + d {}
+    for d - d {}
+    for d * d {}
+    for d / d {}
+    for d % d {}
+
+
+    //If with Unary 
+    if !a {}
+    if +a {}
+    if -a {}
+    if !b {}
+    if +b {}
+    if -b {}
+    if !c {}
+    if +c {}
+    if -c {}
+    if !d {}
+    if +d {}
+    if -d {}
+
+
+    //If with comps between 'a' and 'all'
+    if a < a {}
+    if a > a {}
+    if a <= a {}
+    if a >= a {}
+    if a && a {}
+    if a || a {}
+    if a == a {}
+    if a != a {}
+
+    if a < b {}
+    if a > b {}
+    if a <= b {}
+    if a >= b {}
+    if a && b {}
+    if a || b {}
+    if a == b {}
+    if a != b {}
+
+    if a < c {}
+    if a > c {}
+    if a <= c {}
+    if a >= c {}
+    if a && c {}
+    if a || c {}
+    if a == c {}
+    if a != c {}
+
+    if a < d {}
+    if a > d {}
+    if a <= d {}
+    if a >= d {}
+    if a && d {}
+    if a || d {}
+    if a == d {}
+    if a != d {}
+
+    //If with comps between 'b' and 'all'
+    if b < a {}
+    if b > a {}
+    if b <= a {}
+    if b >= a {}
+    if b && a {}
+    if b || a {}
+    if b == a {}
+    if b != a {}
+
+    if b < b {}
+    if b > b {}
+    if b <= b {}
+    if b >= b {}
+    if b && b {}
+    if b || b {}
+    if b == b {}
+    if b != b {}
+
+    if b < c {}
+    if b > c {}
+    if b <= c {}
+    if b >= c {}
+    if b && c {}
+    if b || c {}
+    if b == c {}
+    if b != c {}
+
+    if b < d {}
+    if b > d {}
+    if b <= d {}
+    if b >= d {}
+    if b && d {}
+    if b || d {}
+    if b == d {}
+    if b != d {}
+
+    //If with comps between 'c' and 'all'
+    if c < a {}
+    if c > a {}
+    if c <= a {}
+    if c >= a {}
+    if c && a {}
+    if c || a {}
+    if c == a {}
+    if c != a {}
+
+    if c < b {}
+    if c > b {}
+    if c <= b {}
+    if c >= b {}
+    if c && b {}
+    if c || b {}
+    if c == b {}
+    if c != b {}
+
+    if c <  c {}
+    if c >  c {}
+    if c <= c {}
+    if c >= c {}
+    if c && c {}
+    if c || c {}
+    if c == c {}
+    if c != c {}
+
+    if c < d {}
+    if c > d {}
+    if c <= d {}
+    if c >= d {}
+    if c && d {}
+    if c || d {}
+    if c == d {}
+    if c != d {}
+
+    //If with comps between 'd' and 'all'
+    if d < a {}
+    if d > a {}
+    if d <= a {}
+    if d >= a {}
+    if d && a {}
+    if d || a {}
+    if d == a {}
+    if d != a {}
+
+    if d < b {}
+    if d > b {}
+    if d <= b {}
+    if d >= b {}
+    if d && b {}
+    if d || b {}
+    if d == b {}
+    if d != b {}
+
+    if d < c {}
+    if d > c {}
+    if d <= c {}
+    if d >= c {}
+    if d && c {}
+    if d || c {}
+    if d == c {}
+    if d != c {}
+
+    if d < d {}
+    if d > d {}
+    if d <= d {}
+    if d >= d {}
+    if d && d {}
+    if d || d {}
+    if d == d {}
+    if d != d {}
+
+
+    //If with calc between 'a' and all
+    if a + a {}
+    if a - a {}
+    if a * a {}
+    if a / a {}
+    if a % a {}
+
+    if a + b {}
+    if a - b {}
+    if a * b {}
+    if a / b {}
+    if a % b {}
+
+    if a + c {}
+    if a - c {}
+    if a * c {}
+    if a / c {}
+    if a % c {}
+
+    if a + d {}
+    if a - d {}
+    if a * d {}
+    if a / d {}
+    if a % d {}
+
+
+    //If with calc between 'b' and all
+    if b + a {}
+    if b - a {}
+    if b * a {}
+    if b / a {}
+    if b % a {}
+
+    if b + b {}
+    if b - b {}
+    if b * b {}
+    if b / b {}
+    if b % b {}
+
+    if b + c {}
+    if b - c {}
+    if b * c {}
+    if b / c {}
+    if b % c {}
+
+    if b + d {}
+    if b - d {}
+    if b * d {}
+    if b / d {}
+    if b % d {}
+
+
+    //If with calc between 'c' and all
+    if c + a {}
+    if c - a {}
+    if c * a {}
+    if c / a {}
+    if c % a {}
+
+    if c + b {}
+    if c - b {}
+    if c * b {}
+    if c / b {}
+    if c % b {}
+
+    if c + c {}
+    if c - c {}
+    if c * c {}
+    if c / c {}
+    if c % c {}
+
+    if c + d {}
+    if c - d {}
+    if c * d {}
+    if c / d {}
+    if c % d {}
+
+
+    //If with calc between 'd' and all
+    if d + a {}
+    if d - a {}
+    if d * a {}
+    if d / a {}
+    if d % a {}
+
+    if d + b {}
+    if d - b {}
+    if d * b {}
+    if d / b {}
+    if d % b {}
+
+    if d + c {}
+    if d - c {}
+    if d * c {}
+    if d / c {}
+    if d % c {}
+
+    if d + d {}
+    if d - d {}
+    if d * d {}
+    if d / d {}
+    if d % d {}
+
+
+    //Call to intfunc1 with unary
+
+    intfunc1(!a)
+    intfunc1(+a)
+    intfunc1(-a)
+    intfunc1(!b)
+    intfunc1(+b)
+    intfunc1(-b)
+    intfunc1(!c)
+    intfunc1(+c)
+    intfunc1(-c)
+    intfunc1(!d)
+    intfunc1(+d)
+    intfunc1(-d)
+
+
+    //Call to intfunc2 with unary
+
+    intfunc2(!a)
+    intfunc2(+a)
+    intfunc2(-a)
+    intfunc2(!b)
+    intfunc2(+b)
+    intfunc2(-b)
+    intfunc2(!c)
+    intfunc2(+c)
+    intfunc2(-c)
+    intfunc2(!d)
+    intfunc2(+d)
+    intfunc2(-d)
+
+
+    //Call to intfunc3 with unary
+
+    intfunc3(!a)
+    intfunc3(+a)
+    intfunc3(-a)
+    intfunc3(!b)
+    intfunc3(+b)
+    intfunc3(-b)
+    intfunc3(!c)
+    intfunc3(+c)
+    intfunc3(-c)
+    intfunc3(!d)
+    intfunc3(+d)
+    intfunc3(-d)
+
+
+    //Call to intfunc4 with unary
+
+    intfunc4(!a)
+    intfunc4(+a)
+    intfunc4(-a)
+    intfunc4(!b)
+    intfunc4(+b)
+    intfunc4(-b)
+    intfunc4(!c)
+    intfunc4(+c)
+    intfunc4(-c)
+    intfunc4(!d)
+    intfunc4(+d)
+    intfunc4(-d)
+
+
+    //Call to float32func1 with unary
+
+    float32func1(!a)
+    float32func1(+a)
+    float32func1(-a)
+    float32func1(!b)
+    float32func1(+b)
+    float32func1(-b)
+    float32func1(!c)
+    float32func1(+c)
+    float32func1(-c)
+    float32func1(!d)
+    float32func1(+d)
+    float32func1(-d)
+
+
+    //Call to float32func2 with unary
+
+    float32func2(!a)
+    float32func2(+a)
+    float32func2(-a)
+    float32func2(!b)
+    float32func2(+b)
+    float32func2(-b)
+    float32func2(!c)
+    float32func2(+c)
+    float32func2(-c)
+    float32func2(!d)
+    float32func2(+d)
+    float32func2(-d)
+
+
+    //Call to float32func3 with unary
+
+    float32func3(!a)
+    float32func3(+a)
+    float32func3(-a)
+    float32func3(!b)
+    float32func3(+b)
+    float32func3(-b)
+    float32func3(!c)
+    float32func3(+c)
+    float32func3(-c)
+    float32func3(!d)
+    float32func3(+d)
+    float32func3(-d)
+
+
+    //Call to float32func4 with unary
+
+    float32func4(!a)
+    float32func4(+a)
+    float32func4(-a)
+    float32func4(!b)
+    float32func4(+b)
+    float32func4(-b)
+    float32func4(!c)
+    float32func4(+c)
+    float32func4(-c)
+    float32func4(!d)
+    float32func4(+d)
+    float32func4(-d)
+
+
+    //Call to stringfunc1 with unary
+
+    stringfunc1(!a)
+    stringfunc1(+a)
+    stringfunc1(-a)
+    stringfunc1(!b)
+    stringfunc1(+b)
+    stringfunc1(-b)
+    stringfunc1(!c)
+    stringfunc1(+c)
+    stringfunc1(-c)
+    stringfunc1(!d)
+    stringfunc1(+d)
+    stringfunc1(-d)
+
+
+    //Call to stringfunc2 with unary
+
+    stringfunc2(!a)
+    stringfunc2(+a)
+    stringfunc2(-a)
+    stringfunc2(!b)
+    stringfunc2(+b)
+    stringfunc2(-b)
+    stringfunc2(!c)
+    stringfunc2(+c)
+    stringfunc2(-c)
+    stringfunc2(!d)
+    stringfunc2(+d)
+    stringfunc2(-d)
+
+
+    //Call to stringfunc3 with unary
+
+    stringfunc3(!a)
+    stringfunc3(+a)
+    stringfunc3(-a)
+    stringfunc3(!b)
+    stringfunc3(+b)
+    stringfunc3(-b)
+    stringfunc3(!c)
+    stringfunc3(+c)
+    stringfunc3(-c)
+    stringfunc3(!d)
+    stringfunc3(+d)
+    stringfunc3(-d)
+
+
+    //Call to stringfunc4 with unary
+
+    stringfunc4(!a)
+    stringfunc4(+a)
+    stringfunc4(-a)
+    stringfunc4(!b)
+    stringfunc4(+b)
+    stringfunc4(-b)
+    stringfunc4(!c)
+    stringfunc4(+c)
+    stringfunc4(-c)
+    stringfunc4(!d)
+    stringfunc4(+d)
+    stringfunc4(-d)
+
+
+    //Call to boolfunc1 with unary
+
+    boolfunc1(!a)
+    boolfunc1(+a)
+    boolfunc1(-a)
+    boolfunc1(!b)
+    boolfunc1(+b)
+    boolfunc1(-b)
+    boolfunc1(!c)
+    boolfunc1(+c)
+    boolfunc1(-c)
+    boolfunc1(!d)
+    boolfunc1(+d)
+    boolfunc1(-d)
+
+
+    //Call to boolfunc2 with unary
+
+    boolfunc2(!a)
+    boolfunc2(+a)
+    boolfunc2(-a)
+    boolfunc2(!b)
+    boolfunc2(+b)
+    boolfunc2(-b)
+    boolfunc2(!c)
+    boolfunc2(+c)
+    boolfunc2(-c)
+    boolfunc2(!d)
+    boolfunc2(+d)
+    boolfunc2(-d)
+
+
+    //Call to boolfunc3 with unary
+
+    boolfunc3(!a)
+    boolfunc3(+a)
+    boolfunc3(-a)
+    boolfunc3(!b)
+    boolfunc3(+b)
+    boolfunc3(-b)
+    boolfunc3(!c)
+    boolfunc3(+c)
+    boolfunc3(-c)
+    boolfunc3(!d)
+    boolfunc3(+d)
+    boolfunc3(-d)
+
+
+    //Call to boolfunc4 with unary
+
+    boolfunc4(!a)
+    boolfunc4(+a)
+    boolfunc4(-a)
+    boolfunc4(!b)
+    boolfunc4(+b)
+    boolfunc4(-b)
+    boolfunc4(!c)
+    boolfunc4(+c)
+    boolfunc4(-c)
+    boolfunc4(!d)
+    boolfunc4(+d)
+    boolfunc4(-d)
+
+
+    //Call to intfunc1 with comps between 'a' and all
+    
+    intfunc1(a < a)
+    intfunc1(a > a)
+    intfunc1(a <= a)
+    intfunc1(a >= a)
+    intfunc1(a && a)
+    intfunc1(a || a)
+    intfunc1(a == a)
+    intfunc1(a != a)
+
+    intfunc1(a < b)
+    intfunc1(a > b)
+    intfunc1(a <= b)
+    intfunc1(a >= b)
+    intfunc1(a && b)
+    intfunc1(a || b)
+    intfunc1(a == b)
+    intfunc1(a != b)
+
+    intfunc1(a < c)
+    intfunc1(a > c)
+    intfunc1(a <= c)
+    intfunc1(a >= c)
+    intfunc1(a && c)
+    intfunc1(a || c)
+    intfunc1(a == c)
+    intfunc1(a != c)
+
+    intfunc1(a < d)
+    intfunc1(a > d)
+    intfunc1(a <= d)
+    intfunc1(a >= d)
+    intfunc1(a && d)
+    intfunc1(a || d)
+    intfunc1(a == d)
+    intfunc1(a != d)
+
+
+    //Call to intfunc1 with comps between 'b' and all
+
+    intfunc1(b < a)
+    intfunc1(b > a)
+    intfunc1(b <= a)
+    intfunc1(b >= a)
+    intfunc1(b && a)
+    intfunc1(b || a)
+    intfunc1(b == a)
+    intfunc1(b != a)
+
+    intfunc1(b < b)
+    intfunc1(b > b)
+    intfunc1(b <= b)
+    intfunc1(b >= b)
+    intfunc1(b && b)
+    intfunc1(b || b)
+    intfunc1(b == b)
+    intfunc1(b != b)
+
+    intfunc1(b < c)
+    intfunc1(b > c)
+    intfunc1(b <= c)
+    intfunc1(b >= c)
+    intfunc1(b && c)
+    intfunc1(b || c)
+    intfunc1(b == c)
+    intfunc1(b != c)
+
+    intfunc1(b < d)
+    intfunc1(b > d)
+    intfunc1(b <= d)
+    intfunc1(b >= d)
+    intfunc1(b && d)
+    intfunc1(b || d)
+    intfunc1(b == d)
+    intfunc1(b != d)
+
+
+    //Call to intfunc1 with comps between 'c' and all
+
+    intfunc1(c < a)
+    intfunc1(c > a)
+    intfunc1(c <= a)
+    intfunc1(c >= a)
+    intfunc1(c && a)
+    intfunc1(c || a)
+    intfunc1(c == a)
+    intfunc1(c != a)
+
+    intfunc1(c < b)
+    intfunc1(c > b)
+    intfunc1(c <= b)
+    intfunc1(c >= b)
+    intfunc1(c && b)
+    intfunc1(c || b)
+    intfunc1(c == b)
+    intfunc1(c != b)
+
+    intfunc1(c <  c)
+    intfunc1(c >  c)
+    intfunc1(c <= c)
+    intfunc1(c >= c)
+    intfunc1(c && c)
+    intfunc1(c || c)
+    intfunc1(c == c)
+    intfunc1(c != c)
+
+    intfunc1(c < d)
+    intfunc1(c > d)
+    intfunc1(c <= d)
+    intfunc1(c >= d)
+    intfunc1(c && d)
+    intfunc1(c || d)
+    intfunc1(c == d)
+    intfunc1(c != d)
+
+
+    //Call to intfunc1 with comps between 'd' and all
+
+    intfunc1(d < a)
+    intfunc1(d > a)
+    intfunc1(d <= a)
+    intfunc1(d >= a)
+    intfunc1(d && a)
+    intfunc1(d || a)
+    intfunc1(d == a)
+    intfunc1(d != a)
+
+    intfunc1(d < b)
+    intfunc1(d > b)
+    intfunc1(d <= b)
+    intfunc1(d >= b)
+    intfunc1(d && b)
+    intfunc1(d || b)
+    intfunc1(d == b)
+    intfunc1(d != b)
+
+    intfunc1(d < c)
+    intfunc1(d > c)
+    intfunc1(d <= c)
+    intfunc1(d >= c)
+    intfunc1(d && c)
+    intfunc1(d || c)
+    intfunc1(d == c)
+    intfunc1(d != c)
+
+    intfunc1(d < d)
+    intfunc1(d > d)
+    intfunc1(d <= d)
+    intfunc1(d >= d)
+    intfunc1(d && d)
+    intfunc1(d || d)
+    intfunc1(d == d)
+    intfunc1(d != d)
+
+
+    //Call to float32func1 with comps between 'a' and all
+    
+    float32func1(a < a)
+    float32func1(a > a)
+    float32func1(a <= a)
+    float32func1(a >= a)
+    float32func1(a && a)
+    float32func1(a || a)
+    float32func1(a == a)
+    float32func1(a != a)
+
+    float32func1(a < b)
+    float32func1(a > b)
+    float32func1(a <= b)
+    float32func1(a >= b)
+    float32func1(a && b)
+    float32func1(a || b)
+    float32func1(a == b)
+    float32func1(a != b)
+
+    float32func1(a < c)
+    float32func1(a > c)
+    float32func1(a <= c)
+    float32func1(a >= c)
+    float32func1(a && c)
+    float32func1(a || c)
+    float32func1(a == c)
+    float32func1(a != c)
+
+    float32func1(a < d)
+    float32func1(a > d)
+    float32func1(a <= d)
+    float32func1(a >= d)
+    float32func1(a && d)
+    float32func1(a || d)
+    float32func1(a == d)
+    float32func1(a != d)
+
+
+    //Call to float32func1 with comps between 'b' and all
+
+    float32func1(b < a)
+    float32func1(b > a)
+    float32func1(b <= a)
+    float32func1(b >= a)
+    float32func1(b && a)
+    float32func1(b || a)
+    float32func1(b == a)
+    float32func1(b != a)
+
+    float32func1(b < b)
+    float32func1(b > b)
+    float32func1(b <= b)
+    float32func1(b >= b)
+    float32func1(b && b)
+    float32func1(b || b)
+    float32func1(b == b)
+    float32func1(b != b)
+
+    float32func1(b < c)
+    float32func1(b > c)
+    float32func1(b <= c)
+    float32func1(b >= c)
+    float32func1(b && c)
+    float32func1(b || c)
+    float32func1(b == c)
+    float32func1(b != c)
+
+    float32func1(b < d)
+    float32func1(b > d)
+    float32func1(b <= d)
+    float32func1(b >= d)
+    float32func1(b && d)
+    float32func1(b || d)
+    float32func1(b == d)
+    float32func1(b != d)
+
+
+    //Call to float32func1 with comps between 'c' and all
+
+    float32func1(c < a)
+    float32func1(c > a)
+    float32func1(c <= a)
+    float32func1(c >= a)
+    float32func1(c && a)
+    float32func1(c || a)
+    float32func1(c == a)
+    float32func1(c != a)
+
+    float32func1(c < b)
+    float32func1(c > b)
+    float32func1(c <= b)
+    float32func1(c >= b)
+    float32func1(c && b)
+    float32func1(c || b)
+    float32func1(c == b)
+    float32func1(c != b)
+
+    float32func1(c <  c)
+    float32func1(c >  c)
+    float32func1(c <= c)
+    float32func1(c >= c)
+    float32func1(c && c)
+    float32func1(c || c)
+    float32func1(c == c)
+    float32func1(c != c)
+
+    float32func1(c < d)
+    float32func1(c > d)
+    float32func1(c <= d)
+    float32func1(c >= d)
+    float32func1(c && d)
+    float32func1(c || d)
+    float32func1(c == d)
+    float32func1(c != d)
+
+
+    //Call to float32func1 with comps between 'd' and all
+
+    float32func1(d < a)
+    float32func1(d > a)
+    float32func1(d <= a)
+    float32func1(d >= a)
+    float32func1(d && a)
+    float32func1(d || a)
+    float32func1(d == a)
+    float32func1(d != a)
+
+    float32func1(d < b)
+    float32func1(d > b)
+    float32func1(d <= b)
+    float32func1(d >= b)
+    float32func1(d && b)
+    float32func1(d || b)
+    float32func1(d == b)
+    float32func1(d != b)
+
+    float32func1(d < c)
+    float32func1(d > c)
+    float32func1(d <= c)
+    float32func1(d >= c)
+    float32func1(d && c)
+    float32func1(d || c)
+    float32func1(d == c)
+    float32func1(d != c)
+
+    float32func1(d < d)
+    float32func1(d > d)
+    float32func1(d <= d)
+    float32func1(d >= d)
+    float32func1(d && d)
+    float32func1(d || d)
+    float32func1(d == d)
+    float32func1(d != d)
+
+
+    //Call to stringfunc1 with comps between 'a' and all
+    
+    stringfunc1(a < a)
+    stringfunc1(a > a)
+    stringfunc1(a <= a)
+    stringfunc1(a >= a)
+    stringfunc1(a && a)
+    stringfunc1(a || a)
+    stringfunc1(a == a)
+    stringfunc1(a != a)
+
+    stringfunc1(a < b)
+    stringfunc1(a > b)
+    stringfunc1(a <= b)
+    stringfunc1(a >= b)
+    stringfunc1(a && b)
+    stringfunc1(a || b)
+    stringfunc1(a == b)
+    stringfunc1(a != b)
+
+    stringfunc1(a < c)
+    stringfunc1(a > c)
+    stringfunc1(a <= c)
+    stringfunc1(a >= c)
+    stringfunc1(a && c)
+    stringfunc1(a || c)
+    stringfunc1(a == c)
+    stringfunc1(a != c)
+
+    stringfunc1(a < d)
+    stringfunc1(a > d)
+    stringfunc1(a <= d)
+    stringfunc1(a >= d)
+    stringfunc1(a && d)
+    stringfunc1(a || d)
+    stringfunc1(a == d)
+    stringfunc1(a != d)
+
+
+    //Call to stringfunc1 with comps between 'b' and all
+
+    stringfunc1(b < a)
+    stringfunc1(b > a)
+    stringfunc1(b <= a)
+    stringfunc1(b >= a)
+    stringfunc1(b && a)
+    stringfunc1(b || a)
+    stringfunc1(b == a)
+    stringfunc1(b != a)
+
+    stringfunc1(b < b)
+    stringfunc1(b > b)
+    stringfunc1(b <= b)
+    stringfunc1(b >= b)
+    stringfunc1(b && b)
+    stringfunc1(b || b)
+    stringfunc1(b == b)
+    stringfunc1(b != b)
+
+    stringfunc1(b < c)
+    stringfunc1(b > c)
+    stringfunc1(b <= c)
+    stringfunc1(b >= c)
+    stringfunc1(b && c)
+    stringfunc1(b || c)
+    stringfunc1(b == c)
+    stringfunc1(b != c)
+
+    stringfunc1(b < d)
+    stringfunc1(b > d)
+    stringfunc1(b <= d)
+    stringfunc1(b >= d)
+    stringfunc1(b && d)
+    stringfunc1(b || d)
+    stringfunc1(b == d)
+    stringfunc1(b != d)
+
+
+    //Call to stringfunc1 with comps between 'c' and all
+
+    stringfunc1(c < a)
+    stringfunc1(c > a)
+    stringfunc1(c <= a)
+    stringfunc1(c >= a)
+    stringfunc1(c && a)
+    stringfunc1(c || a)
+    stringfunc1(c == a)
+    stringfunc1(c != a)
+
+    stringfunc1(c < b)
+    stringfunc1(c > b)
+    stringfunc1(c <= b)
+    stringfunc1(c >= b)
+    stringfunc1(c && b)
+    stringfunc1(c || b)
+    stringfunc1(c == b)
+    stringfunc1(c != b)
+
+    stringfunc1(c <  c)
+    stringfunc1(c >  c)
+    stringfunc1(c <= c)
+    stringfunc1(c >= c)
+    stringfunc1(c && c)
+    stringfunc1(c || c)
+    stringfunc1(c == c)
+    stringfunc1(c != c)
+
+    stringfunc1(c < d)
+    stringfunc1(c > d)
+    stringfunc1(c <= d)
+    stringfunc1(c >= d)
+    stringfunc1(c && d)
+    stringfunc1(c || d)
+    stringfunc1(c == d)
+    stringfunc1(c != d)
+
+
+    //Call to stringfunc1 with comps between 'd' and all
+
+    stringfunc1(d < a)
+    stringfunc1(d > a)
+    stringfunc1(d <= a)
+    stringfunc1(d >= a)
+    stringfunc1(d && a)
+    stringfunc1(d || a)
+    stringfunc1(d == a)
+    stringfunc1(d != a)
+
+    stringfunc1(d < b)
+    stringfunc1(d > b)
+    stringfunc1(d <= b)
+    stringfunc1(d >= b)
+    stringfunc1(d && b)
+    stringfunc1(d || b)
+    stringfunc1(d == b)
+    stringfunc1(d != b)
+
+    stringfunc1(d < c)
+    stringfunc1(d > c)
+    stringfunc1(d <= c)
+    stringfunc1(d >= c)
+    stringfunc1(d && c)
+    stringfunc1(d || c)
+    stringfunc1(d == c)
+    stringfunc1(d != c)
+
+    stringfunc1(d < d)
+    stringfunc1(d > d)
+    stringfunc1(d <= d)
+    stringfunc1(d >= d)
+    stringfunc1(d && d)
+    stringfunc1(d || d)
+    stringfunc1(d == d)
+    stringfunc1(d != d)
+
+
+    //Call to boolfunc1 with comps between 'a' and all
+    
+    boolfunc1(a < a)
+    boolfunc1(a > a)
+    boolfunc1(a <= a)
+    boolfunc1(a >= a)
+    boolfunc1(a && a)
+    boolfunc1(a || a)
+    boolfunc1(a == a)
+    boolfunc1(a != a)
+
+    boolfunc1(a < b)
+    boolfunc1(a > b)
+    boolfunc1(a <= b)
+    boolfunc1(a >= b)
+    boolfunc1(a && b)
+    boolfunc1(a || b)
+    boolfunc1(a == b)
+    boolfunc1(a != b)
+
+    boolfunc1(a < c)
+    boolfunc1(a > c)
+    boolfunc1(a <= c)
+    boolfunc1(a >= c)
+    boolfunc1(a && c)
+    boolfunc1(a || c)
+    boolfunc1(a == c)
+    boolfunc1(a != c)
+
+    boolfunc1(a < d)
+    boolfunc1(a > d)
+    boolfunc1(a <= d)
+    boolfunc1(a >= d)
+    boolfunc1(a && d)
+    boolfunc1(a || d)
+    boolfunc1(a == d)
+    boolfunc1(a != d)
+
+
+    //Call to boolfunc1 with comps between 'b' and all
+
+    boolfunc1(b < a)
+    boolfunc1(b > a)
+    boolfunc1(b <= a)
+    boolfunc1(b >= a)
+    boolfunc1(b && a)
+    boolfunc1(b || a)
+    boolfunc1(b == a)
+    boolfunc1(b != a)
+
+    boolfunc1(b < b)
+    boolfunc1(b > b)
+    boolfunc1(b <= b)
+    boolfunc1(b >= b)
+    boolfunc1(b && b)
+    boolfunc1(b || b)
+    boolfunc1(b == b)
+    boolfunc1(b != b)
+
+    boolfunc1(b < c)
+    boolfunc1(b > c)
+    boolfunc1(b <= c)
+    boolfunc1(b >= c)
+    boolfunc1(b && c)
+    boolfunc1(b || c)
+    boolfunc1(b == c)
+    boolfunc1(b != c)
+
+    boolfunc1(b < d)
+    boolfunc1(b > d)
+    boolfunc1(b <= d)
+    boolfunc1(b >= d)
+    boolfunc1(b && d)
+    boolfunc1(b || d)
+    boolfunc1(b == d)
+    boolfunc1(b != d)
+
+
+    //Call to boolfunc1 with comps between 'c' and all
+
+    boolfunc1(c < a)
+    boolfunc1(c > a)
+    boolfunc1(c <= a)
+    boolfunc1(c >= a)
+    boolfunc1(c && a)
+    boolfunc1(c || a)
+    boolfunc1(c == a)
+    boolfunc1(c != a)
+
+    boolfunc1(c < b)
+    boolfunc1(c > b)
+    boolfunc1(c <= b)
+    boolfunc1(c >= b)
+    boolfunc1(c && b)
+    boolfunc1(c || b)
+    boolfunc1(c == b)
+    boolfunc1(c != b)
+
+    boolfunc1(c <  c)
+    boolfunc1(c >  c)
+    boolfunc1(c <= c)
+    boolfunc1(c >= c)
+    boolfunc1(c && c)
+    boolfunc1(c || c)
+    boolfunc1(c == c)
+    boolfunc1(c != c)
+
+    boolfunc1(c < d)
+    boolfunc1(c > d)
+    boolfunc1(c <= d)
+    boolfunc1(c >= d)
+    boolfunc1(c && d)
+    boolfunc1(c || d)
+    boolfunc1(c == d)
+    boolfunc1(c != d)
+
+
+    //Call to boolfunc1 with comps between 'd' and all
+
+    boolfunc1(d < a)
+    boolfunc1(d > a)
+    boolfunc1(d <= a)
+    boolfunc1(d >= a)
+    boolfunc1(d && a)
+    boolfunc1(d || a)
+    boolfunc1(d == a)
+    boolfunc1(d != a)
+
+    boolfunc1(d < b)
+    boolfunc1(d > b)
+    boolfunc1(d <= b)
+    boolfunc1(d >= b)
+    boolfunc1(d && b)
+    boolfunc1(d || b)
+    boolfunc1(d == b)
+    boolfunc1(d != b)
+
+    boolfunc1(d < c)
+    boolfunc1(d > c)
+    boolfunc1(d <= c)
+    boolfunc1(d >= c)
+    boolfunc1(d && c)
+    boolfunc1(d || c)
+    boolfunc1(d == c)
+    boolfunc1(d != c)
+
+    boolfunc1(d < d)
+    boolfunc1(d > d)
+    boolfunc1(d <= d)
+    boolfunc1(d >= d)
+    boolfunc1(d && d)
+    boolfunc1(d || d)
+    boolfunc1(d == d)
+    boolfunc1(d != d)
+
+
+    //Call to intfunc1 with calc between 'a' and all
+    intfunc1(a + a)
+    intfunc1(a - a)
+    intfunc1(a * a)
+    intfunc1(a / a)
+    intfunc1(a % a)
+
+    intfunc1(a + b)
+    intfunc1(a - b)
+    intfunc1(a * b)
+    intfunc1(a / b)
+    intfunc1(a % b)
+
+    intfunc1(a + c)
+    intfunc1(a - c)
+    intfunc1(a * c)
+    intfunc1(a / c)
+    intfunc1(a % c)
+
+    intfunc1(a + d)
+    intfunc1(a - d)
+    intfunc1(a * d)
+    intfunc1(a / d)
+    intfunc1(a % d)
+
+
+    //Call to intfunc1 with calc between 'b' and all
+    intfunc1(b + a)
+    intfunc1(b - a)
+    intfunc1(b * a)
+    intfunc1(b / a)
+    intfunc1(b % a)
+
+    intfunc1(b + b)
+    intfunc1(b - b)
+    intfunc1(b * b)
+    intfunc1(b / b)
+    intfunc1(b % b)
+
+    intfunc1(b + c)
+    intfunc1(b - c)
+    intfunc1(b * c)
+    intfunc1(b / c)
+    intfunc1(b % c)
+
+    intfunc1(b + d)
+    intfunc1(b - d)
+    intfunc1(b * d)
+    intfunc1(b / d)
+    intfunc1(b % d)
+
+
+    //Call to intfunc1 with calc between 'c' and all
+    intfunc1(c + a)
+    intfunc1(c - a)
+    intfunc1(c * a)
+    intfunc1(c / a)
+    intfunc1(c % a)
+
+    intfunc1(c + b)
+    intfunc1(c - b)
+    intfunc1(c * b)
+    intfunc1(c / b)
+    intfunc1(c % b)
+
+    intfunc1(c + c)
+    intfunc1(c - c)
+    intfunc1(c * c)
+    intfunc1(c / c)
+    intfunc1(c % c)
+
+    intfunc1(c + d)
+    intfunc1(c - d)
+    intfunc1(c * d)
+    intfunc1(c / d)
+    intfunc1(c % d)
+
+
+    //Call to intfunc1 with calc between 'd' and all
+    intfunc1(d + a)
+    intfunc1(d - a)
+    intfunc1(d * a)
+    intfunc1(d / a)
+    intfunc1(d % a)
+
+    intfunc1(d + b)
+    intfunc1(d - b)
+    intfunc1(d * b)
+    intfunc1(d / b)
+    intfunc1(d % b)
+
+    intfunc1(d + c)
+    intfunc1(d - c)
+    intfunc1(d * c)
+    intfunc1(d / c)
+    intfunc1(d % c)
+
+    intfunc1(d + d)
+    intfunc1(d - d)
+    intfunc1(d * d)
+    intfunc1(d / d)
+    intfunc1(d % d)
+
+
+    //Call to float32func1 with calc between 'a' and all
+    float32func1(a + a)
+    float32func1(a - a)
+    float32func1(a * a)
+    float32func1(a / a)
+    float32func1(a % a)
+
+    float32func1(a + b)
+    float32func1(a - b)
+    float32func1(a * b)
+    float32func1(a / b)
+    float32func1(a % b)
+
+    float32func1(a + c)
+    float32func1(a - c)
+    float32func1(a * c)
+    float32func1(a / c)
+    float32func1(a % c)
+
+    float32func1(a + d)
+    float32func1(a - d)
+    float32func1(a * d)
+    float32func1(a / d)
+    float32func1(a % d)
+
+
+    //Call to float32func1 with calc between 'b' and all
+    float32func1(b + a)
+    float32func1(b - a)
+    float32func1(b * a)
+    float32func1(b / a)
+    float32func1(b % a)
+
+    float32func1(b + b)
+    float32func1(b - b)
+    float32func1(b * b)
+    float32func1(b / b)
+    float32func1(b % b)
+
+    float32func1(b + c)
+    float32func1(b - c)
+    float32func1(b * c)
+    float32func1(b / c)
+    float32func1(b % c)
+
+    float32func1(b + d)
+    float32func1(b - d)
+    float32func1(b * d)
+    float32func1(b / d)
+    float32func1(b % d)
+
+
+    //Call to float32func1 with calc between 'c' and all
+    float32func1(c + a)
+    float32func1(c - a)
+    float32func1(c * a)
+    float32func1(c / a)
+    float32func1(c % a)
+
+    float32func1(c + b)
+    float32func1(c - b)
+    float32func1(c * b)
+    float32func1(c / b)
+    float32func1(c % b)
+
+    float32func1(c + c)
+    float32func1(c - c)
+    float32func1(c * c)
+    float32func1(c / c)
+    float32func1(c % c)
+
+    float32func1(c + d)
+    float32func1(c - d)
+    float32func1(c * d)
+    float32func1(c / d)
+    float32func1(c % d)
+
+
+    //Call to float32func1 with calc between 'd' and all
+    float32func1(d + a)
+    float32func1(d - a)
+    float32func1(d * a)
+    float32func1(d / a)
+    float32func1(d % a)
+
+    float32func1(d + b)
+    float32func1(d - b)
+    float32func1(d * b)
+    float32func1(d / b)
+    float32func1(d % b)
+
+    float32func1(d + c)
+    float32func1(d - c)
+    float32func1(d * c)
+    float32func1(d / c)
+    float32func1(d % c)
+
+    float32func1(d + d)
+    float32func1(d - d)
+    float32func1(d * d)
+    float32func1(d / d)
+    float32func1(d % d)
+
+
+    //Call to stringfunc1 with calc between 'a' and all
+    stringfunc1(a + a)
+    stringfunc1(a - a)
+    stringfunc1(a * a)
+    stringfunc1(a / a)
+    stringfunc1(a % a)
+
+    stringfunc1(a + b)
+    stringfunc1(a - b)
+    stringfunc1(a * b)
+    stringfunc1(a / b)
+    stringfunc1(a % b)
+
+    stringfunc1(a + c)
+    stringfunc1(a - c)
+    stringfunc1(a * c)
+    stringfunc1(a / c)
+    stringfunc1(a % c)
+
+    stringfunc1(a + d)
+    stringfunc1(a - d)
+    stringfunc1(a * d)
+    stringfunc1(a / d)
+    stringfunc1(a % d)
+
+
+    //Call to stringfunc1 with calc between 'b' and all
+    stringfunc1(b + a)
+    stringfunc1(b - a)
+    stringfunc1(b * a)
+    stringfunc1(b / a)
+    stringfunc1(b % a)
+
+    stringfunc1(b + b)
+    stringfunc1(b - b)
+    stringfunc1(b * b)
+    stringfunc1(b / b)
+    stringfunc1(b % b)
+
+    stringfunc1(b + c)
+    stringfunc1(b - c)
+    stringfunc1(b * c)
+    stringfunc1(b / c)
+    stringfunc1(b % c)
+
+    stringfunc1(b + d)
+    stringfunc1(b - d)
+    stringfunc1(b * d)
+    stringfunc1(b / d)
+    stringfunc1(b % d)
+
+
+    //Call to stringfunc1 with calc between 'c' and all
+    stringfunc1(c + a)
+    stringfunc1(c - a)
+    stringfunc1(c * a)
+    stringfunc1(c / a)
+    stringfunc1(c % a)
+
+    stringfunc1(c + b)
+    stringfunc1(c - b)
+    stringfunc1(c * b)
+    stringfunc1(c / b)
+    stringfunc1(c % b)
+
+    stringfunc1(c + c)
+    stringfunc1(c - c)
+    stringfunc1(c * c)
+    stringfunc1(c / c)
+    stringfunc1(c % c)
+
+    stringfunc1(c + d)
+    stringfunc1(c - d)
+    stringfunc1(c * d)
+    stringfunc1(c / d)
+    stringfunc1(c % d)
+
+
+    //Call to stringfunc1 with calc between 'd' and all
+    stringfunc1(d + a)
+    stringfunc1(d - a)
+    stringfunc1(d * a)
+    stringfunc1(d / a)
+    stringfunc1(d % a)
+
+    stringfunc1(d + b)
+    stringfunc1(d - b)
+    stringfunc1(d * b)
+    stringfunc1(d / b)
+    stringfunc1(d % b)
+
+    stringfunc1(d + c)
+    stringfunc1(d - c)
+    stringfunc1(d * c)
+    stringfunc1(d / c)
+    stringfunc1(d % c)
+
+    stringfunc1(d + d)
+    stringfunc1(d - d)
+    stringfunc1(d * d)
+    stringfunc1(d / d)
+    stringfunc1(d % d)
+
+
+    //Call to boolfunc1 with calc between 'a' and all
+    boolfunc1(a + a)
+    boolfunc1(a - a)
+    boolfunc1(a * a)
+    boolfunc1(a / a)
+    boolfunc1(a % a)
+
+    boolfunc1(a + b)
+    boolfunc1(a - b)
+    boolfunc1(a * b)
+    boolfunc1(a / b)
+    boolfunc1(a % b)
+
+    boolfunc1(a + c)
+    boolfunc1(a - c)
+    boolfunc1(a * c)
+    boolfunc1(a / c)
+    boolfunc1(a % c)
+
+    boolfunc1(a + d)
+    boolfunc1(a - d)
+    boolfunc1(a * d)
+    boolfunc1(a / d)
+    boolfunc1(a % d)
+
+
+    //Call to boolfunc1 with calc between 'b' and all
+    boolfunc1(b + a)
+    boolfunc1(b - a)
+    boolfunc1(b * a)
+    boolfunc1(b / a)
+    boolfunc1(b % a)
+
+    boolfunc1(b + b)
+    boolfunc1(b - b)
+    boolfunc1(b * b)
+    boolfunc1(b / b)
+    boolfunc1(b % b)
+
+    boolfunc1(b + c)
+    boolfunc1(b - c)
+    boolfunc1(b * c)
+    boolfunc1(b / c)
+    boolfunc1(b % c)
+
+    boolfunc1(b + d)
+    boolfunc1(b - d)
+    boolfunc1(b * d)
+    boolfunc1(b / d)
+    boolfunc1(b % d)
+
+
+    //Call to boolfunc1 with calc between 'c' and all
+    boolfunc1(c + a)
+    boolfunc1(c - a)
+    boolfunc1(c * a)
+    boolfunc1(c / a)
+    boolfunc1(c % a)
+
+    boolfunc1(c + b)
+    boolfunc1(c - b)
+    boolfunc1(c * b)
+    boolfunc1(c / b)
+    boolfunc1(c % b)
+
+    boolfunc1(c + c)
+    boolfunc1(c - c)
+    boolfunc1(c * c)
+    boolfunc1(c / c)
+    boolfunc1(c % c)
+
+    boolfunc1(c + d)
+    boolfunc1(c - d)
+    boolfunc1(c * d)
+    boolfunc1(c / d)
+    boolfunc1(c % d)
+
+
+    //Call to boolfunc1 with calc between 'd' and all
+    boolfunc1(d + a)
+    boolfunc1(d - a)
+    boolfunc1(d * a)
+    boolfunc1(d / a)
+    boolfunc1(d % a)
+
+    boolfunc1(d + b)
+    boolfunc1(d - b)
+    boolfunc1(d * b)
+    boolfunc1(d / b)
+    boolfunc1(d % b)
+
+    boolfunc1(d + c)
+    boolfunc1(d - c)
+    boolfunc1(d * c)
+    boolfunc1(d / c)
+    boolfunc1(d % c)
+
+    boolfunc1(d + d)
+    boolfunc1(d - d)
+    boolfunc1(d * d)
+    boolfunc1(d / d)
+    boolfunc1(d % d)
+
+
+    //Parse args assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[a]);
+    a,_ = strconv.Atoi(os.Args[b]);
+    a,_ = strconv.Atoi(os.Args[c]);
+    a,_ = strconv.Atoi(os.Args[d]);
+
+    //Parse args assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[a]);
+    b,_ = strconv.Atoi(os.Args[b]);
+    b,_ = strconv.Atoi(os.Args[c]);
+    b,_ = strconv.Atoi(os.Args[d]);
+
+    //Parse args assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[a]);
+    c,_ = strconv.Atoi(os.Args[b]);
+    c,_ = strconv.Atoi(os.Args[c]);
+    c,_ = strconv.Atoi(os.Args[d]);
+
+    //Parse args assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[a]);
+    d,_ = strconv.Atoi(os.Args[b]);
+    d,_ = strconv.Atoi(os.Args[c]);
+    d,_ = strconv.Atoi(os.Args[d]);
+
+
+    //Parse args of unary assigned 'a'
+    a,_ = strconv.Atoi(os.Args[!a]);
+    a,_ = strconv.Atoi(os.Args[+a]);
+    a,_ = strconv.Atoi(os.Args[-a]);
+    a,_ = strconv.Atoi(os.Args[!b]);
+    a,_ = strconv.Atoi(os.Args[+b]);
+    a,_ = strconv.Atoi(os.Args[-b]);
+    a,_ = strconv.Atoi(os.Args[!c]);
+    a,_ = strconv.Atoi(os.Args[+c]);
+    a,_ = strconv.Atoi(os.Args[-c]);
+    a,_ = strconv.Atoi(os.Args[!d]);
+    a,_ = strconv.Atoi(os.Args[+d]);
+    a,_ = strconv.Atoi(os.Args[-d]);
+
+
+    //Parse args of unary assigned 'b'
+    b,_ = strconv.Atoi(os.Args[!a]);
+    b,_ = strconv.Atoi(os.Args[+a]);
+    b,_ = strconv.Atoi(os.Args[-a]);
+    b,_ = strconv.Atoi(os.Args[!b]);
+    b,_ = strconv.Atoi(os.Args[+b]);
+    b,_ = strconv.Atoi(os.Args[-b]);
+    b,_ = strconv.Atoi(os.Args[!c]);
+    b,_ = strconv.Atoi(os.Args[+c]);
+    b,_ = strconv.Atoi(os.Args[-c]);
+    b,_ = strconv.Atoi(os.Args[!d]);
+    b,_ = strconv.Atoi(os.Args[+d]);
+    b,_ = strconv.Atoi(os.Args[-d]);
+
+
+    //Parse args of unary assigned 'c'
+    c,_ = strconv.Atoi(os.Args[!a]);
+    c,_ = strconv.Atoi(os.Args[+a]);
+    c,_ = strconv.Atoi(os.Args[-a]);
+    c,_ = strconv.Atoi(os.Args[!b]);
+    c,_ = strconv.Atoi(os.Args[+b]);
+    c,_ = strconv.Atoi(os.Args[-b]);
+    c,_ = strconv.Atoi(os.Args[!c]);
+    c,_ = strconv.Atoi(os.Args[+c]);
+    c,_ = strconv.Atoi(os.Args[-c]);
+    c,_ = strconv.Atoi(os.Args[!d]);
+    c,_ = strconv.Atoi(os.Args[+d]);
+    c,_ = strconv.Atoi(os.Args[-d]);
+
+
+    //Parse args of unary assigned 'd'
+    d,_ = strconv.Atoi(os.Args[!a]);
+    d,_ = strconv.Atoi(os.Args[+a]);
+    d,_ = strconv.Atoi(os.Args[-a]);
+    d,_ = strconv.Atoi(os.Args[!b]);
+    d,_ = strconv.Atoi(os.Args[+b]);
+    d,_ = strconv.Atoi(os.Args[-b]);
+    d,_ = strconv.Atoi(os.Args[!c]);
+    d,_ = strconv.Atoi(os.Args[+c]);
+    d,_ = strconv.Atoi(os.Args[-c]);
+    d,_ = strconv.Atoi(os.Args[!d]);
+    d,_ = strconv.Atoi(os.Args[+d]);
+    d,_ = strconv.Atoi(os.Args[-d]);
+
+
+    //Parse args of comps between 'a' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[a < a]);
+    a,_ = strconv.Atoi(os.Args[a > a]);
+    a,_ = strconv.Atoi(os.Args[a <= a]);
+    a,_ = strconv.Atoi(os.Args[a >= a]);
+    a,_ = strconv.Atoi(os.Args[a && a]);
+    a,_ = strconv.Atoi(os.Args[a || a]);
+    a,_ = strconv.Atoi(os.Args[a == a]);
+    a,_ = strconv.Atoi(os.Args[a != a]);
+
+    a,_ = strconv.Atoi(os.Args[a < b]);
+    a,_ = strconv.Atoi(os.Args[a > b]);
+    a,_ = strconv.Atoi(os.Args[a <= b]);
+    a,_ = strconv.Atoi(os.Args[a >= b]);
+    a,_ = strconv.Atoi(os.Args[a && b]);
+    a,_ = strconv.Atoi(os.Args[a || b]);
+    a,_ = strconv.Atoi(os.Args[a == b]);
+    a,_ = strconv.Atoi(os.Args[a != b]);
+
+    a,_ = strconv.Atoi(os.Args[a < c]);
+    a,_ = strconv.Atoi(os.Args[a > c]);
+    a,_ = strconv.Atoi(os.Args[a <= c]);
+    a,_ = strconv.Atoi(os.Args[a >= c]);
+    a,_ = strconv.Atoi(os.Args[a && c]);
+    a,_ = strconv.Atoi(os.Args[a || c]);
+    a,_ = strconv.Atoi(os.Args[a == c]);
+    a,_ = strconv.Atoi(os.Args[a != c]);
+
+    a,_ = strconv.Atoi(os.Args[a < d]);
+    a,_ = strconv.Atoi(os.Args[a > d]);
+    a,_ = strconv.Atoi(os.Args[a <= d]);
+    a,_ = strconv.Atoi(os.Args[a >= d]);
+    a,_ = strconv.Atoi(os.Args[a && d]);
+    a,_ = strconv.Atoi(os.Args[a || d]);
+    a,_ = strconv.Atoi(os.Args[a == d]);
+    a,_ = strconv.Atoi(os.Args[a != d]);
+
+    //Parse args of comps between 'b' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[b < a]);
+    a,_ = strconv.Atoi(os.Args[b > a]);
+    a,_ = strconv.Atoi(os.Args[b <= a]);
+    a,_ = strconv.Atoi(os.Args[b >= a]);
+    a,_ = strconv.Atoi(os.Args[b && a]);
+    a,_ = strconv.Atoi(os.Args[b || a]);
+    a,_ = strconv.Atoi(os.Args[b == a]);
+    a,_ = strconv.Atoi(os.Args[b != a]);
+
+    a,_ = strconv.Atoi(os.Args[b < b]);
+    a,_ = strconv.Atoi(os.Args[b > b]);
+    a,_ = strconv.Atoi(os.Args[b <= b]);
+    a,_ = strconv.Atoi(os.Args[b >= b]);
+    a,_ = strconv.Atoi(os.Args[b && b]);
+    a,_ = strconv.Atoi(os.Args[b || b]);
+    a,_ = strconv.Atoi(os.Args[b == b]);
+    a,_ = strconv.Atoi(os.Args[b != b]);
+
+    a,_ = strconv.Atoi(os.Args[b < c]);
+    a,_ = strconv.Atoi(os.Args[b > c]);
+    a,_ = strconv.Atoi(os.Args[b <= c]);
+    a,_ = strconv.Atoi(os.Args[b >= c]);
+    a,_ = strconv.Atoi(os.Args[b && c]);
+    a,_ = strconv.Atoi(os.Args[b || c]);
+    a,_ = strconv.Atoi(os.Args[b == c]);
+    a,_ = strconv.Atoi(os.Args[b != c]);
+
+    a,_ = strconv.Atoi(os.Args[b < d]);
+    a,_ = strconv.Atoi(os.Args[b > d]);
+    a,_ = strconv.Atoi(os.Args[b <= d]);
+    a,_ = strconv.Atoi(os.Args[b >= d]);
+    a,_ = strconv.Atoi(os.Args[b && d]);
+    a,_ = strconv.Atoi(os.Args[b || d]);
+    a,_ = strconv.Atoi(os.Args[b == d]);
+    a,_ = strconv.Atoi(os.Args[b != d]);
+
+    //Parse args of comps between 'c' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[c < a]);
+    a,_ = strconv.Atoi(os.Args[c > a]);
+    a,_ = strconv.Atoi(os.Args[c <= a]);
+    a,_ = strconv.Atoi(os.Args[c >= a]);
+    a,_ = strconv.Atoi(os.Args[c && a]);
+    a,_ = strconv.Atoi(os.Args[c || a]);
+    a,_ = strconv.Atoi(os.Args[c == a]);
+    a,_ = strconv.Atoi(os.Args[c != a]);
+
+    a,_ = strconv.Atoi(os.Args[c < b]);
+    a,_ = strconv.Atoi(os.Args[c > b]);
+    a,_ = strconv.Atoi(os.Args[c <= b]);
+    a,_ = strconv.Atoi(os.Args[c >= b]);
+    a,_ = strconv.Atoi(os.Args[c && b]);
+    a,_ = strconv.Atoi(os.Args[c || b]);
+    a,_ = strconv.Atoi(os.Args[c == b]);
+    a,_ = strconv.Atoi(os.Args[c != b]);
+
+    a,_ = strconv.Atoi(os.Args[c <  c]);
+    a,_ = strconv.Atoi(os.Args[c >  c]);
+    a,_ = strconv.Atoi(os.Args[c <= c]);
+    a,_ = strconv.Atoi(os.Args[c >= c]);
+    a,_ = strconv.Atoi(os.Args[c && c]);
+    a,_ = strconv.Atoi(os.Args[c || c]);
+    a,_ = strconv.Atoi(os.Args[c == c]);
+    a,_ = strconv.Atoi(os.Args[c != c]);
+
+    a,_ = strconv.Atoi(os.Args[c < d]);
+    a,_ = strconv.Atoi(os.Args[c > d]);
+    a,_ = strconv.Atoi(os.Args[c <= d]);
+    a,_ = strconv.Atoi(os.Args[c >= d]);
+    a,_ = strconv.Atoi(os.Args[c && d]);
+    a,_ = strconv.Atoi(os.Args[c || d]);
+    a,_ = strconv.Atoi(os.Args[c == d]);
+    a,_ = strconv.Atoi(os.Args[c != d]);
+
+    //Parse args of comps between 'd' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[d < a]);
+    a,_ = strconv.Atoi(os.Args[d > a]);
+    a,_ = strconv.Atoi(os.Args[d <= a]);
+    a,_ = strconv.Atoi(os.Args[d >= a]);
+    a,_ = strconv.Atoi(os.Args[d && a]);
+    a,_ = strconv.Atoi(os.Args[d || a]);
+    a,_ = strconv.Atoi(os.Args[d == a]);
+    a,_ = strconv.Atoi(os.Args[d != a]);
+
+    a,_ = strconv.Atoi(os.Args[d < b]);
+    a,_ = strconv.Atoi(os.Args[d > b]);
+    a,_ = strconv.Atoi(os.Args[d <= b]);
+    a,_ = strconv.Atoi(os.Args[d >= b]);
+    a,_ = strconv.Atoi(os.Args[d && b]);
+    a,_ = strconv.Atoi(os.Args[d || b]);
+    a,_ = strconv.Atoi(os.Args[d == b]);
+    a,_ = strconv.Atoi(os.Args[d != b]);
+
+    a,_ = strconv.Atoi(os.Args[d < c]);
+    a,_ = strconv.Atoi(os.Args[d > c]);
+    a,_ = strconv.Atoi(os.Args[d <= c]);
+    a,_ = strconv.Atoi(os.Args[d >= c]);
+    a,_ = strconv.Atoi(os.Args[d && c]);
+    a,_ = strconv.Atoi(os.Args[d || c]);
+    a,_ = strconv.Atoi(os.Args[d == c]);
+    a,_ = strconv.Atoi(os.Args[d != c]);
+
+    a,_ = strconv.Atoi(os.Args[d < d]);
+    a,_ = strconv.Atoi(os.Args[d > d]);
+    a,_ = strconv.Atoi(os.Args[d <= d]);
+    a,_ = strconv.Atoi(os.Args[d >= d]);
+    a,_ = strconv.Atoi(os.Args[d && d]);
+    a,_ = strconv.Atoi(os.Args[d || d]);
+    a,_ = strconv.Atoi(os.Args[d == d]);
+    a,_ = strconv.Atoi(os.Args[d != d]);
+
+
+    //Parse args of comps between 'a' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[a < a]);
+    b,_ = strconv.Atoi(os.Args[a > a]);
+    b,_ = strconv.Atoi(os.Args[a <= a]);
+    b,_ = strconv.Atoi(os.Args[a >= a]);
+    b,_ = strconv.Atoi(os.Args[a && a]);
+    b,_ = strconv.Atoi(os.Args[a || a]);
+    b,_ = strconv.Atoi(os.Args[a == a]);
+    b,_ = strconv.Atoi(os.Args[a != a]);
+
+    b,_ = strconv.Atoi(os.Args[a < b]);
+    b,_ = strconv.Atoi(os.Args[a > b]);
+    b,_ = strconv.Atoi(os.Args[a <= b]);
+    b,_ = strconv.Atoi(os.Args[a >= b]);
+    b,_ = strconv.Atoi(os.Args[a && b]);
+    b,_ = strconv.Atoi(os.Args[a || b]);
+    b,_ = strconv.Atoi(os.Args[a == b]);
+    b,_ = strconv.Atoi(os.Args[a != b]);
+
+    b,_ = strconv.Atoi(os.Args[a < c]);
+    b,_ = strconv.Atoi(os.Args[a > c]);
+    b,_ = strconv.Atoi(os.Args[a <= c]);
+    b,_ = strconv.Atoi(os.Args[a >= c]);
+    b,_ = strconv.Atoi(os.Args[a && c]);
+    b,_ = strconv.Atoi(os.Args[a || c]);
+    b,_ = strconv.Atoi(os.Args[a == c]);
+    b,_ = strconv.Atoi(os.Args[a != c]);
+
+    b,_ = strconv.Atoi(os.Args[a < d]);
+    b,_ = strconv.Atoi(os.Args[a > d]);
+    b,_ = strconv.Atoi(os.Args[a <= d]);
+    b,_ = strconv.Atoi(os.Args[a >= d]);
+    b,_ = strconv.Atoi(os.Args[a && d]);
+    b,_ = strconv.Atoi(os.Args[a || d]);
+    b,_ = strconv.Atoi(os.Args[a == d]);
+    b,_ = strconv.Atoi(os.Args[a != d]);
+
+    //Parse args of comps between 'b' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[b < a]);
+    b,_ = strconv.Atoi(os.Args[b > a]);
+    b,_ = strconv.Atoi(os.Args[b <= a]);
+    b,_ = strconv.Atoi(os.Args[b >= a]);
+    b,_ = strconv.Atoi(os.Args[b && a]);
+    b,_ = strconv.Atoi(os.Args[b || a]);
+    b,_ = strconv.Atoi(os.Args[b == a]);
+    b,_ = strconv.Atoi(os.Args[b != a]);
+
+    b,_ = strconv.Atoi(os.Args[b < b]);
+    b,_ = strconv.Atoi(os.Args[b > b]);
+    b,_ = strconv.Atoi(os.Args[b <= b]);
+    b,_ = strconv.Atoi(os.Args[b >= b]);
+    b,_ = strconv.Atoi(os.Args[b && b]);
+    b,_ = strconv.Atoi(os.Args[b || b]);
+    b,_ = strconv.Atoi(os.Args[b == b]);
+    b,_ = strconv.Atoi(os.Args[b != b]);
+
+    b,_ = strconv.Atoi(os.Args[b < c]);
+    b,_ = strconv.Atoi(os.Args[b > c]);
+    b,_ = strconv.Atoi(os.Args[b <= c]);
+    b,_ = strconv.Atoi(os.Args[b >= c]);
+    b,_ = strconv.Atoi(os.Args[b && c]);
+    b,_ = strconv.Atoi(os.Args[b || c]);
+    b,_ = strconv.Atoi(os.Args[b == c]);
+    b,_ = strconv.Atoi(os.Args[b != c]);
+
+    b,_ = strconv.Atoi(os.Args[b < d]);
+    b,_ = strconv.Atoi(os.Args[b > d]);
+    b,_ = strconv.Atoi(os.Args[b <= d]);
+    b,_ = strconv.Atoi(os.Args[b >= d]);
+    b,_ = strconv.Atoi(os.Args[b && d]);
+    b,_ = strconv.Atoi(os.Args[b || d]);
+    b,_ = strconv.Atoi(os.Args[b == d]);
+    b,_ = strconv.Atoi(os.Args[b != d]);
+
+    //Parse args of comps between 'c' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[c < a]);
+    b,_ = strconv.Atoi(os.Args[c > a]);
+    b,_ = strconv.Atoi(os.Args[c <= a]);
+    b,_ = strconv.Atoi(os.Args[c >= a]);
+    b,_ = strconv.Atoi(os.Args[c && a]);
+    b,_ = strconv.Atoi(os.Args[c || a]);
+    b,_ = strconv.Atoi(os.Args[c == a]);
+    b,_ = strconv.Atoi(os.Args[c != a]);
+
+    b,_ = strconv.Atoi(os.Args[c < b]);
+    b,_ = strconv.Atoi(os.Args[c > b]);
+    b,_ = strconv.Atoi(os.Args[c <= b]);
+    b,_ = strconv.Atoi(os.Args[c >= b]);
+    b,_ = strconv.Atoi(os.Args[c && b]);
+    b,_ = strconv.Atoi(os.Args[c || b]);
+    b,_ = strconv.Atoi(os.Args[c == b]);
+    b,_ = strconv.Atoi(os.Args[c != b]);
+
+    b,_ = strconv.Atoi(os.Args[c <  c]);
+    b,_ = strconv.Atoi(os.Args[c >  c]);
+    b,_ = strconv.Atoi(os.Args[c <= c]);
+    b,_ = strconv.Atoi(os.Args[c >= c]);
+    b,_ = strconv.Atoi(os.Args[c && c]);
+    b,_ = strconv.Atoi(os.Args[c || c]);
+    b,_ = strconv.Atoi(os.Args[c == c]);
+    b,_ = strconv.Atoi(os.Args[c != c]);
+
+    b,_ = strconv.Atoi(os.Args[c < d]);
+    b,_ = strconv.Atoi(os.Args[c > d]);
+    b,_ = strconv.Atoi(os.Args[c <= d]);
+    b,_ = strconv.Atoi(os.Args[c >= d]);
+    b,_ = strconv.Atoi(os.Args[c && d]);
+    b,_ = strconv.Atoi(os.Args[c || d]);
+    b,_ = strconv.Atoi(os.Args[c == d]);
+    b,_ = strconv.Atoi(os.Args[c != d]);
+
+    //Parse args of comps between 'd' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[d < a]);
+    b,_ = strconv.Atoi(os.Args[d > a]);
+    b,_ = strconv.Atoi(os.Args[d <= a]);
+    b,_ = strconv.Atoi(os.Args[d >= a]);
+    b,_ = strconv.Atoi(os.Args[d && a]);
+    b,_ = strconv.Atoi(os.Args[d || a]);
+    b,_ = strconv.Atoi(os.Args[d == a]);
+    b,_ = strconv.Atoi(os.Args[d != a]);
+
+    b,_ = strconv.Atoi(os.Args[d < b]);
+    b,_ = strconv.Atoi(os.Args[d > b]);
+    b,_ = strconv.Atoi(os.Args[d <= b]);
+    b,_ = strconv.Atoi(os.Args[d >= b]);
+    b,_ = strconv.Atoi(os.Args[d && b]);
+    b,_ = strconv.Atoi(os.Args[d || b]);
+    b,_ = strconv.Atoi(os.Args[d == b]);
+    b,_ = strconv.Atoi(os.Args[d != b]);
+
+    b,_ = strconv.Atoi(os.Args[d < c]);
+    b,_ = strconv.Atoi(os.Args[d > c]);
+    b,_ = strconv.Atoi(os.Args[d <= c]);
+    b,_ = strconv.Atoi(os.Args[d >= c]);
+    b,_ = strconv.Atoi(os.Args[d && c]);
+    b,_ = strconv.Atoi(os.Args[d || c]);
+    b,_ = strconv.Atoi(os.Args[d == c]);
+    b,_ = strconv.Atoi(os.Args[d != c]);
+
+    b,_ = strconv.Atoi(os.Args[d < d]);
+    b,_ = strconv.Atoi(os.Args[d > d]);
+    b,_ = strconv.Atoi(os.Args[d <= d]);
+    b,_ = strconv.Atoi(os.Args[d >= d]);
+    b,_ = strconv.Atoi(os.Args[d && d]);
+    b,_ = strconv.Atoi(os.Args[d || d]);
+    b,_ = strconv.Atoi(os.Args[d == d]);
+    b,_ = strconv.Atoi(os.Args[d != d]);
+
+
+    //Parse args of comps between 'a' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[a < a]);
+    c,_ = strconv.Atoi(os.Args[a > a]);
+    c,_ = strconv.Atoi(os.Args[a <= a]);
+    c,_ = strconv.Atoi(os.Args[a >= a]);
+    c,_ = strconv.Atoi(os.Args[a && a]);
+    c,_ = strconv.Atoi(os.Args[a || a]);
+    c,_ = strconv.Atoi(os.Args[a == a]);
+    c,_ = strconv.Atoi(os.Args[a != a]);
+
+    c,_ = strconv.Atoi(os.Args[a < b]);
+    c,_ = strconv.Atoi(os.Args[a > b]);
+    c,_ = strconv.Atoi(os.Args[a <= b]);
+    c,_ = strconv.Atoi(os.Args[a >= b]);
+    c,_ = strconv.Atoi(os.Args[a && b]);
+    c,_ = strconv.Atoi(os.Args[a || b]);
+    c,_ = strconv.Atoi(os.Args[a == b]);
+    c,_ = strconv.Atoi(os.Args[a != b]);
+
+    c,_ = strconv.Atoi(os.Args[a < c]);
+    c,_ = strconv.Atoi(os.Args[a > c]);
+    c,_ = strconv.Atoi(os.Args[a <= c]);
+    c,_ = strconv.Atoi(os.Args[a >= c]);
+    c,_ = strconv.Atoi(os.Args[a && c]);
+    c,_ = strconv.Atoi(os.Args[a || c]);
+    c,_ = strconv.Atoi(os.Args[a == c]);
+    c,_ = strconv.Atoi(os.Args[a != c]);
+
+    c,_ = strconv.Atoi(os.Args[a < d]);
+    c,_ = strconv.Atoi(os.Args[a > d]);
+    c,_ = strconv.Atoi(os.Args[a <= d]);
+    c,_ = strconv.Atoi(os.Args[a >= d]);
+    c,_ = strconv.Atoi(os.Args[a && d]);
+    c,_ = strconv.Atoi(os.Args[a || d]);
+    c,_ = strconv.Atoi(os.Args[a == d]);
+    c,_ = strconv.Atoi(os.Args[a != d]);
+
+    //Parse args of comps between 'b' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[b < a]);
+    c,_ = strconv.Atoi(os.Args[b > a]);
+    c,_ = strconv.Atoi(os.Args[b <= a]);
+    c,_ = strconv.Atoi(os.Args[b >= a]);
+    c,_ = strconv.Atoi(os.Args[b && a]);
+    c,_ = strconv.Atoi(os.Args[b || a]);
+    c,_ = strconv.Atoi(os.Args[b == a]);
+    c,_ = strconv.Atoi(os.Args[b != a]);
+
+    c,_ = strconv.Atoi(os.Args[b < b]);
+    c,_ = strconv.Atoi(os.Args[b > b]);
+    c,_ = strconv.Atoi(os.Args[b <= b]);
+    c,_ = strconv.Atoi(os.Args[b >= b]);
+    c,_ = strconv.Atoi(os.Args[b && b]);
+    c,_ = strconv.Atoi(os.Args[b || b]);
+    c,_ = strconv.Atoi(os.Args[b == b]);
+    c,_ = strconv.Atoi(os.Args[b != b]);
+
+    c,_ = strconv.Atoi(os.Args[b < c]);
+    c,_ = strconv.Atoi(os.Args[b > c]);
+    c,_ = strconv.Atoi(os.Args[b <= c]);
+    c,_ = strconv.Atoi(os.Args[b >= c]);
+    c,_ = strconv.Atoi(os.Args[b && c]);
+    c,_ = strconv.Atoi(os.Args[b || c]);
+    c,_ = strconv.Atoi(os.Args[b == c]);
+    c,_ = strconv.Atoi(os.Args[b != c]);
+
+    c,_ = strconv.Atoi(os.Args[b < d]);
+    c,_ = strconv.Atoi(os.Args[b > d]);
+    c,_ = strconv.Atoi(os.Args[b <= d]);
+    c,_ = strconv.Atoi(os.Args[b >= d]);
+    c,_ = strconv.Atoi(os.Args[b && d]);
+    c,_ = strconv.Atoi(os.Args[b || d]);
+    c,_ = strconv.Atoi(os.Args[b == d]);
+    c,_ = strconv.Atoi(os.Args[b != d]);
+
+    //Parse args of comps between 'c' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[c < a]);
+    c,_ = strconv.Atoi(os.Args[c > a]);
+    c,_ = strconv.Atoi(os.Args[c <= a]);
+    c,_ = strconv.Atoi(os.Args[c >= a]);
+    c,_ = strconv.Atoi(os.Args[c && a]);
+    c,_ = strconv.Atoi(os.Args[c || a]);
+    c,_ = strconv.Atoi(os.Args[c == a]);
+    c,_ = strconv.Atoi(os.Args[c != a]);
+
+    c,_ = strconv.Atoi(os.Args[c < b]);
+    c,_ = strconv.Atoi(os.Args[c > b]);
+    c,_ = strconv.Atoi(os.Args[c <= b]);
+    c,_ = strconv.Atoi(os.Args[c >= b]);
+    c,_ = strconv.Atoi(os.Args[c && b]);
+    c,_ = strconv.Atoi(os.Args[c || b]);
+    c,_ = strconv.Atoi(os.Args[c == b]);
+    c,_ = strconv.Atoi(os.Args[c != b]);
+
+    c,_ = strconv.Atoi(os.Args[c <  c]);
+    c,_ = strconv.Atoi(os.Args[c >  c]);
+    c,_ = strconv.Atoi(os.Args[c <= c]);
+    c,_ = strconv.Atoi(os.Args[c >= c]);
+    c,_ = strconv.Atoi(os.Args[c && c]);
+    c,_ = strconv.Atoi(os.Args[c || c]);
+    c,_ = strconv.Atoi(os.Args[c == c]);
+    c,_ = strconv.Atoi(os.Args[c != c]);
+
+    c,_ = strconv.Atoi(os.Args[c < d]);
+    c,_ = strconv.Atoi(os.Args[c > d]);
+    c,_ = strconv.Atoi(os.Args[c <= d]);
+    c,_ = strconv.Atoi(os.Args[c >= d]);
+    c,_ = strconv.Atoi(os.Args[c && d]);
+    c,_ = strconv.Atoi(os.Args[c || d]);
+    c,_ = strconv.Atoi(os.Args[c == d]);
+    c,_ = strconv.Atoi(os.Args[c != d]);
+
+    //Parse args of comps between 'd' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[d < a]);
+    c,_ = strconv.Atoi(os.Args[d > a]);
+    c,_ = strconv.Atoi(os.Args[d <= a]);
+    c,_ = strconv.Atoi(os.Args[d >= a]);
+    c,_ = strconv.Atoi(os.Args[d && a]);
+    c,_ = strconv.Atoi(os.Args[d || a]);
+    c,_ = strconv.Atoi(os.Args[d == a]);
+    c,_ = strconv.Atoi(os.Args[d != a]);
+
+    c,_ = strconv.Atoi(os.Args[d < b]);
+    c,_ = strconv.Atoi(os.Args[d > b]);
+    c,_ = strconv.Atoi(os.Args[d <= b]);
+    c,_ = strconv.Atoi(os.Args[d >= b]);
+    c,_ = strconv.Atoi(os.Args[d && b]);
+    c,_ = strconv.Atoi(os.Args[d || b]);
+    c,_ = strconv.Atoi(os.Args[d == b]);
+    c,_ = strconv.Atoi(os.Args[d != b]);
+
+    c,_ = strconv.Atoi(os.Args[d < c]);
+    c,_ = strconv.Atoi(os.Args[d > c]);
+    c,_ = strconv.Atoi(os.Args[d <= c]);
+    c,_ = strconv.Atoi(os.Args[d >= c]);
+    c,_ = strconv.Atoi(os.Args[d && c]);
+    c,_ = strconv.Atoi(os.Args[d || c]);
+    c,_ = strconv.Atoi(os.Args[d == c]);
+    c,_ = strconv.Atoi(os.Args[d != c]);
+
+    c,_ = strconv.Atoi(os.Args[d < d]);
+    c,_ = strconv.Atoi(os.Args[d > d]);
+    c,_ = strconv.Atoi(os.Args[d <= d]);
+    c,_ = strconv.Atoi(os.Args[d >= d]);
+    c,_ = strconv.Atoi(os.Args[d && d]);
+    c,_ = strconv.Atoi(os.Args[d || d]);
+    c,_ = strconv.Atoi(os.Args[d == d]);
+    c,_ = strconv.Atoi(os.Args[d != d]);
+
+
+    //Parse args of comps between 'a' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[a < a]);
+    d,_ = strconv.Atoi(os.Args[a > a]);
+    d,_ = strconv.Atoi(os.Args[a <= a]);
+    d,_ = strconv.Atoi(os.Args[a >= a]);
+    d,_ = strconv.Atoi(os.Args[a && a]);
+    d,_ = strconv.Atoi(os.Args[a || a]);
+    d,_ = strconv.Atoi(os.Args[a == a]);
+    d,_ = strconv.Atoi(os.Args[a != a]);
+
+    d,_ = strconv.Atoi(os.Args[a < b]);
+    d,_ = strconv.Atoi(os.Args[a > b]);
+    d,_ = strconv.Atoi(os.Args[a <= b]);
+    d,_ = strconv.Atoi(os.Args[a >= b]);
+    d,_ = strconv.Atoi(os.Args[a && b]);
+    d,_ = strconv.Atoi(os.Args[a || b]);
+    d,_ = strconv.Atoi(os.Args[a == b]);
+    d,_ = strconv.Atoi(os.Args[a != b]);
+
+    d,_ = strconv.Atoi(os.Args[a < c]);
+    d,_ = strconv.Atoi(os.Args[a > c]);
+    d,_ = strconv.Atoi(os.Args[a <= c]);
+    d,_ = strconv.Atoi(os.Args[a >= c]);
+    d,_ = strconv.Atoi(os.Args[a && c]);
+    d,_ = strconv.Atoi(os.Args[a || c]);
+    d,_ = strconv.Atoi(os.Args[a == c]);
+    d,_ = strconv.Atoi(os.Args[a != c]);
+
+    d,_ = strconv.Atoi(os.Args[a < d]);
+    d,_ = strconv.Atoi(os.Args[a > d]);
+    d,_ = strconv.Atoi(os.Args[a <= d]);
+    d,_ = strconv.Atoi(os.Args[a >= d]);
+    d,_ = strconv.Atoi(os.Args[a && d]);
+    d,_ = strconv.Atoi(os.Args[a || d]);
+    d,_ = strconv.Atoi(os.Args[a == d]);
+    d,_ = strconv.Atoi(os.Args[a != d]);
+
+    //Parse args of comps between 'b' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[b < a]);
+    d,_ = strconv.Atoi(os.Args[b > a]);
+    d,_ = strconv.Atoi(os.Args[b <= a]);
+    d,_ = strconv.Atoi(os.Args[b >= a]);
+    d,_ = strconv.Atoi(os.Args[b && a]);
+    d,_ = strconv.Atoi(os.Args[b || a]);
+    d,_ = strconv.Atoi(os.Args[b == a]);
+    d,_ = strconv.Atoi(os.Args[b != a]);
+
+    d,_ = strconv.Atoi(os.Args[b < b]);
+    d,_ = strconv.Atoi(os.Args[b > b]);
+    d,_ = strconv.Atoi(os.Args[b <= b]);
+    d,_ = strconv.Atoi(os.Args[b >= b]);
+    d,_ = strconv.Atoi(os.Args[b && b]);
+    d,_ = strconv.Atoi(os.Args[b || b]);
+    d,_ = strconv.Atoi(os.Args[b == b]);
+    d,_ = strconv.Atoi(os.Args[b != b]);
+
+    d,_ = strconv.Atoi(os.Args[b < c]);
+    d,_ = strconv.Atoi(os.Args[b > c]);
+    d,_ = strconv.Atoi(os.Args[b <= c]);
+    d,_ = strconv.Atoi(os.Args[b >= c]);
+    d,_ = strconv.Atoi(os.Args[b && c]);
+    d,_ = strconv.Atoi(os.Args[b || c]);
+    d,_ = strconv.Atoi(os.Args[b == c]);
+    d,_ = strconv.Atoi(os.Args[b != c]);
+
+    d,_ = strconv.Atoi(os.Args[b < d]);
+    d,_ = strconv.Atoi(os.Args[b > d]);
+    d,_ = strconv.Atoi(os.Args[b <= d]);
+    d,_ = strconv.Atoi(os.Args[b >= d]);
+    d,_ = strconv.Atoi(os.Args[b && d]);
+    d,_ = strconv.Atoi(os.Args[b || d]);
+    d,_ = strconv.Atoi(os.Args[b == d]);
+    d,_ = strconv.Atoi(os.Args[b != d]);
+
+    //Parse args of comps between 'c' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[c < a]);
+    d,_ = strconv.Atoi(os.Args[c > a]);
+    d,_ = strconv.Atoi(os.Args[c <= a]);
+    d,_ = strconv.Atoi(os.Args[c >= a]);
+    d,_ = strconv.Atoi(os.Args[c && a]);
+    d,_ = strconv.Atoi(os.Args[c || a]);
+    d,_ = strconv.Atoi(os.Args[c == a]);
+    d,_ = strconv.Atoi(os.Args[c != a]);
+
+    d,_ = strconv.Atoi(os.Args[c < b]);
+    d,_ = strconv.Atoi(os.Args[c > b]);
+    d,_ = strconv.Atoi(os.Args[c <= b]);
+    d,_ = strconv.Atoi(os.Args[c >= b]);
+    d,_ = strconv.Atoi(os.Args[c && b]);
+    d,_ = strconv.Atoi(os.Args[c || b]);
+    d,_ = strconv.Atoi(os.Args[c == b]);
+    d,_ = strconv.Atoi(os.Args[c != b]);
+
+    d,_ = strconv.Atoi(os.Args[c <  c]);
+    d,_ = strconv.Atoi(os.Args[c >  c]);
+    d,_ = strconv.Atoi(os.Args[c <= c]);
+    d,_ = strconv.Atoi(os.Args[c >= c]);
+    d,_ = strconv.Atoi(os.Args[c && c]);
+    d,_ = strconv.Atoi(os.Args[c || c]);
+    d,_ = strconv.Atoi(os.Args[c == c]);
+    d,_ = strconv.Atoi(os.Args[c != c]);
+
+    d,_ = strconv.Atoi(os.Args[c < d]);
+    d,_ = strconv.Atoi(os.Args[c > d]);
+    d,_ = strconv.Atoi(os.Args[c <= d]);
+    d,_ = strconv.Atoi(os.Args[c >= d]);
+    d,_ = strconv.Atoi(os.Args[c && d]);
+    d,_ = strconv.Atoi(os.Args[c || d]);
+    d,_ = strconv.Atoi(os.Args[c == d]);
+    d,_ = strconv.Atoi(os.Args[c != d]);
+
+    //Parse args of comps between 'd' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[d < a]);
+    d,_ = strconv.Atoi(os.Args[d > a]);
+    d,_ = strconv.Atoi(os.Args[d <= a]);
+    d,_ = strconv.Atoi(os.Args[d >= a]);
+    d,_ = strconv.Atoi(os.Args[d && a]);
+    d,_ = strconv.Atoi(os.Args[d || a]);
+    d,_ = strconv.Atoi(os.Args[d == a]);
+    d,_ = strconv.Atoi(os.Args[d != a]);
+
+    d,_ = strconv.Atoi(os.Args[d < b]);
+    d,_ = strconv.Atoi(os.Args[d > b]);
+    d,_ = strconv.Atoi(os.Args[d <= b]);
+    d,_ = strconv.Atoi(os.Args[d >= b]);
+    d,_ = strconv.Atoi(os.Args[d && b]);
+    d,_ = strconv.Atoi(os.Args[d || b]);
+    d,_ = strconv.Atoi(os.Args[d == b]);
+    d,_ = strconv.Atoi(os.Args[d != b]);
+
+    d,_ = strconv.Atoi(os.Args[d < c]);
+    d,_ = strconv.Atoi(os.Args[d > c]);
+    d,_ = strconv.Atoi(os.Args[d <= c]);
+    d,_ = strconv.Atoi(os.Args[d >= c]);
+    d,_ = strconv.Atoi(os.Args[d && c]);
+    d,_ = strconv.Atoi(os.Args[d || c]);
+    d,_ = strconv.Atoi(os.Args[d == c]);
+    d,_ = strconv.Atoi(os.Args[d != c]);
+
+    d,_ = strconv.Atoi(os.Args[d < d]);
+    d,_ = strconv.Atoi(os.Args[d > d]);
+    d,_ = strconv.Atoi(os.Args[d <= d]);
+    d,_ = strconv.Atoi(os.Args[d >= d]);
+    d,_ = strconv.Atoi(os.Args[d && d]);
+    d,_ = strconv.Atoi(os.Args[d || d]);
+    d,_ = strconv.Atoi(os.Args[d == d]);
+    d,_ = strconv.Atoi(os.Args[d != d]);
+
+
+    //Parse args of calc between 'a' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[a + a]);
+    a,_ = strconv.Atoi(os.Args[a - a]);
+    a,_ = strconv.Atoi(os.Args[a * a]);
+    a,_ = strconv.Atoi(os.Args[a / a]);
+    a,_ = strconv.Atoi(os.Args[a % a]);
+
+    a,_ = strconv.Atoi(os.Args[a + b]);
+    a,_ = strconv.Atoi(os.Args[a - b]);
+    a,_ = strconv.Atoi(os.Args[a * b]);
+    a,_ = strconv.Atoi(os.Args[a / b]);
+    a,_ = strconv.Atoi(os.Args[a % b]);
+
+    a,_ = strconv.Atoi(os.Args[a + c]);
+    a,_ = strconv.Atoi(os.Args[a - c]);
+    a,_ = strconv.Atoi(os.Args[a * c]);
+    a,_ = strconv.Atoi(os.Args[a / c]);
+    a,_ = strconv.Atoi(os.Args[a % c]);
+
+    a,_ = strconv.Atoi(os.Args[a + d]);
+    a,_ = strconv.Atoi(os.Args[a - d]);
+    a,_ = strconv.Atoi(os.Args[a * d]);
+    a,_ = strconv.Atoi(os.Args[a / d]);
+    a,_ = strconv.Atoi(os.Args[a % d]);
+
+
+    //Parse args of calc between 'b' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[b + a]);
+    a,_ = strconv.Atoi(os.Args[b - a]);
+    a,_ = strconv.Atoi(os.Args[b * a]);
+    a,_ = strconv.Atoi(os.Args[b / a]);
+    a,_ = strconv.Atoi(os.Args[b % a]);
+
+    a,_ = strconv.Atoi(os.Args[b + b]);
+    a,_ = strconv.Atoi(os.Args[b - b]);
+    a,_ = strconv.Atoi(os.Args[b * b]);
+    a,_ = strconv.Atoi(os.Args[b / b]);
+    a,_ = strconv.Atoi(os.Args[b % b]);
+
+    a,_ = strconv.Atoi(os.Args[b + c]);
+    a,_ = strconv.Atoi(os.Args[b - c]);
+    a,_ = strconv.Atoi(os.Args[b * c]);
+    a,_ = strconv.Atoi(os.Args[b / c]);
+    a,_ = strconv.Atoi(os.Args[b % c]);
+
+    a,_ = strconv.Atoi(os.Args[b + d]);
+    a,_ = strconv.Atoi(os.Args[b - d]);
+    a,_ = strconv.Atoi(os.Args[b * d]);
+    a,_ = strconv.Atoi(os.Args[b / d]);
+    a,_ = strconv.Atoi(os.Args[b % d]);
+
+
+    //Parse args of calc between 'c' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[c + a]);
+    a,_ = strconv.Atoi(os.Args[c - a]);
+    a,_ = strconv.Atoi(os.Args[c * a]);
+    a,_ = strconv.Atoi(os.Args[c / a]);
+    a,_ = strconv.Atoi(os.Args[c % a]);
+
+    a,_ = strconv.Atoi(os.Args[c + b]);
+    a,_ = strconv.Atoi(os.Args[c - b]);
+    a,_ = strconv.Atoi(os.Args[c * b]);
+    a,_ = strconv.Atoi(os.Args[c / b]);
+    a,_ = strconv.Atoi(os.Args[c % b]);
+
+    a,_ = strconv.Atoi(os.Args[c + c]);
+    a,_ = strconv.Atoi(os.Args[c - c]);
+    a,_ = strconv.Atoi(os.Args[c * c]);
+    a,_ = strconv.Atoi(os.Args[c / c]);
+    a,_ = strconv.Atoi(os.Args[c % c]);
+
+    a,_ = strconv.Atoi(os.Args[c + d]);
+    a,_ = strconv.Atoi(os.Args[c - d]);
+    a,_ = strconv.Atoi(os.Args[c * d]);
+    a,_ = strconv.Atoi(os.Args[c / d]);
+    a,_ = strconv.Atoi(os.Args[c % d]);
+
+
+    //Parse args of calc between 'd' and all assigned to 'a'
+    a,_ = strconv.Atoi(os.Args[d + a]);
+    a,_ = strconv.Atoi(os.Args[d - a]);
+    a,_ = strconv.Atoi(os.Args[d * a]);
+    a,_ = strconv.Atoi(os.Args[d / a]);
+    a,_ = strconv.Atoi(os.Args[d % a]);
+
+    a,_ = strconv.Atoi(os.Args[d + b]);
+    a,_ = strconv.Atoi(os.Args[d - b]);
+    a,_ = strconv.Atoi(os.Args[d * b]);
+    a,_ = strconv.Atoi(os.Args[d / b]);
+    a,_ = strconv.Atoi(os.Args[d % b]);
+
+    a,_ = strconv.Atoi(os.Args[d + c]);
+    a,_ = strconv.Atoi(os.Args[d - c]);
+    a,_ = strconv.Atoi(os.Args[d * c]);
+    a,_ = strconv.Atoi(os.Args[d / c]);
+    a,_ = strconv.Atoi(os.Args[d % c]);
+
+    a,_ = strconv.Atoi(os.Args[d + d]);
+    a,_ = strconv.Atoi(os.Args[d - d]);
+    a,_ = strconv.Atoi(os.Args[d * d]);
+    a,_ = strconv.Atoi(os.Args[d / d]);
+    a,_ = strconv.Atoi(os.Args[d % d]);
+
+
+    //Parse args of calc between 'a' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[a + a]);
+    b,_ = strconv.Atoi(os.Args[a - a]);
+    b,_ = strconv.Atoi(os.Args[a * a]);
+    b,_ = strconv.Atoi(os.Args[a / a]);
+    b,_ = strconv.Atoi(os.Args[a % a]);
+
+    b,_ = strconv.Atoi(os.Args[a + b]);
+    b,_ = strconv.Atoi(os.Args[a - b]);
+    b,_ = strconv.Atoi(os.Args[a * b]);
+    b,_ = strconv.Atoi(os.Args[a / b]);
+    b,_ = strconv.Atoi(os.Args[a % b]);
+
+    b,_ = strconv.Atoi(os.Args[a + c]);
+    b,_ = strconv.Atoi(os.Args[a - c]);
+    b,_ = strconv.Atoi(os.Args[a * c]);
+    b,_ = strconv.Atoi(os.Args[a / c]);
+    b,_ = strconv.Atoi(os.Args[a % c]);
+
+    b,_ = strconv.Atoi(os.Args[a + d]);
+    b,_ = strconv.Atoi(os.Args[a - d]);
+    b,_ = strconv.Atoi(os.Args[a * d]);
+    b,_ = strconv.Atoi(os.Args[a / d]);
+    b,_ = strconv.Atoi(os.Args[a % d]);
+
+
+    //Parse args of calc between 'b' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[b + a]);
+    b,_ = strconv.Atoi(os.Args[b - a]);
+    b,_ = strconv.Atoi(os.Args[b * a]);
+    b,_ = strconv.Atoi(os.Args[b / a]);
+    b,_ = strconv.Atoi(os.Args[b % a]);
+
+    b,_ = strconv.Atoi(os.Args[b + b]);
+    b,_ = strconv.Atoi(os.Args[b - b]);
+    b,_ = strconv.Atoi(os.Args[b * b]);
+    b,_ = strconv.Atoi(os.Args[b / b]);
+    b,_ = strconv.Atoi(os.Args[b % b]);
+
+    b,_ = strconv.Atoi(os.Args[b + c]);
+    b,_ = strconv.Atoi(os.Args[b - c]);
+    b,_ = strconv.Atoi(os.Args[b * c]);
+    b,_ = strconv.Atoi(os.Args[b / c]);
+    b,_ = strconv.Atoi(os.Args[b % c]);
+
+    b,_ = strconv.Atoi(os.Args[b + d]);
+    b,_ = strconv.Atoi(os.Args[b - d]);
+    b,_ = strconv.Atoi(os.Args[b * d]);
+    b,_ = strconv.Atoi(os.Args[b / d]);
+    b,_ = strconv.Atoi(os.Args[b % d]);
+
+
+    //Parse args of calc between 'c' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[c + a]);
+    b,_ = strconv.Atoi(os.Args[c - a]);
+    b,_ = strconv.Atoi(os.Args[c * a]);
+    b,_ = strconv.Atoi(os.Args[c / a]);
+    b,_ = strconv.Atoi(os.Args[c % a]);
+
+    b,_ = strconv.Atoi(os.Args[c + b]);
+    b,_ = strconv.Atoi(os.Args[c - b]);
+    b,_ = strconv.Atoi(os.Args[c * b]);
+    b,_ = strconv.Atoi(os.Args[c / b]);
+    b,_ = strconv.Atoi(os.Args[c % b]);
+
+    b,_ = strconv.Atoi(os.Args[c + c]);
+    b,_ = strconv.Atoi(os.Args[c - c]);
+    b,_ = strconv.Atoi(os.Args[c * c]);
+    b,_ = strconv.Atoi(os.Args[c / c]);
+    b,_ = strconv.Atoi(os.Args[c % c]);
+
+    b,_ = strconv.Atoi(os.Args[c + d]);
+    b,_ = strconv.Atoi(os.Args[c - d]);
+    b,_ = strconv.Atoi(os.Args[c * d]);
+    b,_ = strconv.Atoi(os.Args[c / d]);
+    b,_ = strconv.Atoi(os.Args[c % d]);
+
+
+    //Parse args of calc between 'd' and all assigned to 'b'
+    b,_ = strconv.Atoi(os.Args[d + a]);
+    b,_ = strconv.Atoi(os.Args[d - a]);
+    b,_ = strconv.Atoi(os.Args[d * a]);
+    b,_ = strconv.Atoi(os.Args[d / a]);
+    b,_ = strconv.Atoi(os.Args[d % a]);
+
+    b,_ = strconv.Atoi(os.Args[d + b]);
+    b,_ = strconv.Atoi(os.Args[d - b]);
+    b,_ = strconv.Atoi(os.Args[d * b]);
+    b,_ = strconv.Atoi(os.Args[d / b]);
+    b,_ = strconv.Atoi(os.Args[d % b]);
+
+    b,_ = strconv.Atoi(os.Args[d + c]);
+    b,_ = strconv.Atoi(os.Args[d - c]);
+    b,_ = strconv.Atoi(os.Args[d * c]);
+    b,_ = strconv.Atoi(os.Args[d / c]);
+    b,_ = strconv.Atoi(os.Args[d % c]);
+
+    b,_ = strconv.Atoi(os.Args[d + d]);
+    b,_ = strconv.Atoi(os.Args[d - d]);
+    b,_ = strconv.Atoi(os.Args[d * d]);
+    b,_ = strconv.Atoi(os.Args[d / d]);
+    b,_ = strconv.Atoi(os.Args[d % d]);
+    
+
+    //Parse args of calc between 'a' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[a + a]);
+    c,_ = strconv.Atoi(os.Args[a - a]);
+    c,_ = strconv.Atoi(os.Args[a * a]);
+    c,_ = strconv.Atoi(os.Args[a / a]);
+    c,_ = strconv.Atoi(os.Args[a % a]);
+
+    c,_ = strconv.Atoi(os.Args[a + b]);
+    c,_ = strconv.Atoi(os.Args[a - b]);
+    c,_ = strconv.Atoi(os.Args[a * b]);
+    c,_ = strconv.Atoi(os.Args[a / b]);
+    c,_ = strconv.Atoi(os.Args[a % b]);
+
+    c,_ = strconv.Atoi(os.Args[a + c]);
+    c,_ = strconv.Atoi(os.Args[a - c]);
+    c,_ = strconv.Atoi(os.Args[a * c]);
+    c,_ = strconv.Atoi(os.Args[a / c]);
+    c,_ = strconv.Atoi(os.Args[a % c]);
+
+    c,_ = strconv.Atoi(os.Args[a + d]);
+    c,_ = strconv.Atoi(os.Args[a - d]);
+    c,_ = strconv.Atoi(os.Args[a * d]);
+    c,_ = strconv.Atoi(os.Args[a / d]);
+    c,_ = strconv.Atoi(os.Args[a % d]);
+
+
+    //Parse args of calc between 'b' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[b + a]);
+    c,_ = strconv.Atoi(os.Args[b - a]);
+    c,_ = strconv.Atoi(os.Args[b * a]);
+    c,_ = strconv.Atoi(os.Args[b / a]);
+    c,_ = strconv.Atoi(os.Args[b % a]);
+
+    c,_ = strconv.Atoi(os.Args[b + b]);
+    c,_ = strconv.Atoi(os.Args[b - b]);
+    c,_ = strconv.Atoi(os.Args[b * b]);
+    c,_ = strconv.Atoi(os.Args[b / b]);
+    c,_ = strconv.Atoi(os.Args[b % b]);
+
+    c,_ = strconv.Atoi(os.Args[b + c]);
+    c,_ = strconv.Atoi(os.Args[b - c]);
+    c,_ = strconv.Atoi(os.Args[b * c]);
+    c,_ = strconv.Atoi(os.Args[b / c]);
+    c,_ = strconv.Atoi(os.Args[b % c]);
+
+    c,_ = strconv.Atoi(os.Args[b + d]);
+    c,_ = strconv.Atoi(os.Args[b - d]);
+    c,_ = strconv.Atoi(os.Args[b * d]);
+    c,_ = strconv.Atoi(os.Args[b / d]);
+    c,_ = strconv.Atoi(os.Args[b % d]);
+
+
+    //Parse args of calc between 'c' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[c + a]);
+    c,_ = strconv.Atoi(os.Args[c - a]);
+    c,_ = strconv.Atoi(os.Args[c * a]);
+    c,_ = strconv.Atoi(os.Args[c / a]);
+    c,_ = strconv.Atoi(os.Args[c % a]);
+
+    c,_ = strconv.Atoi(os.Args[c + b]);
+    c,_ = strconv.Atoi(os.Args[c - b]);
+    c,_ = strconv.Atoi(os.Args[c * b]);
+    c,_ = strconv.Atoi(os.Args[c / b]);
+    c,_ = strconv.Atoi(os.Args[c % b]);
+
+    c,_ = strconv.Atoi(os.Args[c + c]);
+    c,_ = strconv.Atoi(os.Args[c - c]);
+    c,_ = strconv.Atoi(os.Args[c * c]);
+    c,_ = strconv.Atoi(os.Args[c / c]);
+    c,_ = strconv.Atoi(os.Args[c % c]);
+
+    c,_ = strconv.Atoi(os.Args[c + d]);
+    c,_ = strconv.Atoi(os.Args[c - d]);
+    c,_ = strconv.Atoi(os.Args[c * d]);
+    c,_ = strconv.Atoi(os.Args[c / d]);
+    c,_ = strconv.Atoi(os.Args[c % d]);
+
+
+    //Parse args of calc between 'd' and all assigned to 'c'
+    c,_ = strconv.Atoi(os.Args[d + a]);
+    c,_ = strconv.Atoi(os.Args[d - a]);
+    c,_ = strconv.Atoi(os.Args[d * a]);
+    c,_ = strconv.Atoi(os.Args[d / a]);
+    c,_ = strconv.Atoi(os.Args[d % a]);
+
+    c,_ = strconv.Atoi(os.Args[d + b]);
+    c,_ = strconv.Atoi(os.Args[d - b]);
+    c,_ = strconv.Atoi(os.Args[d * b]);
+    c,_ = strconv.Atoi(os.Args[d / b]);
+    c,_ = strconv.Atoi(os.Args[d % b]);
+
+    c,_ = strconv.Atoi(os.Args[d + c]);
+    c,_ = strconv.Atoi(os.Args[d - c]);
+    c,_ = strconv.Atoi(os.Args[d * c]);
+    c,_ = strconv.Atoi(os.Args[d / c]);
+    c,_ = strconv.Atoi(os.Args[d % c]);
+
+    c,_ = strconv.Atoi(os.Args[d + d]);
+    c,_ = strconv.Atoi(os.Args[d - d]);
+    c,_ = strconv.Atoi(os.Args[d * d]);
+    c,_ = strconv.Atoi(os.Args[d / d]);
+    c,_ = strconv.Atoi(os.Args[d % d]);
+
+
+    //Parse args of calc between 'a' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[a + a]);
+    d,_ = strconv.Atoi(os.Args[a - a]);
+    d,_ = strconv.Atoi(os.Args[a * a]);
+    d,_ = strconv.Atoi(os.Args[a / a]);
+    d,_ = strconv.Atoi(os.Args[a % a]);
+
+    d,_ = strconv.Atoi(os.Args[a + b]);
+    d,_ = strconv.Atoi(os.Args[a - b]);
+    d,_ = strconv.Atoi(os.Args[a * b]);
+    d,_ = strconv.Atoi(os.Args[a / b]);
+    d,_ = strconv.Atoi(os.Args[a % b]);
+
+    d,_ = strconv.Atoi(os.Args[a + c]);
+    d,_ = strconv.Atoi(os.Args[a - c]);
+    d,_ = strconv.Atoi(os.Args[a * c]);
+    d,_ = strconv.Atoi(os.Args[a / c]);
+    d,_ = strconv.Atoi(os.Args[a % c]);
+
+    d,_ = strconv.Atoi(os.Args[a + d]);
+    d,_ = strconv.Atoi(os.Args[a - d]);
+    d,_ = strconv.Atoi(os.Args[a * d]);
+    d,_ = strconv.Atoi(os.Args[a / d]);
+    d,_ = strconv.Atoi(os.Args[a % d]);
+
+
+    //Parse args of calc between 'b' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[b + a]);
+    d,_ = strconv.Atoi(os.Args[b - a]);
+    d,_ = strconv.Atoi(os.Args[b * a]);
+    d,_ = strconv.Atoi(os.Args[b / a]);
+    d,_ = strconv.Atoi(os.Args[b % a]);
+
+    d,_ = strconv.Atoi(os.Args[b + b]);
+    d,_ = strconv.Atoi(os.Args[b - b]);
+    d,_ = strconv.Atoi(os.Args[b * b]);
+    d,_ = strconv.Atoi(os.Args[b / b]);
+    d,_ = strconv.Atoi(os.Args[b % b]);
+
+    d,_ = strconv.Atoi(os.Args[b + c]);
+    d,_ = strconv.Atoi(os.Args[b - c]);
+    d,_ = strconv.Atoi(os.Args[b * c]);
+    d,_ = strconv.Atoi(os.Args[b / c]);
+    d,_ = strconv.Atoi(os.Args[b % c]);
+
+    d,_ = strconv.Atoi(os.Args[b + d]);
+    d,_ = strconv.Atoi(os.Args[b - d]);
+    d,_ = strconv.Atoi(os.Args[b * d]);
+    d,_ = strconv.Atoi(os.Args[b / d]);
+    d,_ = strconv.Atoi(os.Args[b % d]);
+
+
+    //Parse args of calc between 'c' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[c + a]);
+    d,_ = strconv.Atoi(os.Args[c - a]);
+    d,_ = strconv.Atoi(os.Args[c * a]);
+    d,_ = strconv.Atoi(os.Args[c / a]);
+    d,_ = strconv.Atoi(os.Args[c % a]);
+
+    d,_ = strconv.Atoi(os.Args[c + b]);
+    d,_ = strconv.Atoi(os.Args[c - b]);
+    d,_ = strconv.Atoi(os.Args[c * b]);
+    d,_ = strconv.Atoi(os.Args[c / b]);
+    d,_ = strconv.Atoi(os.Args[c % b]);
+
+    d,_ = strconv.Atoi(os.Args[c + c]);
+    d,_ = strconv.Atoi(os.Args[c - c]);
+    d,_ = strconv.Atoi(os.Args[c * c]);
+    d,_ = strconv.Atoi(os.Args[c / c]);
+    d,_ = strconv.Atoi(os.Args[c % c]);
+
+    d,_ = strconv.Atoi(os.Args[c + d]);
+    d,_ = strconv.Atoi(os.Args[c - d]);
+    d,_ = strconv.Atoi(os.Args[c * d]);
+    d,_ = strconv.Atoi(os.Args[c / d]);
+    d,_ = strconv.Atoi(os.Args[c % d]);
+
+
+    //Parse args of calc between 'd' and all assigned to 'd'
+    d,_ = strconv.Atoi(os.Args[d + a]);
+    d,_ = strconv.Atoi(os.Args[d - a]);
+    d,_ = strconv.Atoi(os.Args[d * a]);
+    d,_ = strconv.Atoi(os.Args[d / a]);
+    d,_ = strconv.Atoi(os.Args[d % a]);
+
+    d,_ = strconv.Atoi(os.Args[d + b]);
+    d,_ = strconv.Atoi(os.Args[d - b]);
+    d,_ = strconv.Atoi(os.Args[d * b]);
+    d,_ = strconv.Atoi(os.Args[d / b]);
+    d,_ = strconv.Atoi(os.Args[d % b]);
+
+    d,_ = strconv.Atoi(os.Args[d + c]);
+    d,_ = strconv.Atoi(os.Args[d - c]);
+    d,_ = strconv.Atoi(os.Args[d * c]);
+    d,_ = strconv.Atoi(os.Args[d / c]);
+    d,_ = strconv.Atoi(os.Args[d % c]);
+
+    d,_ = strconv.Atoi(os.Args[d + d]);
+    d,_ = strconv.Atoi(os.Args[d - d]);
+    d,_ = strconv.Atoi(os.Args[d * d]);
+    d,_ = strconv.Atoi(os.Args[d / d]);
+    d,_ = strconv.Atoi(os.Args[d % d]);
+    
+
+    //Print of unary
+    fmt.Println(!a);
+    fmt.Println(+a);
+    fmt.Println(-a);
+    fmt.Println(!b);
+    fmt.Println(+b);
+    fmt.Println(-b);
+    fmt.Println(!c);
+    fmt.Println(+c);
+    fmt.Println(-c);
+    fmt.Println(!d);
+    fmt.Println(+d);
+    fmt.Println(-d);
+
+
+    //Print of comps between 'a' and 'all'
+    fmt.Println(a < a);
+    fmt.Println(a > a);
+    fmt.Println(a <= a);
+    fmt.Println(a >= a);
+    fmt.Println(a && a);
+    fmt.Println(a || a);
+    fmt.Println(a == a);
+    fmt.Println(a != a);
+
+    fmt.Println(a < b);
+    fmt.Println(a > b);
+    fmt.Println(a <= b);
+    fmt.Println(a >= b);
+    fmt.Println(a && b);
+    fmt.Println(a || b);
+    fmt.Println(a == b);
+    fmt.Println(a != b);
+
+    fmt.Println(a < c);
+    fmt.Println(a > c);
+    fmt.Println(a <= c);
+    fmt.Println(a >= c);
+    fmt.Println(a && c);
+    fmt.Println(a || c);
+    fmt.Println(a == c);
+    fmt.Println(a != c);
+
+    fmt.Println(a < d);
+    fmt.Println(a > d);
+    fmt.Println(a <= d);
+    fmt.Println(a >= d);
+    fmt.Println(a && d);
+    fmt.Println(a || d);
+    fmt.Println(a == d);
+    fmt.Println(a != d);
+
+    //Print of comps between 'b' and 'all'
+    fmt.Println(b < a);
+    fmt.Println(b > a);
+    fmt.Println(b <= a);
+    fmt.Println(b >= a);
+    fmt.Println(b && a);
+    fmt.Println(b || a);
+    fmt.Println(b == a);
+    fmt.Println(b != a);
+
+    fmt.Println(b < b);
+    fmt.Println(b > b);
+    fmt.Println(b <= b);
+    fmt.Println(b >= b);
+    fmt.Println(b && b);
+    fmt.Println(b || b);
+    fmt.Println(b == b);
+    fmt.Println(b != b);
+
+    fmt.Println(b < c);
+    fmt.Println(b > c);
+    fmt.Println(b <= c);
+    fmt.Println(b >= c);
+    fmt.Println(b && c);
+    fmt.Println(b || c);
+    fmt.Println(b == c);
+    fmt.Println(b != c);
+
+    fmt.Println(b < d);
+    fmt.Println(b > d);
+    fmt.Println(b <= d);
+    fmt.Println(b >= d);
+    fmt.Println(b && d);
+    fmt.Println(b || d);
+    fmt.Println(b == d);
+    fmt.Println(b != d);
+
+    //Print of comps between 'c' and 'all'
+    fmt.Println(c < a);
+    fmt.Println(c > a);
+    fmt.Println(c <= a);
+    fmt.Println(c >= a);
+    fmt.Println(c && a);
+    fmt.Println(c || a);
+    fmt.Println(c == a);
+    fmt.Println(c != a);
+
+    fmt.Println(c < b);
+    fmt.Println(c > b);
+    fmt.Println(c <= b);
+    fmt.Println(c >= b);
+    fmt.Println(c && b);
+    fmt.Println(c || b);
+    fmt.Println(c == b);
+    fmt.Println(c != b);
+
+    fmt.Println(c <  c);
+    fmt.Println(c >  c);
+    fmt.Println(c <= c);
+    fmt.Println(c >= c);
+    fmt.Println(c && c);
+    fmt.Println(c || c);
+    fmt.Println(c == c);
+    fmt.Println(c != c);
+
+    fmt.Println(c < d);
+    fmt.Println(c > d);
+    fmt.Println(c <= d);
+    fmt.Println(c >= d);
+    fmt.Println(c && d);
+    fmt.Println(c || d);
+    fmt.Println(c == d);
+    fmt.Println(c != d);
+
+    //Print of comps between 'd' and all
+    fmt.Println(d < a);
+    fmt.Println(d > a);
+    fmt.Println(d <= a);
+    fmt.Println(d >= a);
+    fmt.Println(d && a);
+    fmt.Println(d || a);
+    fmt.Println(d == a);
+    fmt.Println(d != a);
+
+    fmt.Println(d < b);
+    fmt.Println(d > b);
+    fmt.Println(d <= b);
+    fmt.Println(d >= b);
+    fmt.Println(d && b);
+    fmt.Println(d || b);
+    fmt.Println(d == b);
+    fmt.Println(d != b);
+
+    fmt.Println(d < c);
+    fmt.Println(d > c);
+    fmt.Println(d <= c);
+    fmt.Println(d >= c);
+    fmt.Println(d && c);
+    fmt.Println(d || c);
+    fmt.Println(d == c);
+    fmt.Println(d != c);
+
+    fmt.Println(d < d);
+    fmt.Println(d > d);
+    fmt.Println(d <= d);
+    fmt.Println(d >= d);
+    fmt.Println(d && d);
+    fmt.Println(d || d);
+    fmt.Println(d == d);
+    fmt.Println(d != d);
+
+
+    //Print of calc between 'a' and 'all'
+    fmt.Println(a + a);
+    fmt.Println(a - a);
+    fmt.Println(a * a);
+    fmt.Println(a / a);
+    fmt.Println(a % a);
+
+    fmt.Println(a + b);
+    fmt.Println(a - b);
+    fmt.Println(a * b);
+    fmt.Println(a / b);
+    fmt.Println(a % b);
+
+    fmt.Println(a + c);
+    fmt.Println(a - c);
+    fmt.Println(a * c);
+    fmt.Println(a / c);
+    fmt.Println(a % c);
+
+    fmt.Println(a + d);
+    fmt.Println(a - d);
+    fmt.Println(a * d);
+    fmt.Println(a / d);
+    fmt.Println(a % d);
+
+
+    //Print of calc between 'b' and 'all'
+
+    fmt.Println(b + a);
+    fmt.Println(b - a);
+    fmt.Println(b * a);
+    fmt.Println(b / a);
+    fmt.Println(b % a);
+
+    fmt.Println(b + b);
+    fmt.Println(b - b);
+    fmt.Println(b * b);
+    fmt.Println(b / b);
+    fmt.Println(b % b);
+
+    fmt.Println(b + c);
+    fmt.Println(b - c);
+    fmt.Println(b * c);
+    fmt.Println(b / c);
+    fmt.Println(b % c);
+
+    fmt.Println(b + d);
+    fmt.Println(b - d);
+    fmt.Println(b * d);
+    fmt.Println(b / d);
+    fmt.Println(b % d);
+
+
+    //Print of calc between 'c' and 'all'
+
+    fmt.Println(c + a);
+    fmt.Println(c - a);
+    fmt.Println(c * a);
+    fmt.Println(c / a);
+    fmt.Println(c % a);
+
+    fmt.Println(c + b);
+    fmt.Println(c - b);
+    fmt.Println(c * b);
+    fmt.Println(c / b);
+    fmt.Println(c % b);
+
+    fmt.Println(c + c);
+    fmt.Println(c - c);
+    fmt.Println(c * c);
+    fmt.Println(c / c);
+    fmt.Println(c % c);
+
+    fmt.Println(c + d);
+    fmt.Println(c - d);
+    fmt.Println(c * d);
+    fmt.Println(c / d);
+    fmt.Println(c % d);
+
+
+    //Print of calc between 'd' and 'all'
+
+    fmt.Println(d + a);
+    fmt.Println(d - a);
+    fmt.Println(d * a);
+    fmt.Println(d / a);
+    fmt.Println(d % a);
+
+    fmt.Println(d + b);
+    fmt.Println(d - b);
+    fmt.Println(d * b);
+    fmt.Println(d / b);
+    fmt.Println(d % b);
+
+    fmt.Println(d + c);
+    fmt.Println(d - c);
+    fmt.Println(d * c);
+    fmt.Println(d / c);
+    fmt.Println(d % c);
+
+    fmt.Println(d + d);
+    fmt.Println(d - d);
+    fmt.Println(d * d);
+    fmt.Println(d / d);
+    fmt.Println(d % d);
+}
+
+
+//int func with all return
+
+func intfunc1(e int) int { return a; }
+func intfunc2(e int) int { return b; }
+func intfunc3(e int) int { return c; }
+func intfunc4(e int) int { return d; }
+
+
+//float32 func with all return
+
+func floatfunc1(f float32) float32 { return a; }
+func floatfunc2(f float32) float32 { return b; }
+func floatfunc3(f float32) float32 { return c; }
+func floatfunc4(f float32) float32 { return d; }
+
+
+//string func with all return
+
+func stringfunc1(g string) string { return a; }
+func stringfunc2(g string) string { return b; }
+func stringfunc3(g string) string { return c; }
+func stringfunc4(g string) string { return d; }
+
+
+//bool func with all return
+
+func boolfunc1(h bool) string { return a; }
+func boolfunc2(h bool) string { return b; }
+func boolfunc3(h bool) string { return c; }
+func boolfunc4(h bool) string { return d; }
+
+
+//func int with return Unary
+
+func intfunc10() int { return !a; }
+func intfunc11() int { return +a; }
+func intfunc12() int { return -a; }
+func intfunc20() int { return !b; }
+func intfunc21() int { return +b; }
+func intfunc22() int { return -b; }
+func intfunc30() int { return !c; }
+func intfunc31() int { return +c; }
+func intfunc32() int { return -c; }
+func intfunc40() int { return !d; }
+func intfunc41() int { return +d; }
+func intfunc42() int { return -d; }
+
+
+//func float32 with return Unary
+
+func float32func10() float32 { return !a; }
+func float32func11() float32 { return +a; }
+func float32func12() float32 { return -a; }
+func float32func20() float32 { return !b; }
+func float32func21() float32 { return +b; }
+func float32func22() float32 { return -b; }
+func float32func30() float32 { return !c; }
+func float32func31() float32 { return +c; }
+func float32func32() float32 { return -c; }
+func float32func40() float32 { return !d; }
+func float32func41() float32 { return +d; }
+func float32func42() float32 { return -d; }
+
+
+//func string with return Unary
+
+func stringfunc10() string { return !a; }
+func stringfunc11() string { return +a; }
+func stringfunc12() string { return -a; }
+func stringfunc20() string { return !b; }
+func stringfunc21() string { return +b; }
+func stringfunc22() string { return -b; }
+func stringfunc30() string { return !c; }
+func stringfunc31() string { return +c; }
+func stringfunc32() string { return -c; }
+func stringfunc40() string { return !d; }
+func stringfunc41() string { return +d; }
+func stringfunc42() string { return -d; }
+
+
+//func bool with return Unary
+
+func boolfunc10() bool { return !a; }
+func boolfunc11() bool { return +a; }
+func boolfunc12() bool { return -a; }
+func boolfunc20() bool { return !b; }
+func boolfunc21() bool { return +b; }
+func boolfunc22() bool { return -b; }
+func boolfunc30() bool { return !c; }
+func boolfunc31() bool { return +c; }
+func boolfunc32() bool { return -c; }
+func boolfunc40() bool { return !d; }
+func boolfunc41() bool { return +d; }
+func boolfunc42() bool { return -d; }
+
+
+//func int with return with comps between 'a' and all
+
+func intfunc110() int { return a < a; }
+func intfunc111() int { return a > a; }
+func intfunc112() int { return a <= a; }
+func intfunc113() int { return a >= a; }
+func intfunc114() int { return a && a; }
+func intfunc115() int { return a || a; }
+func intfunc116() int { return a == a; }
+func intfunc117() int { return a != a; }
+
+func intfunc120() int { return a < b; }
+func intfunc121() int { return a > b; }
+func intfunc122() int { return a <= b; }
+func intfunc123() int { return a >= b; }
+func intfunc124() int { return a && b; }
+func intfunc125() int { return a || b; }
+func intfunc126() int { return a == b; }
+func intfunc127() int { return a != b; }
+
+func intfunc130() int { return a < c; }
+func intfunc131() int { return a > c; }
+func intfunc132() int { return a <= c; }
+func intfunc133() int { return a >= c; }
+func intfunc134() int { return a && c; }
+func intfunc135() int { return a || c; }
+func intfunc136() int { return a == c; }
+func intfunc137() int { return a != c; }
+
+func intfunc140() int { return a < d; }
+func intfunc141() int { return a > d; }
+func intfunc142() int { return a <= d; }
+func intfunc143() int { return a >= d; }
+func intfunc144() int { return a && d; }
+func intfunc145() int { return a || d; }
+func intfunc146() int { return a == d; }
+func intfunc147() int { return a != d; }
+
+
+//func int with return with comps between 'b' and all
+
+func intfunc210() int { return b < a; }
+func intfunc211() int { return b > a; }
+func intfunc212() int { return b <= a; }
+func intfunc213() int { return b >= a; }
+func intfunc214() int { return b && a; }
+func intfunc215() int { return b || a; }
+func intfunc216() int { return b == a; }
+func intfunc217() int { return b != a; }
+
+func intfunc220() int { return b < b; }
+func intfunc221() int { return b > b; }
+func intfunc222() int { return b <= b; }
+func intfunc223() int { return b >= b; }
+func intfunc224() int { return b && b; }
+func intfunc225() int { return b || b; }
+func intfunc226() int { return b == b; }
+func intfunc227() int { return b != b; }
+
+func intfunc230() int { return b < c; }
+func intfunc231() int { return b > c; }
+func intfunc232() int { return b <= c; }
+func intfunc233() int { return b >= c; }
+func intfunc234() int { return b && c; }
+func intfunc235() int { return b || c; }
+func intfunc236() int { return b == c; }
+func intfunc237() int { return b != c; }
+
+func intfunc240() int { return b < d; }
+func intfunc241() int { return b > d; }
+func intfunc242() int { return b <= d; }
+func intfunc243() int { return b >= d; }
+func intfunc244() int { return b && d; }
+func intfunc245() int { return b || d; }
+func intfunc246() int { return b == d; }
+func intfunc247() int { return b != d; }
+
+
+//func int with return with comps between 'c' and all
+
+func intfunc310() int { return c < a; }
+func intfunc311() int { return c > a; }
+func intfunc312() int { return c <= a; }
+func intfunc313() int { return c >= a; }
+func intfunc314() int { return c && a; }
+func intfunc315() int { return c || a; }
+func intfunc316() int { return c == a; }
+func intfunc317() int { return c != a; }
+
+func intfunc320() int { return c < b; }
+func intfunc321() int { return c > b; }
+func intfunc322() int { return c <= b; }
+func intfunc323() int { return c >= b; }
+func intfunc324() int { return c && b; }
+func intfunc325() int { return c || b; }
+func intfunc326() int { return c == b; }
+func intfunc327() int { return c != b; }
+
+func intfunc330() int { return c <  c; }
+func intfunc331() int { return c >  c; }
+func intfunc332() int { return c <= c; }
+func intfunc333() int { return c >= c; }
+func intfunc334() int { return c && c; }
+func intfunc335() int { return c || c; }
+func intfunc336() int { return c == c; }
+func intfunc337() int { return c != c; }
+
+func intfunc340() int { return c < d; }
+func intfunc341() int { return c > d; }
+func intfunc342() int { return c <= d; }
+func intfunc343() int { return c >= d; }
+func intfunc344() int { return c && d; }
+func intfunc345() int { return c || d; }
+func intfunc346() int { return c == d; }
+func intfunc347() int { return c != d; }
+
+
+//func int with return with comps between 'd' and all
+
+func intfunc410() int { return d < a; }
+func intfunc411() int { return d > a; }
+func intfunc412() int { return d <= a; }
+func intfunc413() int { return d >= a; }
+func intfunc414() int { return d && a; }
+func intfunc415() int { return d || a; }
+func intfunc416() int { return d == a; }
+func intfunc417() int { return d != a; }
+
+func intfunc420() int { return d < b; }
+func intfunc421() int { return d > b; }
+func intfunc422() int { return d <= b; }
+func intfunc423() int { return d >= b; }
+func intfunc424() int { return d && b; }
+func intfunc425() int { return d || b; }
+func intfunc426() int { return d == b; }
+func intfunc427() int { return d != b; }
+
+func intfunc430() int { return d < c; }
+func intfunc431() int { return d > c; }
+func intfunc432() int { return d <= c; }
+func intfunc433() int { return d >= c; }
+func intfunc434() int { return d && c; }
+func intfunc435() int { return d || c; }
+func intfunc436() int { return d == c; }
+func intfunc437() int { return d != c; }
+
+func intfunc440() int { return d < d; }
+func intfunc441() int { return d > d; }
+func intfunc442() int { return d <= d; }
+func intfunc443() int { return d >= d; }
+func intfunc444() int { return d && d; }
+func intfunc445() int { return d || d; }
+func intfunc446() int { return d == d; }
+func intfunc447() int { return d != d; }
+
+
+//func float32 with return with comps between 'a' and all
+
+func float32func110() float32 { return a < a; }
+func float32func111() float32 { return a > a; }
+func float32func112() float32 { return a <= a; }
+func float32func113() float32 { return a >= a; }
+func float32func114() float32 { return a && a; }
+func float32func115() float32 { return a || a; }
+func float32func116() float32 { return a == a; }
+func float32func117() float32 { return a != a; }
+
+func float32func120() float32 { return a < b; }
+func float32func121() float32 { return a > b; }
+func float32func122() float32 { return a <= b; }
+func float32func123() float32 { return a >= b; }
+func float32func124() float32 { return a && b; }
+func float32func125() float32 { return a || b; }
+func float32func126() float32 { return a == b; }
+func float32func127() float32 { return a != b; }
+
+func float32func130() float32 { return a < c; }
+func float32func131() float32 { return a > c; }
+func float32func132() float32 { return a <= c; }
+func float32func133() float32 { return a >= c; }
+func float32func134() float32 { return a && c; }
+func float32func135() float32 { return a || c; }
+func float32func136() float32 { return a == c; }
+func float32func137() float32 { return a != c; }
+
+func float32func140() float32 { return a < d; }
+func float32func141() float32 { return a > d; }
+func float32func142() float32 { return a <= d; }
+func float32func143() float32 { return a >= d; }
+func float32func144() float32 { return a && d; }
+func float32func145() float32 { return a || d; }
+func float32func146() float32 { return a == d; }
+func float32func147() float32 { return a != d; }
+
+
+//func float32 with return with comps between 'b' and all
+
+func float32func210() float32 { return b < a; }
+func float32func211() float32 { return b > a; }
+func float32func212() float32 { return b <= a; }
+func float32func213() float32 { return b >= a; }
+func float32func214() float32 { return b && a; }
+func float32func215() float32 { return b || a; }
+func float32func216() float32 { return b == a; }
+func float32func217() float32 { return b != a; }
+
+func float32func220() float32 { return b < b; }
+func float32func221() float32 { return b > b; }
+func float32func222() float32 { return b <= b; }
+func float32func223() float32 { return b >= b; }
+func float32func224() float32 { return b && b; }
+func float32func225() float32 { return b || b; }
+func float32func226() float32 { return b == b; }
+func float32func227() float32 { return b != b; }
+
+func float32func230() float32 { return b < c; }
+func float32func231() float32 { return b > c; }
+func float32func232() float32 { return b <= c; }
+func float32func233() float32 { return b >= c; }
+func float32func234() float32 { return b && c; }
+func float32func235() float32 { return b || c; }
+func float32func236() float32 { return b == c; }
+func float32func237() float32 { return b != c; }
+
+func float32func240() float32 { return b < d; }
+func float32func241() float32 { return b > d; }
+func float32func242() float32 { return b <= d; }
+func float32func243() float32 { return b >= d; }
+func float32func244() float32 { return b && d; }
+func float32func245() float32 { return b || d; }
+func float32func246() float32 { return b == d; }
+func float32func247() float32 { return b != d; }
+
+
+//func float32 with return with comps between 'c' and all
+
+func float32func310() float32 { return c < a; }
+func float32func311() float32 { return c > a; }
+func float32func312() float32 { return c <= a; }
+func float32func313() float32 { return c >= a; }
+func float32func314() float32 { return c && a; }
+func float32func315() float32 { return c || a; }
+func float32func316() float32 { return c == a; }
+func float32func317() float32 { return c != a; }
+
+func float32func320() float32 { return c < b; }
+func float32func321() float32 { return c > b; }
+func float32func322() float32 { return c <= b; }
+func float32func323() float32 { return c >= b; }
+func float32func324() float32 { return c && b; }
+func float32func325() float32 { return c || b; }
+func float32func326() float32 { return c == b; }
+func float32func327() float32 { return c != b; }
+
+func float32func330() float32 { return c <  c; }
+func float32func331() float32 { return c >  c; }
+func float32func332() float32 { return c <= c; }
+func float32func333() float32 { return c >= c; }
+func float32func334() float32 { return c && c; }
+func float32func335() float32 { return c || c; }
+func float32func336() float32 { return c == c; }
+func float32func337() float32 { return c != c; }
+
+func float32func340() float32 { return c < d; }
+func float32func341() float32 { return c > d; }
+func float32func342() float32 { return c <= d; }
+func float32func343() float32 { return c >= d; }
+func float32func344() float32 { return c && d; }
+func float32func345() float32 { return c || d; }
+func float32func346() float32 { return c == d; }
+func float32func347() float32 { return c != d; }
+
+
+//func float32 with return with comps between 'd' and all
+
+func float32func410() float32 { return d < a; }
+func float32func411() float32 { return d > a; }
+func float32func412() float32 { return d <= a; }
+func float32func413() float32 { return d >= a; }
+func float32func414() float32 { return d && a; }
+func float32func415() float32 { return d || a; }
+func float32func416() float32 { return d == a; }
+func float32func417() float32 { return d != a; }
+
+func float32func420() float32 { return d < b; }
+func float32func421() float32 { return d > b; }
+func float32func422() float32 { return d <= b; }
+func float32func423() float32 { return d >= b; }
+func float32func424() float32 { return d && b; }
+func float32func425() float32 { return d || b; }
+func float32func426() float32 { return d == b; }
+func float32func427() float32 { return d != b; }
+
+func float32func430() float32 { return d < c; }
+func float32func431() float32 { return d > c; }
+func float32func432() float32 { return d <= c; }
+func float32func433() float32 { return d >= c; }
+func float32func434() float32 { return d && c; }
+func float32func435() float32 { return d || c; }
+func float32func436() float32 { return d == c; }
+func float32func437() float32 { return d != c; }
+
+func float32func440() float32 { return d < d; }
+func float32func441() float32 { return d > d; }
+func float32func442() float32 { return d <= d; }
+func float32func443() float32 { return d >= d; }
+func float32func444() float32 { return d && d; }
+func float32func445() float32 { return d || d; }
+func float32func446() float32 { return d == d; }
+func float32func447() float32 { return d != d; }
+
+
+//func string with return with comps between 'a' and all
+
+func stringfunc110() string { return a < a; }
+func stringfunc111() string { return a > a; }
+func stringfunc112() string { return a <= a; }
+func stringfunc113() string { return a >= a; }
+func stringfunc114() string { return a && a; }
+func stringfunc115() string { return a || a; }
+func stringfunc116() string { return a == a; }
+func stringfunc117() string { return a != a; }
+
+func stringfunc120() string { return a < b; }
+func stringfunc121() string { return a > b; }
+func stringfunc122() string { return a <= b; }
+func stringfunc123() string { return a >= b; }
+func stringfunc124() string { return a && b; }
+func stringfunc125() string { return a || b; }
+func stringfunc126() string { return a == b; }
+func stringfunc127() string { return a != b; }
+
+func stringfunc130() string { return a < c; }
+func stringfunc131() string { return a > c; }
+func stringfunc132() string { return a <= c; }
+func stringfunc133() string { return a >= c; }
+func stringfunc134() string { return a && c; }
+func stringfunc135() string { return a || c; }
+func stringfunc136() string { return a == c; }
+func stringfunc137() string { return a != c; }
+
+func stringfunc140() string { return a < d; }
+func stringfunc141() string { return a > d; }
+func stringfunc142() string { return a <= d; }
+func stringfunc143() string { return a >= d; }
+func stringfunc144() string { return a && d; }
+func stringfunc145() string { return a || d; }
+func stringfunc146() string { return a == d; }
+func stringfunc147() string { return a != d; }
+
+
+//func string with return with comps between 'b' and all
+
+func stringfunc210() string { return b < a; }
+func stringfunc211() string { return b > a; }
+func stringfunc212() string { return b <= a; }
+func stringfunc213() string { return b >= a; }
+func stringfunc214() string { return b && a; }
+func stringfunc215() string { return b || a; }
+func stringfunc216() string { return b == a; }
+func stringfunc217() string { return b != a; }
+
+func stringfunc220() string { return b < b; }
+func stringfunc221() string { return b > b; }
+func stringfunc222() string { return b <= b; }
+func stringfunc223() string { return b >= b; }
+func stringfunc224() string { return b && b; }
+func stringfunc225() string { return b || b; }
+func stringfunc226() string { return b == b; }
+func stringfunc227() string { return b != b; }
+
+func stringfunc230() string { return b < c; }
+func stringfunc231() string { return b > c; }
+func stringfunc232() string { return b <= c; }
+func stringfunc233() string { return b >= c; }
+func stringfunc234() string { return b && c; }
+func stringfunc235() string { return b || c; }
+func stringfunc236() string { return b == c; }
+func stringfunc237() string { return b != c; }
+
+func stringfunc240() string { return b < d; }
+func stringfunc241() string { return b > d; }
+func stringfunc242() string { return b <= d; }
+func stringfunc243() string { return b >= d; }
+func stringfunc244() string { return b && d; }
+func stringfunc245() string { return b || d; }
+func stringfunc246() string { return b == d; }
+func stringfunc247() string { return b != d; }
+
+
+//func string with return with comps between 'c' and all
+
+func stringfunc310() string { return c < a; }
+func stringfunc311() string { return c > a; }
+func stringfunc312() string { return c <= a; }
+func stringfunc313() string { return c >= a; }
+func stringfunc314() string { return c && a; }
+func stringfunc315() string { return c || a; }
+func stringfunc316() string { return c == a; }
+func stringfunc317() string { return c != a; }
+
+func stringfunc320() string { return c < b; }
+func stringfunc321() string { return c > b; }
+func stringfunc322() string { return c <= b; }
+func stringfunc323() string { return c >= b; }
+func stringfunc324() string { return c && b; }
+func stringfunc325() string { return c || b; }
+func stringfunc326() string { return c == b; }
+func stringfunc327() string { return c != b; }
+
+func stringfunc330() string { return c <  c; }
+func stringfunc331() string { return c >  c; }
+func stringfunc332() string { return c <= c; }
+func stringfunc333() string { return c >= c; }
+func stringfunc334() string { return c && c; }
+func stringfunc335() string { return c || c; }
+func stringfunc336() string { return c == c; }
+func stringfunc337() string { return c != c; }
+
+func stringfunc340() string { return c < d; }
+func stringfunc341() string { return c > d; }
+func stringfunc342() string { return c <= d; }
+func stringfunc343() string { return c >= d; }
+func stringfunc344() string { return c && d; }
+func stringfunc345() string { return c || d; }
+func stringfunc346() string { return c == d; }
+func stringfunc347() string { return c != d; }
+
+
+//func string with return with comps between 'd' and all
+
+func stringfunc410() string { return d < a; }
+func stringfunc411() string { return d > a; }
+func stringfunc412() string { return d <= a; }
+func stringfunc413() string { return d >= a; }
+func stringfunc414() string { return d && a; }
+func stringfunc415() string { return d || a; }
+func stringfunc416() string { return d == a; }
+func stringfunc417() string { return d != a; }
+
+func stringfunc420() string { return d < b; }
+func stringfunc421() string { return d > b; }
+func stringfunc422() string { return d <= b; }
+func stringfunc423() string { return d >= b; }
+func stringfunc424() string { return d && b; }
+func stringfunc425() string { return d || b; }
+func stringfunc426() string { return d == b; }
+func stringfunc427() string { return d != b; }
+
+func stringfunc430() string { return d < c; }
+func stringfunc431() string { return d > c; }
+func stringfunc432() string { return d <= c; }
+func stringfunc433() string { return d >= c; }
+func stringfunc434() string { return d && c; }
+func stringfunc435() string { return d || c; }
+func stringfunc436() string { return d == c; }
+func stringfunc437() string { return d != c; }
+
+func stringfunc440() string { return d < d; }
+func stringfunc441() string { return d > d; }
+func stringfunc442() string { return d <= d; }
+func stringfunc443() string { return d >= d; }
+func stringfunc444() string { return d && d; }
+func stringfunc445() string { return d || d; }
+func stringfunc446() string { return d == d; }
+func stringfunc447() string { return d != d; }
+
+
+//func bool with return with comps between 'a' and all
+
+func boolfunc110() bool { return a < a; }
+func boolfunc111() bool { return a > a; }
+func boolfunc112() bool { return a <= a; }
+func boolfunc113() bool { return a >= a; }
+func boolfunc114() bool { return a && a; }
+func boolfunc115() bool { return a || a; }
+func boolfunc116() bool { return a == a; }
+func boolfunc117() bool { return a != a; }
+
+func boolfunc120() bool { return a < b; }
+func boolfunc121() bool { return a > b; }
+func boolfunc122() bool { return a <= b; }
+func boolfunc123() bool { return a >= b; }
+func boolfunc124() bool { return a && b; }
+func boolfunc125() bool { return a || b; }
+func boolfunc126() bool { return a == b; }
+func boolfunc127() bool { return a != b; }
+
+func boolfunc130() bool { return a < c; }
+func boolfunc131() bool { return a > c; }
+func boolfunc132() bool { return a <= c; }
+func boolfunc133() bool { return a >= c; }
+func boolfunc134() bool { return a && c; }
+func boolfunc135() bool { return a || c; }
+func boolfunc136() bool { return a == c; }
+func boolfunc137() bool { return a != c; }
+
+func boolfunc140() bool { return a < d; }
+func boolfunc141() bool { return a > d; }
+func boolfunc142() bool { return a <= d; }
+func boolfunc143() bool { return a >= d; }
+func boolfunc144() bool { return a && d; }
+func boolfunc145() bool { return a || d; }
+func boolfunc146() bool { return a == d; }
+func boolfunc147() bool { return a != d; }
+
+
+//func bool with return with comps between 'b' and all
+
+func boolfunc210() bool { return b < a; }
+func boolfunc211() bool { return b > a; }
+func boolfunc212() bool { return b <= a; }
+func boolfunc213() bool { return b >= a; }
+func boolfunc214() bool { return b && a; }
+func boolfunc215() bool { return b || a; }
+func boolfunc216() bool { return b == a; }
+func boolfunc217() bool { return b != a; }
+
+func boolfunc220() bool { return b < b; }
+func boolfunc221() bool { return b > b; }
+func boolfunc222() bool { return b <= b; }
+func boolfunc223() bool { return b >= b; }
+func boolfunc224() bool { return b && b; }
+func boolfunc225() bool { return b || b; }
+func boolfunc226() bool { return b == b; }
+func boolfunc227() bool { return b != b; }
+
+func boolfunc230() bool { return b < c; }
+func boolfunc231() bool { return b > c; }
+func boolfunc232() bool { return b <= c; }
+func boolfunc233() bool { return b >= c; }
+func boolfunc234() bool { return b && c; }
+func boolfunc235() bool { return b || c; }
+func boolfunc236() bool { return b == c; }
+func boolfunc237() bool { return b != c; }
+
+func boolfunc240() bool { return b < d; }
+func boolfunc241() bool { return b > d; }
+func boolfunc242() bool { return b <= d; }
+func boolfunc243() bool { return b >= d; }
+func boolfunc244() bool { return b && d; }
+func boolfunc245() bool { return b || d; }
+func boolfunc246() bool { return b == d; }
+func boolfunc247() bool { return b != d; }
+
+
+//func bool with return with comps between 'c' and all
+
+func boolfunc310() bool { return c < a; }
+func boolfunc311() bool { return c > a; }
+func boolfunc312() bool { return c <= a; }
+func boolfunc313() bool { return c >= a; }
+func boolfunc314() bool { return c && a; }
+func boolfunc315() bool { return c || a; }
+func boolfunc316() bool { return c == a; }
+func boolfunc317() bool { return c != a; }
+
+func boolfunc320() bool { return c < b; }
+func boolfunc321() bool { return c > b; }
+func boolfunc322() bool { return c <= b; }
+func boolfunc323() bool { return c >= b; }
+func boolfunc324() bool { return c && b; }
+func boolfunc325() bool { return c || b; }
+func boolfunc326() bool { return c == b; }
+func boolfunc327() bool { return c != b; }
+
+func boolfunc330() bool { return c <  c; }
+func boolfunc331() bool { return c >  c; }
+func boolfunc332() bool { return c <= c; }
+func boolfunc333() bool { return c >= c; }
+func boolfunc334() bool { return c && c; }
+func boolfunc335() bool { return c || c; }
+func boolfunc336() bool { return c == c; }
+func boolfunc337() bool { return c != c; }
+
+func boolfunc340() bool { return c < d; }
+func boolfunc341() bool { return c > d; }
+func boolfunc342() bool { return c <= d; }
+func boolfunc343() bool { return c >= d; }
+func boolfunc344() bool { return c && d; }
+func boolfunc345() bool { return c || d; }
+func boolfunc346() bool { return c == d; }
+func boolfunc347() bool { return c != d; }
+
+
+//func bool with return with comps between 'd' and all
+
+func boolfunc410() bool { return d < a; }
+func boolfunc411() bool { return d > a; }
+func boolfunc412() bool { return d <= a; }
+func boolfunc413() bool { return d >= a; }
+func boolfunc414() bool { return d && a; }
+func boolfunc415() bool { return d || a; }
+func boolfunc416() bool { return d == a; }
+func boolfunc417() bool { return d != a; }
+
+func boolfunc420() bool { return d < b; }
+func boolfunc421() bool { return d > b; }
+func boolfunc422() bool { return d <= b; }
+func boolfunc423() bool { return d >= b; }
+func boolfunc424() bool { return d && b; }
+func boolfunc425() bool { return d || b; }
+func boolfunc426() bool { return d == b; }
+func boolfunc427() bool { return d != b; }
+
+func boolfunc430() bool { return d < c; }
+func boolfunc431() bool { return d > c; }
+func boolfunc432() bool { return d <= c; }
+func boolfunc433() bool { return d >= c; }
+func boolfunc434() bool { return d && c; }
+func boolfunc435() bool { return d || c; }
+func boolfunc436() bool { return d == c; }
+func boolfunc437() bool { return d != c; }
+
+func boolfunc440() bool { return d < d; }
+func boolfunc441() bool { return d > d; }
+func boolfunc442() bool { return d <= d; }
+func boolfunc443() bool { return d >= d; }
+func boolfunc444() bool { return d && d; }
+func boolfunc445() bool { return d || d; }
+func boolfunc446() bool { return d == d; }
+func boolfunc447() bool { return d != d; }
+
+
+
+func define(a int, b float32, c string, d bool, e int) {
+
+    var a int;
+    var b float32;
+    var c string;
+    var d bool;
+
+    define(!a, !b, +c, -d);
+}
+
+
+func define(a int) {
+
+    a = +c;
+}
+
+func notdefined(notdefined int) {
+
+    var notdefined float32;
+}

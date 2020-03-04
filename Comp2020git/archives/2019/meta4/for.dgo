@@ -1,0 +1,16 @@
+package main;
+
+func main() {
+	var i, counter int;
+	i = 0;
+	counter = 1;
+	for i < 14 {
+		i = i + 1;
+		counter = counter * 2;
+		fmt.Println("2 to the power of");
+		fmt.Println(i);
+		fmt.Println("is");
+		fmt.Println(counter);
+		fmt.Println("");
+	}
+}

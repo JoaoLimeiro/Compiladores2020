@@ -1,0 +1,43 @@
+package funcs
+
+/*
+		META 2
+		COMP
+*/
+
+func funcao1() {
+	var (a,b,c int;)
+
+	if(a && b){
+		if(b || c){
+			if(c <= 6.3){
+				c = c*a+1e-2
+			} else {
+				c = a/b-1E21
+			}
+		}
+	}
+}
+
+func funcao2() {
+	{c = 1;{a = 2;b = 3;};{d = 4.3;};} //comentario
+
+	for(a == 2){
+		for (b * c < a){
+			fmt.Println("loop")
+			a = d
+			{
+			fmt.Println("block me")
+			fmt.Println("and me")
+			}
+		}
+	}
+}
+
+func main() {
+	{
+		arg,_ = strconv.Atoi(os.Args[1]);
+		arg,_ = strconv.Atoi(os.Args[2]);
+	}
+	fmt.Println("Vou embora")
+}

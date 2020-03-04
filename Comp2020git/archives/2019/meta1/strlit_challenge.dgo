@@ -1,0 +1,8 @@
+notstring
+"good string"
+"bad \string"
+"endless string;
+"s" "\t" "r" "i" "\n" "g" "s"
+:)
+bye
+"\bye"

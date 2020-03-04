@@ -1,0 +1,46 @@
+package main;
+
+func main(){
+
+    {
+        fmt.Println("Sem block aqui")
+    }
+
+    {
+        fmt.Println("2 statements")
+        fmt.Println("Precisa de block")
+    }
+
+
+    if 1+1 {
+        
+    }
+
+    if 2+2 {
+        a = 2
+    }
+
+    if 3+3 {
+        b = 3
+    } else {
+
+    }
+
+    if 4+4 {
+        c = 4
+    } else {
+        d = 5
+    }
+
+    for {
+        
+    }
+
+    for {
+        e = 6
+    }
+
+    for 7+7 {
+        f = 7
+    }
+}

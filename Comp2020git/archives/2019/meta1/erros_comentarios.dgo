@@ -1,0 +1,14 @@
+"a"
+"\\unterminated string literal
+"compiladores"
+7654
+    &&
+    "string"
+//ola ola ola
+/*lixo
+lixo*/
+"Vai ter erro
+"invalid \s escape sequence"
+"a" //comentario
+@
+d = g/*&&*/

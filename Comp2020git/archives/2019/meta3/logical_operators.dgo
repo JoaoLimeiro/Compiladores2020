@@ -1,0 +1,41 @@
+package main;
+
+var i float32;
+var f int;
+var s bool;
+var b string;
+
+func main () {
+
+    /* usa o i global que é float32 */
+    i = 1.1;
+
+    var i int;
+
+    /* usa o i local que agora é int */
+    i = 1;
+
+    var f float32;
+    var s string;
+    var b bool;
+
+    b = i != i;
+    b = f == f;
+
+    b = b && b;
+    b = b == b;
+
+    i = i + i;
+    i = i / i;
+
+    f = f * f;
+    f = f - f;
+
+    i = i%i + i%i * i%i - i%i / i%i;
+
+    f = -f;
+    f = +f;
+
+    fmt.Println(s);
+    i,_ = strconv.Atoi(os.Args[1]);
+}

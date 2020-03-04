@@ -1,0 +1,38 @@
+//	./gocompiler < parse_args.dgo > llvm.ll
+//	clang-3.8 llvm.ll
+// ./a.out 0 1 2 3
+
+package main;
+
+
+func main () {
+	var i int;
+
+	var index int;
+
+	index = 1;
+
+	i,_ = strconv.Atoi(os.Args[1]);
+
+	fmt.Println(i);
+
+	i,_ = strconv.Atoi(os.Args[2]);
+
+	fmt.Println(i);
+
+	i,_ = strconv.Atoi(os.Args[index]);
+
+	fmt.Println(i);
+	
+	i,_ = strconv.Atoi(os.Args[4]);
+
+	fmt.Println(i);
+
+	index = 3;
+	
+	i,_ = strconv.Atoi(os.Args[index]);
+
+	fmt.Println(i);
+	        
+}
+

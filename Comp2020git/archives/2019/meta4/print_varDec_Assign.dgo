@@ -1,0 +1,86 @@
+package main;
+
+var gi int;
+var gb bool;
+var gs string;
+var gf float32;
+
+func main () {
+	var li int;
+	var lb bool;
+	var lf float32;
+
+	gb = lb;
+	gb = gb;
+	lb = gb;
+
+	gi = li;
+	gi = li;
+	li = gi;
+
+	gf = lf;
+	gf = gf;
+	lf = gf;
+
+	li = -2;
+
+	gf = -2.0;
+
+	fmt.Println(gf);
+
+    fmt.Println(+gf);
+
+    fmt.Println(-gf);
+
+	gf = 1.1;
+
+	fmt.Println(gf);
+
+	fmt.Println(+gf);
+
+	fmt.Println(-gf);
+	        
+	fmt.Println(li);
+
+	fmt.Println(+li);
+
+	fmt.Println(-li);
+
+	fmt.Println(1);
+
+	fmt.Println(gi);
+
+	gi = li;
+
+	fmt.Println(gi);
+
+	lf = 0.0;
+
+	fmt.Println(-lf);
+
+	fmt.Println(1.9);
+
+	fmt.Println(gf);
+
+	gf = lf;
+
+	fmt.Println(gf);
+
+	fmt.Println(0.0);
+
+	fmt.Println(gb);
+
+	fmt.Println(0);
+
+	fmt.Println(-0);
+
+	fmt.Println(-0.0);
+
+	fmt.Println(-li);
+	
+    fmt.Println(gb);
+    
+	fmt.Println(lb);
+
+	fmt.Println("Print123%d%f%.08fTesting%s");
+}

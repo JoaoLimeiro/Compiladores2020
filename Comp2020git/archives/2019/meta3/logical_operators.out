@@ -1,0 +1,124 @@
+===== Global Symbol Table =====
+i		float32
+f		int
+s		bool
+b		string
+main	()	none
+
+===== Function main() Symbol Table =====
+return		none
+i		int
+f		float32
+s		string
+b		bool
+
+Program
+..VarDecl
+....Float32
+....Id(i)
+..VarDecl
+....Int
+....Id(f)
+..VarDecl
+....Bool
+....Id(s)
+..VarDecl
+....String
+....Id(b)
+..FuncDecl
+....FuncHeader
+......Id(main)
+......FuncParams
+....FuncBody
+......Assign - float32
+........Id(i) - float32
+........RealLit(1.1) - float32
+......VarDecl
+........Int
+........Id(i)
+......Assign - int
+........Id(i) - int
+........IntLit(1) - int
+......VarDecl
+........Float32
+........Id(f)
+......VarDecl
+........String
+........Id(s)
+......VarDecl
+........Bool
+........Id(b)
+......Assign - bool
+........Id(b) - bool
+........Ne - bool
+..........Id(i) - int
+..........Id(i) - int
+......Assign - bool
+........Id(b) - bool
+........Eq - bool
+..........Id(f) - float32
+..........Id(f) - float32
+......Assign - bool
+........Id(b) - bool
+........And - bool
+..........Id(b) - bool
+..........Id(b) - bool
+......Assign - bool
+........Id(b) - bool
+........Eq - bool
+..........Id(b) - bool
+..........Id(b) - bool
+......Assign - int
+........Id(i) - int
+........Add - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - int
+........Id(i) - int
+........Div - int
+..........Id(i) - int
+..........Id(i) - int
+......Assign - float32
+........Id(f) - float32
+........Mul - float32
+..........Id(f) - float32
+..........Id(f) - float32
+......Assign - float32
+........Id(f) - float32
+........Sub - float32
+..........Id(f) - float32
+..........Id(f) - float32
+......Assign - int
+........Id(i) - int
+........Sub - int
+..........Add - int
+............Mod - int
+..............Id(i) - int
+..............Id(i) - int
+............Mod - int
+..............Mul - int
+................Mod - int
+..................Id(i) - int
+..................Id(i) - int
+................Id(i) - int
+..............Id(i) - int
+..........Mod - int
+............Div - int
+..............Mod - int
+................Id(i) - int
+................Id(i) - int
+..............Id(i) - int
+............Id(i) - int
+......Assign - float32
+........Id(f) - float32
+........Minus - float32
+..........Id(f) - float32
+......Assign - float32
+........Id(f) - float32
+........Plus - float32
+..........Id(f) - float32
+......Print
+........Id(s) - string
+......ParseArgs - int
+........Id(i) - int
+........IntLit(1) - int

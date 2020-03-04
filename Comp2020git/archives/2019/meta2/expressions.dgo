@@ -1,0 +1,15 @@
+package main
+
+func main() {
+    d = (a+b)*c;
+    d = -(a+b);
+    d = a < b == c;
+    if (a==(1+2)*3) {
+        a = (a+9)*(3+d)
+    }
+    d = (a+b) < c >= (b-b)
+    fmt.Println(o + c + (- a))
+    for(a>10-b+!b) {
+        a = (y - 8) / (!b)
+    }
+}

@@ -1,0 +1,378 @@
+===== Global Symbol Table =====
+oneFunc	()	none
+twoFunc	(int)	none
+treeFunc	(int,float32)	none
+fourFunc	(int,float32,string)	none
+fiveFunc	(int,float32,string,bool)	none
+sixFunc	(int)	int
+sevenFunc	(int,float32)	float32
+eightFunc	(int,float32,string)	string
+nineFunc	(int,float32,string,bool)	bool
+tenFunc	(int)	int
+variable_func_declarations	()	none
+
+===== Function oneFunc() Symbol Table =====
+return		none
+
+===== Function twoFunc(int) Symbol Table =====
+return		none
+one		int	param
+
+===== Function treeFunc(int,float32) Symbol Table =====
+return		none
+one		int	param
+two		float32	param
+thisDoesNothingHere		float32
+
+===== Function fourFunc(int,float32,string) Symbol Table =====
+return		none
+one		int	param
+two		float32	param
+three		string	param
+
+===== Function fiveFunc(int,float32,string,bool) Symbol Table =====
+return		none
+one		int	param
+two		float32	param
+three		string	param
+four		bool	param
+
+===== Function sixFunc(int) Symbol Table =====
+return		int
+one		int	param
+oneInSixFunc		int
+
+===== Function sevenFunc(int,float32) Symbol Table =====
+return		float32
+one		int	param
+two		float32	param
+oneTwoSevenFunc		float32
+twoTwoSevenFunc		float32
+
+===== Function eightFunc(int,float32,string) Symbol Table =====
+return		string
+one		int	param
+two		float32	param
+three		string	param
+
+===== Function nineFunc(int,float32,string,bool) Symbol Table =====
+return		bool
+one		int	param
+two		float32	param
+three		string	param
+four		bool	param
+oneThing		bool
+
+===== Function tenFunc(int) Symbol Table =====
+return		int
+one		int	param
+a		float32
+b		float32
+c		float32
+d		float32
+j		int
+
+===== Function variable_func_declarations() Symbol Table =====
+return		none
+stringThing		string
+
+Program
+..FuncDecl
+....FuncHeader
+......Id(oneFunc)
+......FuncParams
+....FuncBody
+..FuncDecl
+....FuncHeader
+......Id(twoFunc)
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+....FuncBody
+..FuncDecl
+....FuncHeader
+......Id(treeFunc)
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+....FuncBody
+......VarDecl
+........Float32
+........Id(thisDoesNothingHere)
+......For
+........Le - bool
+..........Id(one) - int
+..........IntLit(123) - int
+........Block
+..........Assign - float32
+............Id(thisDoesNothingHere) - float32
+............Add - float32
+..............Add - float32
+................Id(thisDoesNothingHere) - float32
+................Id(two) - float32
+..............RealLit(.010e3) - float32
+..........Assign - int
+............Id(one) - int
+............Add - int
+..............Add - int
+................Add - int
+..................Add - int
+....................Id(one) - int
+....................Id(one) - int
+..................Id(one) - int
+................Id(one) - int
+..............IntLit(1) - int
+..FuncDecl
+....FuncHeader
+......Id(fourFunc)
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+........ParamDecl
+..........String
+..........Id(three)
+....FuncBody
+..FuncDecl
+....FuncHeader
+......Id(fiveFunc)
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+........ParamDecl
+..........String
+..........Id(three)
+........ParamDecl
+..........Bool
+..........Id(four)
+....FuncBody
+..FuncDecl
+....FuncHeader
+......Id(sixFunc)
+......Int
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+....FuncBody
+......VarDecl
+........Int
+........Id(oneInSixFunc)
+......Assign - int
+........Id(oneInSixFunc) - int
+........Id(one) - int
+......Return
+........Id(oneInSixFunc) - int
+..FuncDecl
+....FuncHeader
+......Id(sevenFunc)
+......Float32
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+....FuncBody
+......VarDecl
+........Float32
+........Id(oneTwoSevenFunc)
+......VarDecl
+........Float32
+........Id(twoTwoSevenFunc)
+......Assign - float32
+........Id(oneTwoSevenFunc) - float32
+........RealLit(.52e4) - float32
+......Assign - float32
+........Id(twoTwoSevenFunc) - float32
+........Add - float32
+..........Id(two) - float32
+..........Id(oneTwoSevenFunc) - float32
+......If
+........Eq - bool
+..........Id(one) - int
+..........IntLit(1) - int
+........Block
+..........Return
+............Id(twoTwoSevenFunc) - float32
+........Block
+......Return
+........Id(oneTwoSevenFunc) - float32
+..FuncDecl
+....FuncHeader
+......Id(eightFunc)
+......String
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+........ParamDecl
+..........String
+..........Id(three)
+....FuncBody
+......Return
+........Id(three) - string
+..FuncDecl
+....FuncHeader
+......Id(nineFunc)
+......Bool
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+........ParamDecl
+..........Float32
+..........Id(two)
+........ParamDecl
+..........String
+..........Id(three)
+........ParamDecl
+..........Bool
+..........Id(four)
+....FuncBody
+......VarDecl
+........Bool
+........Id(oneThing)
+......If
+........Id(four) - bool
+........Block
+..........Return
+............Id(four) - bool
+........Block
+......Return
+........Id(oneThing) - bool
+..FuncDecl
+....FuncHeader
+......Id(tenFunc)
+......Int
+......FuncParams
+........ParamDecl
+..........Int
+..........Id(one)
+....FuncBody
+......VarDecl
+........Float32
+........Id(a)
+......VarDecl
+........Float32
+........Id(b)
+......VarDecl
+........Float32
+........Id(c)
+......VarDecl
+........Float32
+........Id(d)
+......VarDecl
+........Int
+........Id(j)
+......Assign - int
+........Id(j) - int
+........Add - int
+..........IntLit(6) - int
+..........Id(one) - int
+......Assign - float32
+........Id(a) - float32
+........RealLit(.01) - float32
+......Assign - float32
+........Id(b) - float32
+........Add - float32
+..........RealLit(.123) - float32
+..........Id(a) - float32
+......Assign - float32
+........Id(c) - float32
+........Add - float32
+..........Id(b) - float32
+..........Id(a) - float32
+......Assign - float32
+........Id(a) - float32
+........Id(c) - float32
+......Assign - float32
+........Id(d) - float32
+........Add - float32
+..........Id(a) - float32
+..........Id(b) - float32
+......Assign - float32
+........Id(a) - float32
+........Id(d) - float32
+......Assign - float32
+........Id(d) - float32
+........Add - float32
+..........Id(a) - float32
+..........Call - float32
+............Id(sevenFunc) - (int,float32)
+............Id(j) - int
+............Id(a) - float32
+......Call
+........Id(twoFunc) - (int)
+........Id(j) - int
+......Call
+........Id(treeFunc) - (int,float32)
+........Id(j) - int
+........Id(a) - float32
+......Return
+........Id(j) - int
+..FuncDecl
+....FuncHeader
+......Id(variable_func_declarations)
+......FuncParams
+....FuncBody
+......VarDecl
+........String
+........Id(stringThing)
+......Call
+........Id(oneFunc) - ()
+......Call
+........Id(twoFunc) - (int)
+........Call - int
+..........Id(sixFunc) - (int)
+..........IntLit(1) - int
+......Call
+........Id(treeFunc) - (int,float32)
+........IntLit(1) - int
+........RealLit(.123) - float32
+......Call
+........Id(fourFunc) - (int,float32,string)
+........Call - int
+..........Id(sixFunc) - (int)
+..........IntLit(1) - int
+........RealLit(.321) - float32
+........Id(stringThing) - string
+......Call
+........Id(fiveFunc) - (int,float32,string,bool)
+........IntLit(1) - int
+........RealLit(.2) - float32
+........Id(stringThing) - string
+........Gt - bool
+..........IntLit(1) - int
+..........IntLit(2) - int
+......Call - int
+........Id(sixFunc) - (int)
+........IntLit(1) - int
+......Call - string
+........Id(eightFunc) - (int,float32,string)
+........IntLit(1) - int
+........RealLit(.1) - float32
+........Id(stringThing) - string
+......Call - float32
+........Id(sevenFunc) - (int,float32)
+........IntLit(1) - int
+........RealLit(.2) - float32
+......Call - int
+........Id(tenFunc) - (int)
+........IntLit(1) - int

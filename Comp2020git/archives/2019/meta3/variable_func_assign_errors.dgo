@@ -1,0 +1,56 @@
+/*
+Var Func Decl Assign
+./gocompiler < custom_tests/meta3/variable_func_assign_errors.dgo | sort
+*/
+
+package main;
+
+var globalVar_int int;
+
+var globalVar_float32 float32;
+
+func globalVar_int() int {
+	var _globalVar_int int;
+	var _globalVar_string string;
+	var globalVar_float32, _globalVar_bool bool;
+
+	globalVar_float32 = _globalVar_string;
+	
+	return _globalVar_int;
+};
+
+func function_2() {}
+
+func main () {
+
+	var main_string string;
+
+	function_1(12, 13);
+	
+	function_1();
+
+	function_2();
+
+	function_2(123, main_string);
+
+}
+
+func function_1() {
+	var localVar_1 float32;
+
+	localVar_1 = globalVar_int;
+}
+
+func function_1(a int, b int) {
+	var localVar_1 int;
+
+	var localVar_2 float32;
+
+	localVar_1 = globalVar_float32;
+
+	localVar_2 = globalVar_int;
+}
+
+var globalVar_string string;
+
+var global_var_bool bool;

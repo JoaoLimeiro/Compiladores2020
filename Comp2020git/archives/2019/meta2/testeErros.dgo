@@ -1,0 +1,12 @@
+package main;
+func main(){
+	x=i++;
+	x=++i;
+	x=--i;
+	x=i++;
+	x=!!0;
+	x=a==b=c;
+	1=x;
+	if(true){
+;}
+

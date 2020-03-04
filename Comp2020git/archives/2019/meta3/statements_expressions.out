@@ -1,0 +1,36 @@
+Line 10, column 9: Incompatible type int in return statement
+Line 17, column 2: Incompatible type none in return statement
+Line 21, column 6: Symbol a already defined
+Line 22, column 9: Incompatible type int in return statement
+Line 28, column 9: Symbol h declared but never used
+Line 30, column 2: Cannot find symbol f0(int,int,int,float32)
+Line 31, column 24: Operator + cannot be applied to types float32, undef
+Line 31, column 26: Cannot find symbol f0(int,int,float32,float32)
+Line 31, column 4: Operator = cannot be applied to types float32, undef
+Line 32, column 4: Operator = cannot be applied to types int, undef
+Line 32, column 6: Cannot find symbol func2(int,int,float32,float32)
+Line 33, column 10: Operator strconv.Atoi cannot be applied to types int, float32
+Line 34, column 4: Operator = cannot be applied to types int, undef
+Line 34, column 6: Cannot find symbol func2
+Line 35, column 57: Operator + cannot be applied to types int, float32
+Line 35, column 61: Operator + cannot be applied to types undef, float32
+Line 35, column 7: Operator = cannot be applied to types float32, undef
+Line 35, column 9: Cannot find symbol func1(int,int,float32,undef)
+Line 37, column 13: Operator strconv.Atoi cannot be applied to types int, undef
+Line 37, column 34: Cannot find symbol func1(bool)
+Line 39, column 7: Operator = cannot be applied to types int, float32
+Line 40, column 12: Operator > cannot be applied to types bool, bool
+Line 43, column 12: Operator > cannot be applied to types int, float32
+Line 44, column 13: Operator strconv.Atoi cannot be applied to types float32, string
+Line 46, column 4: Operator = cannot be applied to types int, bool
+Line 4, column 39: Incompatible type int in return statement
+Line 50, column 11: Operator && cannot be applied to types float32, bool
+Line 55, column 6: Operator = cannot be applied to types int, undef
+Line 55, column 8: Cannot find symbol func3()
+Line 56, column 10: Operator >= cannot be applied to types bool, bool
+Line 58, column 9: Incompatible type float32 in for statement
+Line 6, column 19: Symbol a already defined
+Line 6, column 46: Incompatible type none in return statement
+Line 76, column 21: Operator = cannot be applied to types undef, undef
+Line 76, column 23: Cannot find symbol noWhereToBeFound(bool,int,bool)
+Line 76, column 4: Cannot find symbol noWhereToBeFound

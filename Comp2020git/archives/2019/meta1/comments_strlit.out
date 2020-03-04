@@ -1,0 +1,6 @@
+Line 1, column 14: invalid escape sequence (\c)
+STRLIT("ola")
+SEMICOLON
+Line 4, column 1: unterminated string literal
+INTLIT(008)
+Line 5, column 5: unterminated string literal

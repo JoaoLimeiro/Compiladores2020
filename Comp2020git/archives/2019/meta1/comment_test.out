@@ -1,0 +1,25 @@
+STRLIT("str1")
+SEMICOLON
+STRLIT("str2")
+SEMICOLON
+ID(str4)
+SEMICOLON
+ID(str5)
+SEMICOLON
+ID(str6)
+SEMICOLON
+DIV
+ID(str9)
+SEMICOLON
+ID(str13)
+SEMICOLON
+Line 10, column 1: unterminated string literal
+ID(str15)
+SEMICOLON
+STRLIT("str16")
+SEMICOLON
+ID(str18)
+SEMICOLON
+ID(str19)
+SEMICOLON
+Line 16, column 17: unterminated comment

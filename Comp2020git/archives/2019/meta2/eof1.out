@@ -1,0 +1,9 @@
+Program
+..FuncDecl
+....FuncHeader
+......Id(main)
+......FuncParams
+....FuncBody
+......Assign
+........Id(h)
+........IntLit(2)

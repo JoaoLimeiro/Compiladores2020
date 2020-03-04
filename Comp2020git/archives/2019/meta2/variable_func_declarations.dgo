@@ -1,0 +1,25 @@
+package main;
+
+func onefunc(){}
+
+func twofunc(one int){}
+
+func treefunc(one int, two float32){}
+
+func fourfunc(one int, two float32, three string){}
+
+func fivefunc(one int, two float32, three string, four bool){}
+
+func sixfunc(one int) int {}
+
+func sevenfunc(one int, two float32) float32 {}
+
+func eightfunc(one int, two float32, three string) string {}
+
+func ninefunc(one int, two float32, three string, four bool) bool {}
+
+func tenfunc(one int) int {
+    var (a, b, c, d float32;);
+    var e, f, g, i int;
+    var j int;
+}

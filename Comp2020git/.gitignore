@@ -1,0 +1,24 @@
+# ignore all files
+meta1/*
+meta2/*
+meta3/*
+meta4/*
+
+# except .juc .java files
+!meta1/*.juc
+!meta1/*.java
+!meta2/*.juc
+!meta2/*.java
+!meta3/*.juc
+!meta3/*.java
+!meta4/*.juc
+!meta4/*.java
+
+# and except .out files with compilation results
+!meta1/*.out
+!meta2/*.out
+!meta3/*.out
+!meta4/*.out
+
+# other files
+.DS_Store

@@ -1,0 +1,22 @@
+ID(id)
+ID(id2)
+SEMICOLON
+ID(id3)
+SEMICOLON
+STRLIT("string\n")
+SEMICOLON
+STRLIT("string2\n")
+SEMICOLON
+Line 7, column 8: invalid escape sequence (\N)
+Line 8, column 8: invalid escape sequence (\z)
+STRLIT("")
+STRLIT("")
+SEMICOLON
+STRLIT("''")
+SEMICOLON
+Line 11, column 1: unterminated string literal
+SEMICOLON
+COMMA
+Line 13, column 1: unterminated string literal
+ID(id4)
+Line 14, column 5: unterminated comment
