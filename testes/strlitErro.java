@@ -1,0 +1,21 @@
+"jnjksdkjnded" 1"cdjhb  dhh a" ."rrrr"2 "mig\uel"
+"cdjhb\g  dhh a" "rrrr"
+
+// "\r  \" \f \n \a  \u \d"
+
+"	"
+"\r       "
+"\f"
+"\n"
+"\t"
+"\\"
+"\""
+
+"\+"
+"\."
+"\n\n"
+"\<"
+"\h"
+"\p"
+"\"\""
+"\r \f \n \t \\ \""

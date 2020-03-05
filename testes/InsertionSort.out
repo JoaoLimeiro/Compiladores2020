@@ -1,0 +1,4 @@
+Line 22, col 32: invalid escape sequence (\h)
+Line 22, col 29: unterminated string literal
+Line 28, col 31: invalid escape sequence (\d)
+Line 32, col 5: unterminated comment
