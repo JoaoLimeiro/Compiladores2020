@@ -2,7 +2,7 @@
 
 
 %{
-    	#define PRINTF if (flag==1) printf
+    #define PRINTF if (flag==1) printf
 	#define ERRORS if (flag==0) printf
 	int flag;
 	int line = 1; /* Contador de linhas */
@@ -19,6 +19,7 @@ AND "&&"
 ASSIGN "="
 STAR "*"
 COMMA ","
+ASPAS \"
 DIV "/"
 EQ "=="
 GE ">="
@@ -66,18 +67,15 @@ NOTZERO [1-9]
 OPTION {NUMBER}|_
 CAR [^\r\n"]
 EXPOENT (E|e)(\+|\-)*{OPTION}+
-ESCAPE \(n|t|\\|\'|\")
+ESCAPE \(n|t|\\|\'|{ASPAS})
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
 INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
 REALLIT ({OPTION}*\.{OPTION}*{EXPOENT}?|\.{OPTION}*{EXPOENT}?|{OPTION}+{EXPOENT})
-STRLIT {LETTER}+|{LETTER}*"\f"|{LETTER}*"\n"|{LETTER}*"\r"|{LETTER}*"\t"|{LETTER}*"\\"|{LETTER}*"\""
+STRLIT ({ASPAS}({LETTER}|" ")+{ASPAS})|(({LETTER}|" ")*"\f")|({ASPAS}({LETTER}|" ")*{ASPAS}"\n")|({ASPAS}({LETTER}|" ")*{ASPAS}"\r")|({ASPAS}({LETTER}|" ")*{ASPAS}"\t")
 
 
 %%
-
-" "|"\f"	{;}
-"\n"|"\r"	{line++; column=1;}
 
 {BOOLLIT}   {PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng;}
 {PARSEINT}  {PRINTF("PARSEINT\n");column += yyleng;}
@@ -126,10 +124,8 @@ STRLIT {LETTER}+|{LETTER}*"\f"|{LETTER}*"\n"|{LETTER}*"\r"|{LETTER}*"\t"|{LETTER
 {ID}    {PRINTF("ID(%s)\n",yytext); column += yyleng;}
 {INTLIT}    {PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
 {REALLIT}   {PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
+{STRLIT}   {PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
 
-
-
-. {ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
 "/*" {BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
 <COMMENT1><<EOF>> {BEGIN 0; printf("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
@@ -140,6 +136,11 @@ STRLIT {LETTER}+|{LETTER}*"\f"|{LETTER}*"\n"|{LETTER}*"\r"|{LETTER}*"\t"|{LETTER
 "//" {BEGIN COMMENT2;}
 <COMMENT2>"\n" {BEGIN 0; line++; column=1;}
 <COMMENT2>. {;}
+
+" "|"\f"	{;}
+"\n"|"\r"	{line++; column=1;}
+
+. {ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
 %%
 int main(int argc, char *argv[])
