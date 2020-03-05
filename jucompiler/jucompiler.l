@@ -11,7 +11,7 @@
   	int beginning_col;
 %}
 
-%X COMMENT
+%X COMMENT1
 %X COMMENT2
 
 BOOLLIT "true"|"false"
@@ -41,7 +41,7 @@ SEMICOLON ";"
 ARROW "->"
 LSHIFT "<<"
 RSHIFT ">>"
-XOR "ˆ"
+XOR "^"
 BOOL "boolean"
 CLASS "class"
 DOTLENGTH ".length"
@@ -57,22 +57,30 @@ STATIC "static"
 STRING "String"
 VOID "void"
 WHILE "while"
-RESERVED "++"|"--"|"null"|"Integer"|"System"
-STRLIT {LETTER}+|{LETTER}*"\f"|{LETTER}*"\n"|{LETTER}*"\r"|{LETTER}*"\t"|{LETTER}*"\\"|{LETTER}*"\""
+RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"for"|"new"|"switch"|"boolean"|"do"|"goto"|"private"|"this"|"assert"|"default"|"if"|"package""|"synchronized"|"break"|"double"|"implements"|"protected"|"throw"|"byte"|"else"|"import"|"public"|"throws"|"case"|"enum"|"instanceof"|"return"|"transient"|"catch"|"extends"|"int"|"short"|"try"|"char"|"final"|"interface"|"static"|"void"|"class"|"finally"|"long|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"while"
+
 
 LETTER [a-zA-Z]
 NUMBER [0-9]
-EXPOENT (E|e)(\+|\-)*{NUMBER}+
+NOTZERO [1-9]
+OPTION {NUMBER}|_
+CAR [^\r\n"]
+EXPOENT (E|e)(\+|\-)*{OPTION}+
+ESCAPE \(n|t|\\|\'|\")
+
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
-INTLIT {NUMBER}+
-REALLIT ({NUMBER}+\.{NUMBER}*|{NUMBER}+\.({EXPOENT})|{NUMBER}+{EXPOENT})
+INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
+REALLIT ({OPTION}*\.{OPTION}*{EXPOENT}?|\.{OPTION}*{EXPOENT}?|{OPTION}+{EXPOENT})
+STRLIT {LETTER}+|{LETTER}*"\f"|{LETTER}*"\n"|{LETTER}*"\r"|{LETTER}*"\t"|{LETTER}*"\\"|{LETTER}*"\""
 
 
 %%
 
 " "|"\f"	{;}
 "\n"|"\r"	{line++; column=1;}
-{BOOLLIT}   {PRINTF("BOOLLIT\n"); column += yyleng;}
+
+{BOOLLIT}   {PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng;}
+{PARSEINT}  {PRINTF("PARSEINT\n");column += yyleng;}
 {AND}   {PRINTF("AND\n"); column += yyleng;}
 {ASSIGN}    {PRINTF("ASSIGN\n"); column += yyleng;}
 {STAR}  {PRINTF("STAR\n");column += yyleng;}
@@ -107,7 +115,6 @@ REALLIT ({NUMBER}+\.{NUMBER}*|{NUMBER}+\.({EXPOENT})|{NUMBER}+{EXPOENT})
 {ELSE}  {PRINTF("ELSE\n");column += yyleng;}
 {IF}    {PRINTF("IF\n");column += yyleng;}
 {INT}   {PRINTF("INT\n");column += yyleng;}
-{PARSEINT}  {PRINTF("PARSEINT\n");column += yyleng;}
 {PRINT} {PRINTF("PRINTF\n");column += yyleng;}
 {PUBLIC}    {PRINTF("PUBLIC\n");column += yyleng;}
 {RETURN}    {PRINTF("RETURN\n");column += yyleng;}
@@ -116,19 +123,19 @@ REALLIT ({NUMBER}+\.{NUMBER}*|{NUMBER}+\.({EXPOENT})|{NUMBER}+{EXPOENT})
 {VOID}  {PRINTF("VOID\n");column += yyleng;}
 {WHILE} {PRINTF("WHILE\n");column += yyleng;}
 {RESERVED}  {PRINTF("RESERVED\n");column += yyleng;}
-{ID}    {PRINTF("ID\n"); column += yyleng;}
-{INTLIT}    {PRINTF("INTLIT\n"); column += yyleng;}
-{REALLIT}   {PRINTF("REALLIT\n"); column += yyleng;}
+{ID}    {PRINTF("ID(%s)\n",yytext); column += yyleng;}
+{INTLIT}    {PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
+{REALLIT}   {PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
 
 
 
 . {ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
-"/*" {BEGIN COMMENT; beginning_col = column; beginning_line = line; column+=yyleng;}
-<COMMENT><<EOF>> {BEGIN 0; printf("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
-<COMMENT>"*/" {BEGIN 0; column+=yyleng;}
-<COMMENT>. {column+=yyleng;}
-<COMMENT>\n {line++; column=1;}
+"/*" {BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
+<COMMENT1><<EOF>> {BEGIN 0; printf("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
+<COMMENT1>"*/" {BEGIN 0; column+=yyleng;}
+<COMMENT1>. {column+=yyleng;}
+<COMMENT1>\n {line++; column=1;}
 
 "//" {BEGIN COMMENT2;}
 <COMMENT2>"\n" {BEGIN 0; line++; column=1;}
