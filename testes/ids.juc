@@ -1,0 +1,14 @@
+_test1
+$var_
+$2142var_
+$var_21212
+KEYWORD
+canelCase
+CamelCase
+id
+$$$ThisIsValid
+$2323232$$ThisIsValid
+_validCamelCase
+______validCamelCase
+_223valid
+_$id
