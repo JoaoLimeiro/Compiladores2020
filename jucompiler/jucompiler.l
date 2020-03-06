@@ -58,22 +58,24 @@ STATIC "static"
 STRING "String"
 VOID "void"
 WHILE "while"
-RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"for"|"new"|"switch"|"boolean"|"do"|"goto"|"private"|"this"|"assert"|"default"|"if"|"package""|"synchronized"|"break"|"double"|"implements"|"protected"|"throw"|"byte"|"else"|"import"|"public"|"throws"|"case"|"enum"|"instanceof"|"return"|"transient"|"catch"|"extends"|"int"|"short"|"try"|"char"|"final"|"interface"|"static"|"void"|"class"|"finally"|"long|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"while"
+RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"for"|"new"|"switch"|"assert"|"default"|"if"|"package"|"synchronized"|"boolean"|"do"|"goto"|"private"|"this"|"break"|"double"|"implements"|"protected"|"throw"|"byte"|"else"|"import"|"public"|"throws"|"case"|"enum"|"instanceof"|"return"|"transient"|"catch"|"extends"|"int"|"short"|"try"|"char"|"final"|"interface"|"static"|"void"|"class"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"while"
 
 
 LETTER [a-zA-Z]
 NUMBER [0-9]
 NOTZERO [1-9]
 OPTION {NUMBER}|_
-CAR [^\r\n"]
-EXPOENT (E|e)(\+|\-)*{OPTION}+
-ESCAPE \(n|t|\\|\'|{ASPAS})
+CAR [^\r\n\"\\]
+EXPOENT (E|e)(\+|\-)?{OPTION}+
+ESCAPE \\(r|f|t|n|t|\\|\")
+NOESCAPE [^rftnt\\\"]
+
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
 INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
-REALLIT ({OPTION}*\.{OPTION}*{EXPOENT}?|\.{OPTION}*{EXPOENT}?|{OPTION}+{EXPOENT})
-STRLIT ({ASPAS}({LETTER}|" ")+{ASPAS})|(({LETTER}|" ")*"\f")|({ASPAS}({LETTER}|" ")*{ASPAS}"\n")|({ASPAS}({LETTER}|" ")*{ASPAS}"\r")|({ASPAS}({LETTER}|" ")*{ASPAS}"\t")
-
+REALLIT (({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})?{EXPOENT}?)|(({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT})|\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT}?
+STRLIT ({ASPAS}({CAR}|" "|{ESCAPE})+{ASPAS})
+STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 
 %%
 
@@ -125,8 +127,9 @@ STRLIT ({ASPAS}({LETTER}|" ")+{ASPAS})|(({LETTER}|" ")*"\f")|({ASPAS}({LETTER}|"
 {INTLIT}    {PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
 {REALLIT}   {PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
 {STRLIT}   {PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
-
-
+{STRERR}   {for (int i=0;i< yyleng; i++){ if (strcmp(&yytext[i],"\\") == 0)
+ PRINTF("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);} column += yyleng;}
+ 
 "/*" {BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
 <COMMENT1><<EOF>> {BEGIN 0; printf("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
 <COMMENT1>"*/" {BEGIN 0; column+=yyleng;}
@@ -138,7 +141,7 @@ STRLIT ({ASPAS}({LETTER}|" ")+{ASPAS})|(({LETTER}|" ")*"\f")|({ASPAS}({LETTER}|"
 <COMMENT2>. {;}
 
 " "|"\f"	{;}
-"\n"|"\r"	{line++; column=1;}
+"\n"|"\r"|"\r\n"	{line++; column=1;}
 
 . {ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
