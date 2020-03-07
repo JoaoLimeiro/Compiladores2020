@@ -15,6 +15,7 @@
 %X COMMENT2
 
 BOOLLIT "true"|"false"
+SPACE " "
 AND "&&"
 ASSIGN "="
 STAR "*"
@@ -57,7 +58,8 @@ OPTION {NUMBER}|_
 CAR [^\r\n\"\\]
 EXPOENT (E|e)(\+|\-)?{OPTION}+
 ESCAPE \\(r|f|t|n|t|\\|\")
-NOESCAPE [^rftnt\\\"]
+NOESCAPE [^r|f|t|n|t|\\|\"]
+ESCAPELIMEIRO (\\u|u)
 
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
@@ -66,17 +68,18 @@ REALLIT (({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})\.({NUMBER}+|{NUMBER}{OPTION}*{NUM
 STRLIT ({ASPAS}({CAR}|" "|{ESCAPE})+{ASPAS})
 STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 
+
 %%
 {RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng;}
 {TOKEN}			{
 					for(int i = 0; i < yyleng; i++){
 						if(yytext[i] >= 97 && yytext[i] <= 122){
-							printf("%c", yytext[i]-32);
+							PRINTF("%c", yytext[i]-32);
 						}else {
-							printf("%c", yytext[i]);
+							PRINTF("%c", yytext[i]);
 						}
 					}
-					printf("\n");
+					PRINTF("\n");
 					column += yyleng;
 				}
 {BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng;}
@@ -116,7 +119,7 @@ STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 {STRLIT}   		{PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
 {STRERR}   		{
 					for (int i=0;i< yyleng; i++){ 
-						if (strcmp(&yytext[i],"\\") == 0)
+						if (yytext[i] ==  92)
  							PRINTF("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
  					} 
  					column += yyleng;
@@ -133,7 +136,7 @@ STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 <COMMENT2>. 		{;}
 
 
-" "|"\f"			{;}
+{SPACE}|"\f"|"\t"			{;}
 "\n"|"\r"|"\r\n"	{line++; column=1;}
 
 . 					{ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
