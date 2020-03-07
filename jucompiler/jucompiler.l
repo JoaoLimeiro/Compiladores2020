@@ -46,8 +46,8 @@ XOR "^"
 DOTLENGTH ".length"
 PRINT "System.out.print"
 PARSEINT "Integer.parseInt"
-TOKEN "boolean"|"class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"package"|"for"|"var"|"float32"|"bool"|"string"
-RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"
+TOKEN "boolean"|"class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"var"|"float32"|"bool"|"string"
+RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
 
 LETTER [a-zA-Z]
@@ -129,13 +129,15 @@ STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 <COMMENT1>\n 		{line++; column=1;}
 
 "//" 				{BEGIN COMMENT2;}
-<COMMENT2>"\n" 		{BEGIN 0; line++; column=1;}
+<COMMENT2>[\n\r] 		{BEGIN 0; line++; column=1;}
 <COMMENT2>. 		{;}
+
 
 " "|"\f"			{;}
 "\n"|"\r"|"\r\n"	{line++; column=1;}
 
 . 					{ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
+
 
 %%
 int main(int argc, char *argv[])
