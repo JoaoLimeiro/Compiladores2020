@@ -2,9 +2,10 @@
 
 
 %{
-    #define PRINTF if (flag==1) printf
-	#define ERRORS if (flag==0) printf
-	int flag;
+    #define PRINTF if (flagPrint==1) printf
+	#define ERRORS if (flagErros==1) printf
+	int flagPrint;
+	int flagErros;
 	int line = 1; /* Contador de linhas */
 	int column = 1; /* Contador de colunas */
 	int beginning_line;
@@ -55,22 +56,22 @@ LETTER [a-zA-Z]
 NUMBER [0-9]
 NOTZERO [1-9]
 OPTION {NUMBER}|_
-CAR [^\r\n\"\\]
+CAR [^\r|\n|\"|\\|//]
 EXPOENT (E|e)(\+|\-)?{OPTION}+
-ESCAPE \\(r|f|t|n|t|\\|\")
+ESCAPE \\(r|f|t|n|t|\\|{ASPAS})
 NOESCAPE [^r|f|t|n|t|\\|\"]
-ESCAPELIMEIRO (\\u|u)
 
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
 INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
 REALLIT (({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})?{EXPOENT}?)|(({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT})|\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT}?
-STRLIT ({ASPAS}({CAR}|" "|{ESCAPE})+{ASPAS})
-STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
+STRLIT ({ASPAS}({CAR}|" "|{ESCAPE}|"/")*{ASPAS})
+STRERR ({ASPAS}+{CAR}*\\{NOESCAPE}{CAR}*{ASPAS}+)
+STRLITERR ({CAR}*{ASPAS}({CAR}|" "|{ESCAPE})+(\n|\r)+)
 
 
 %%
-{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng;}
+{STRLIT}   		{PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
 {TOKEN}			{
 					for(int i = 0; i < yyleng; i++){
 						if(yytext[i] >= 97 && yytext[i] <= 122){
@@ -116,17 +117,31 @@ STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 {ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng;}
 {INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
 {REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
-{STRLIT}   		{PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
+
+
+
+
+
+
 {STRERR}   		{
 					for (int i=0;i< yyleng; i++){ 
-						if (yytext[i] ==  92)
- 							PRINTF("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
+						if (yytext[i] ==  92){
+							if(yytext[i+1] == 10 ){
+								ERRORS("Line %d, col %d: invalid escape sequence (%c)\n",line, column+i,yytext[i]);
+							}else{
+								ERRORS("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
+							}
+ 								
+						}
  					} 
  					column += yyleng;
 				}
- 
+
+{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng;}
+
+
 "/*" 				{BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
-<COMMENT1><<EOF>> 	{BEGIN 0; printf("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
+<COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
 <COMMENT1>. 		{column+=yyleng;}
 <COMMENT1>\n 		{line++; column=1;}
@@ -135,8 +150,9 @@ STRERR ({ASPAS}{CAR}*\\{NOESCAPE}{CAR}*{ASPAS})
 <COMMENT2>[\n\r] 		{BEGIN 0; line++; column=1;}
 <COMMENT2>. 		{;}
 
+{STRLITERR}		{ERRORS("Line %d, col %d: unterminated string literal\n",line, column);line++; column=1;} 
 
-{SPACE}|"\f"|"\t"			{;}
+{SPACE}|"\f"|"\t"			{;column+=yyleng;}
 "\n"|"\r"|"\r\n"	{line++; column=1;}
 
 . 					{ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
@@ -148,12 +164,14 @@ int main(int argc, char *argv[])
 
     if (argc > 1) {
         if (strcmp(argv[1], "-l") == 0) {
-            flag = 1;
+            flagPrint = 1;
+            flagErros = 1;
             yylex();
             return 0;
         }
 }
-    flag = 0;
+    flagPrint = 0;
+    flagErros = 1;
     yylex();
     return 0;
 }
