@@ -6,6 +6,7 @@
 	#define ERRORS if (flagErros==1) printf
 	int flagPrint;
 	int flagErros;
+	int lastASPAS;
 	int line = 1; /* Contador de linhas */
 	int column = 1; /* Contador de colunas */
 	int beginning_line;
@@ -14,6 +15,8 @@
 
 %X COMMENT1
 %X COMMENT2
+%X STR
+%X STRERROR
 
 BOOLLIT "true"|"false"
 SPACE " "
@@ -45,10 +48,11 @@ ARROW "->"
 LSHIFT "<<"
 RSHIFT ">>"
 XOR "^"
+BOOL "boolean"
 DOTLENGTH ".length"
 PRINT "System.out.print"
 PARSEINT "Integer.parseInt"
-TOKEN "boolean"|"class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"var"|"float32"|"bool"|"string"
+TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"var"|"float32"|"bool"|"string"
 RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
 
@@ -59,16 +63,15 @@ OPTION {NUMBER}|_
 CAR [^\r|\n|\"|\\|//]
 EXPOENT (E|e)(\+|\-)?{OPTION}+
 ESCAPE \\(r|f|t|n|\\|{ASPAS})
-NOESCAPE [^r|f|t|n|\\|\"]
-UNTERMINATED [^\r|\n|{ASPAS}]
+NOESCAPE [^r|f|t|n|\\|\"|]
+UNTERMINATED [^\r|\n]
 
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
 INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
 REALLIT (({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})?{EXPOENT}?)|(({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT})|\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT}?
-STRLIT ({ASPAS}({CAR}|" "|{ESCAPE}|"/")*{ASPAS})
-STRERR ({ASPAS}+{CAR}*\\{NOESCAPE}{CAR}*{ASPAS}+)
-STRLITERR ({ASPAS}({UNTERMINATED})+)
+STRLIT (({CAR}|" "|{ESCAPE}|"/")*{ASPAS})
+STRERR (\\{NOESCAPE})
 
 
 %%
@@ -115,30 +118,71 @@ STRLITERR ({ASPAS}({UNTERMINATED})+)
 {RSHIFT}    	{PRINTF("RSHIFT\n");column += yyleng;}
 {XOR}   		{PRINTF("XOR\n");column += yyleng;}
 {DOTLENGTH}     {PRINTF("DOTLENGTH\n");column += yyleng;}
-{PRINT} 		{PRINTF("PRINTF\n");column += yyleng;}
+{PRINT} 		{PRINTF("PRINT\n");column += yyleng;}
+{BOOL} 			{PRINTF("BOOL\n");column += yyleng;}
 {ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng;}
 {INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
 {REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
-{STRLIT}   		{PRINTF("STRLIT(%s)\n",yytext); column += yyleng;}
 
-
-
-
-
-
-{STRERR}   		{
-					for (int i=0;i< yyleng; i++){ 
-						if (yytext[i] ==  92){
-							if(yytext[i+1] == 10 ){
-								ERRORS("Line %d, col %d: invalid escape sequence (%c)\n",line, column+i,yytext[i]);
-							}else{
-								ERRORS("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
+{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;}
+{ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
+<STR>{ASPAS}				{BEGIN 0;}
+<STR>{ESCAPE}				{column += yyleng;}
+<STR>{STRERR}   			{
+								
+								for (int i=0;i< yyleng; i++){ 
+									if (yytext[i] ==  92){
+										if(yytext[i+1] == 10 ){
+											ERRORS("Line %d, col %d: invalid escape sequence (%c)\n",line, column+i,yytext[i]);
+											ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);
+											line++; column=1;
+											BEGIN 0;
+										}else{
+											ERRORS("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
+											column += yyleng;
+											BEGIN STRERROR;
+										}
+		 									
+									}
+		 						} 
+		 						
 							}
- 								
-						}
- 					} 
- 					column += yyleng;
-				}
+
+<STR>{STRLIT}				{	
+								BEGIN 0;
+								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng;
+							}
+<STR>[\n\r<<EOF>>]		{
+								BEGIN 0;
+								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+							}	
+						
+<STR>.						{column += yyleng;}	
+<STRERROR>{ASPAS}			{BEGIN 0;}
+<STRERROR>{ESCAPE}				{column += yyleng;}
+<STRERROR>{STRERR}   			{
+								
+								for (int i=0;i< yyleng; i++){ 
+									if (yytext[i] ==  92){
+										if(yytext[i+1] == 10 ){
+											ERRORS("Line %d, col %d: invalid escape sequence (%c)\n",line, column+i,yytext[i]);
+											ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);
+											line++; column=1;
+											BEGIN 0;
+										}else{
+											ERRORS("Line %d, col %d: invalid escape sequence (%c%c)\n",line, column+i,yytext[i],yytext[i+1]);
+											column += yyleng;
+										}
+		 									
+									}
+		 						} 
+							}
+<STRERROR>[\n\r<<EOF>>]	{
+								BEGIN 0;
+								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+							}
+
+<STRERROR>.					{column += yyleng;}	
 "/*" 				{BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
 <COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
@@ -149,7 +193,7 @@ STRLITERR ({ASPAS}({UNTERMINATED})+)
 <COMMENT2>[\n\r] 		{BEGIN 0; line++; column=1;}
 <COMMENT2>. 		{;}
 
-{STRLITERR}		{ERRORS("Line %d, col %d: unterminated string literal\n",line, column);column+=yyleng;} 
+
 
 {SPACE}|"\f"|"\t"			{column+=yyleng;}
 "\n"|"\r"|"\r\n"	{line++; column=1;}
