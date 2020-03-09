@@ -61,7 +61,7 @@ NUMBER [0-9]
 NOTZERO [1-9]
 OPTION {NUMBER}|_
 CAR [^\r|\n|\"|\\|//]
-EXPOENT (E|e)(\+|\-)?{OPTION}+
+EXPOENT (E|e)(\+|\-)?({NUMBER}|{NUMBER}{OPTION}*{NUMBER})
 ESCAPE \\(r|f|t|n|\\|{ASPAS})
 NOESCAPE [^r|f|t|n|\\|\"|]
 UNTERMINATED [^\r|\n]
@@ -187,7 +187,7 @@ STRERR (\\{NOESCAPE})
 <COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
 <COMMENT1>. 		{column+=yyleng;}
-<COMMENT1>\n 		{line++; column=1;}
+<COMMENT1>\n|\r\n|\r		{line++; column=1;}
 
 "//" 				{BEGIN COMMENT2;}
 <COMMENT2>[\n\r] 		{BEGIN 0; line++; column=1;}
