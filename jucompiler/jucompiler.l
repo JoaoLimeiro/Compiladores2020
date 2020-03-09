@@ -52,7 +52,7 @@ BOOL "boolean"
 DOTLENGTH ".length"
 PRINT "System.out.print"
 PARSEINT "Integer.parseInt"
-TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"var"|"float32"|"bool"|"string"
+TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"float32"|"bool"
 RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
 
