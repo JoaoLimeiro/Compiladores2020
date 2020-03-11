@@ -52,7 +52,7 @@ BOOL "boolean"
 DOTLENGTH ".length"
 PRINT "System.out.print"
 PARSEINT "Integer.parseInt"
-TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"var"|"float32"|"bool"|"string"
+TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"float32"|"bool"
 RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
 
@@ -63,14 +63,14 @@ OPTION {NUMBER}|_
 CAR [^\r|\n|\"|\\|//]
 EXPOENT (E|e)(\+|\-)?({NUMBER}|{NUMBER}{OPTION}*{NUMBER})
 ESCAPE \\(r|f|t|n|\\|{ASPAS})
-NOESCAPE [^r|f|t|n|\\|\"|]
+NOESCAPE [^r|f|t|n|\\|\"]
 UNTERMINATED [^\r|\n]
 
 
 ID ({LETTER}|_|$)({LETTER}|{NUMBER}|_|$)*
 INTLIT {NOTZERO}{OPTION}*{NUMBER}|{NUMBER}
 REALLIT (({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER})?{EXPOENT}?)|(({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT})|\.({NUMBER}+|{NUMBER}{OPTION}*{NUMBER}){EXPOENT}?
-STRLIT (({CAR}|" "|{ESCAPE}|"/")*{ASPAS})
+STRLIT (({CAR}|" "|{ESCAPE}|"/"|"|")*{ASPAS})
 STRERR (\\{NOESCAPE})
 
 
@@ -152,7 +152,11 @@ STRERR (\\{NOESCAPE})
 								BEGIN 0;
 								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng;
 							}
-<STR>[\n\r<<EOF>>]		{
+<STR><<EOF>>			{
+								BEGIN 0;
+								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+							}	
+<STR>"\n"|"\r"|"\r\n"			{
 								BEGIN 0;
 								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
 							}	
@@ -177,7 +181,11 @@ STRERR (\\{NOESCAPE})
 									}
 		 						} 
 							}
-<STRERROR>[\n\r<<EOF>>]	{
+<STRERROR><<EOF>>	{
+								BEGIN 0;
+								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+							}
+<STRERROR>"\n"|"\r"|"\r\n"	{
 								BEGIN 0;
 								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
 							}
@@ -190,7 +198,7 @@ STRERR (\\{NOESCAPE})
 <COMMENT1>\n|\r\n|\r		{line++; column=1;}
 
 "//" 				{BEGIN COMMENT2;}
-<COMMENT2>[\n\r] 		{BEGIN 0; line++; column=1;}
+<COMMENT2>\n|\r\n|\r 		{BEGIN 0; line++; column=1;}
 <COMMENT2>. 		{;}
 
 
@@ -211,12 +219,15 @@ int main(int argc, char *argv[])
             flagErros = 1;
             yylex();
             return 0;
+        }else if (strcmp(argv[1], "-e1") == 0){
+        	flagPrint = 0;
+    		flagErros = 1;
+		    yylex();
+		    return 0;
         }
+
 }
-    flagPrint = 0;
-    flagErros = 1;
-    yylex();
-    return 0;
+    
 }
 int yywrap() {
     return 1;
