@@ -194,17 +194,19 @@ STRERR (\\{NOESCAPE})
 "/*" 				{BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
 <COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
+<COMMENT1>\n|\r|\r\n		{line++; column=1;}
 <COMMENT1>. 		{column+=yyleng;}
-<COMMENT1>\n|\r\n|\r		{line++; column=1;}
+
+
 
 "//" 				{BEGIN COMMENT2;}
-<COMMENT2>\n|\r\n|\r 		{BEGIN 0; line++; column=1;}
+<COMMENT2>\n|\r|\r\n		{BEGIN 0; line++; column=1;}
 <COMMENT2>. 		{;}
 
 
 
 {SPACE}|"\f"|"\t"			{column+=yyleng;}
-"\n"|"\r"|"\r\n"	{line++; column=1;}
+\n|\r|\r\n	{line++; column=1;}
 
 . 					{ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
