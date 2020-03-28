@@ -2,10 +2,13 @@
 
 
 %{
+	#include "y.tab.h"
+
     #define PRINTF if (flagPrint==1) printf
 	#define ERRORS if (flagErros==1) printf
 	int flagPrint;
 	int flagErros;
+	int flagTree;
 	int lastASPAS;
 	int line = 1; /* Contador de linhas */
 	int column = 1; /* Contador de colunas */
@@ -52,9 +55,20 @@ BOOL "boolean"
 DOTLENGTH ".length"
 PRINT "System.out.print"
 PARSEINT "Integer.parseInt"
-TOKEN "class"|"double"|"else"|"if"|"int"|"public"|"return"|"static"|"String"|"void"|"while"|"float32"|"bool"
-RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
+CLASS "class"
+ELSE "else"
+IF "if"
+INT "int"
+PUBLIC "public"
+RETURN "return"
+STATIC "static"
+STRING "String"
+VOID "void"
+WHILE "while"
+TOKEN "float32"|"bool"
+DOUBLE "double"
+RESERVED "++"|"--"|"null"|"Integer"|"System"|"abstract"|"continue"|"new"|"switch"|"assert"|"default"|"synchronized"|"do"|"goto"|"private"|"this"|"break"|"implements"|"protected"|"throw"|"byte"|"import"|"throws"|"case"|"enum"|"instanceof"|"transient"|"catch"|"extends"|"short"|"try"|"char"|"final"|"interface"|"finally"|"long"|"strictfp"|"volatile"|"const"|"float"|"native"|"super"|"for"|"package"
 
 LETTER [a-zA-Z]
 NUMBER [0-9]
@@ -87,44 +101,56 @@ STRERR (\\({NOESCAPE}|"|"))
 					PRINTF("\n");
 					column += yyleng;
 				}
-{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng;}
-{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng;}
-{PARSEINT}  	{PRINTF("PARSEINT\n");column += yyleng;}
-{AND}   		{PRINTF("AND\n"); column += yyleng;}
-{ASSIGN}    	{PRINTF("ASSIGN\n"); column += yyleng;}
-{STAR}  		{PRINTF("STAR\n");column += yyleng;}
-{COMMA}     	{PRINTF("COMMA\n");column += yyleng;}
-{DIV}   		{PRINTF("DIV\n");column += yyleng;}
-{EQ}    		{PRINTF("EQ\n");column += yyleng;}
-{GE}    		{PRINTF("GE\n");column += yyleng;}
-{GT}    		{PRINTF("GT\n");column += yyleng;}
-{LBRACE}    	{PRINTF("LBRACE\n");column += yyleng;}
-{LE}    		{PRINTF("LE\n");column += yyleng;}
-{LPAR}  		{PRINTF("LPAR\n");column += yyleng;}
-{LSQ}   		{PRINTF("LSQ\n");column += yyleng;}
-{LT}    		{PRINTF("LT\n");column += yyleng;}
-{MINUS} 		{PRINTF("MINUS\n");column += yyleng;}
-{MOD}   		{PRINTF("MOD\n");column += yyleng;}
-{NE}    		{PRINTF("NE\n");column += yyleng;}
-{NOT}   		{PRINTF("NOT\n");column += yyleng;}
-{OR}    		{PRINTF("OR\n");column += yyleng;}
-{PLUS}  		{PRINTF("PLUS\n");column += yyleng;}
-{RBRACE}    	{PRINTF("RBRACE\n");column += yyleng;}
-{RPAR}  		{PRINTF("RPAR\n");column += yyleng;}
-{RSQ}   		{PRINTF("RSQ\n");column += yyleng;}
-{SEMICOLON} 	{PRINTF("SEMICOLON\n");column += yyleng;}
-{ARROW} 		{PRINTF("ARROW\n");column += yyleng;}
-{LSHIFT}    	{PRINTF("LSHIFT\n");column += yyleng;}
-{RSHIFT}    	{PRINTF("RSHIFT\n");column += yyleng;}
-{XOR}   		{PRINTF("XOR\n");column += yyleng;}
-{DOTLENGTH}     {PRINTF("DOTLENGTH\n");column += yyleng;}
-{PRINT} 		{PRINTF("PRINT\n");column += yyleng;}
-{BOOL} 			{PRINTF("BOOL\n");column += yyleng;}
-{ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng;}
-{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng;}
-{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng;}
+{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng; if (flagTree ==1) return RESERVED ;}
+{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return BOOLLIT;}
+{PARSEINT}  	{PRINTF("PARSEINT\n");column += yyleng; if (flagTree ==1) return PARSEINT;}
+{AND}   		{PRINTF("AND\n"); column += yyleng; if (flagTree ==1) return AND;}
+{ASSIGN}    	{PRINTF("ASSIGN\n"); column += yyleng; if (flagTree ==1) return ASSIGN;}
+{STAR}  		{PRINTF("STAR\n");column += yyleng; if (flagTree ==1) return STAR;}
+{COMMA}     	{PRINTF("COMMA\n");column += yyleng; if (flagTree ==1) return COMMA;}
+{DIV}   		{PRINTF("DIV\n");column += yyleng; if (flagTree ==1) return DIV;}
+{EQ}    		{PRINTF("EQ\n");column += yyleng; if (flagTree ==1) return EQ;}
+{GE}    		{PRINTF("GE\n");column += yyleng; if (flagTree ==1) return GE;}
+{GT}    		{PRINTF("GT\n");column += yyleng; if (flagTree ==1) return GT;}
+{LBRACE}    	{PRINTF("LBRACE\n");column += yyleng; if (flagTree ==1) return LBRACE;}
+{LE}    		{PRINTF("LE\n");column += yyleng; if (flagTree ==1) return LE;}
+{LPAR}  		{PRINTF("LPAR\n");column += yyleng; if (flagTree ==1) return LPAR;}
+{LSQ}   		{PRINTF("LSQ\n");column += yyleng; if (flagTree ==1) return LSQ;}
+{LT}    		{PRINTF("LT\n");column += yyleng; if (flagTree ==1) return LT;}
+{MINUS} 		{PRINTF("MINUS\n");column += yyleng; if (flagTree ==1) return MINUS;}
+{MOD}   		{PRINTF("MOD\n");column += yyleng; if (flagTree ==1) return MOD;}
+{NE}    		{PRINTF("NE\n");column += yyleng; if (flagTree ==1) return NE;}
+{NOT}   		{PRINTF("NOT\n");column += yyleng; if (flagTree ==1) return NOT;}
+{OR}    		{PRINTF("OR\n");column += yyleng; if (flagTree ==1) return OR;}
+{PLUS}  		{PRINTF("PLUS\n");column += yyleng; if (flagTree ==1) return PLUS;}
+{RBRACE}    	{PRINTF("RBRACE\n");column += yyleng; if (flagTree ==1) return RBRACE;}
+{RPAR}  		{PRINTF("RPAR\n");column += yyleng; if (flagTree ==1) return RPAR;}
+{RSQ}   		{PRINTF("RSQ\n");column += yyleng; if (flagTree ==1) return RSQ;}
+{SEMICOLON} 	{PRINTF("SEMICOLON\n");column += yyleng; if (flagTree ==1) return SEMICOLON;}
+{ARROW} 		{PRINTF("ARROW\n");column += yyleng; if (flagTree ==1) return ARROW;}
+{LSHIFT}    	{PRINTF("LSHIFT\n");column += yyleng; if (flagTree ==1) return LSHIFT;}
+{RSHIFT}    	{PRINTF("RSHIFT\n");column += yyleng; if (flagTree ==1) return RSHIFT;}
+{XOR}   		{PRINTF("XOR\n");column += yyleng; if (flagTree ==1) return XOR;}
+{DOTLENGTH}     	{PRINTF("DOTLENGTH\n"); column += yyleng; if (flagTree ==1) return DOTLENGTH;}
+{PRINT} 		{PRINTF("PRINT\n");column += yyleng; if (flagTree ==1) return PRINT;}
+{BOOL} 			{PRINTF("BOOL\n");column += yyleng; if (flagTree ==1) return BOOL;}
+{INT}   		{PRINTF("INT\n");column += yyleng;if (flagTree ==1) return INT;}
+{ELSE}  		{PRINTF("ELSE\n");column += yyleng;if (flagTree ==1) return ELSE;}
+{IF}    		{PRINTF("IF\n");column += yyleng;if (flagTree ==1) return IF; }
+{CLASS} 		{PRINTF("CLASS\n");column += yyleng;if (flagTree ==1) return CLASS;}
+{PUBLIC}		    {PRINTF("PUBLIC\n");column += yyleng;if (flagTree ==1) return PUBLIC; }
+{RETURN}		    {PRINTF("RETURN\n");column += yyleng;if (flagTree ==1) return RETURN; }
+{STATIC}		    {PRINTF("STATIC\n");column += yyleng;if (flagTree ==1) return STATIC;}
+{STRING}		    {PRINTF("STRING\n");column += yyleng;if (flagTree ==1) return STRING;}
+{VOID}  		{PRINTF("VOID\n");column += yyleng;if (flagTree ==1) return VOID;}
+{WHILE} 		{PRINTF("WHILE\n");column += yyleng;if (flagTree ==1) return WHILE;}
+{DOUBLE} 		{PRINTF("DOUBLE\n");column += yyleng;if (flagTree ==1) return DOUBLE;}
 
-{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;}
+{ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng; if (flagTree ==1) return ID;}
+{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return INTLIT;}
+{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return REALLIT;}
+
+{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;if (flagTree ==1) return STRLIT;}
 {ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
 <STR>{ASPAS}				{BEGIN 0;}
 <STR>{ESCAPE}				{column += yyleng;}
@@ -150,7 +176,7 @@ STRERR (\\({NOESCAPE}|"|"))
 
 <STR>{STRLIT}				{	
 								BEGIN 0;
-								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng;
+								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng; if (flagTree ==1) return STRLIT;
 							}
 <STR><<EOF>>			{
 								BEGIN 0;
@@ -219,18 +245,37 @@ int main(int argc, char *argv[])
         if (strcmp(argv[1], "-l") == 0) {
             flagPrint = 1;
             flagErros = 1;
+			flagTree = 0;
             yylex();
             return 0;
         }else if (strcmp(argv[1], "-e1") == 0){
         	flagPrint = 0;
     		flagErros = 1;
+			flagTree = 0;
 		    yylex();
 		    return 0;
         }
+		else if (strcmp(argv[1], "-t") == 0){
+			flagPrint = 0;
+			flagTree = 1;
+
+		}
+		else if (strcmp(argv[1], "-e2") == 0){
+		flagTree = 1;
+		flagErros = 1;
+
+		}
+
 
 }
     
 }
 int yywrap() {
     return 1;
+}
+
+void yyerror (char *s) {
+	int beginCol=column- strlen(yytext);
+
+  printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
 }
