@@ -89,11 +89,11 @@ extern int yydebug;
     CLASS = 299,
     IF = 300,
     RETURN = 301,
-    INTLIT = 302,
-    ID = 303,
-    STRLIT = 304,
-    REALLIT = 305,
-    RESERVED = 306,
+    ID = 302,
+    STRLIT = 303,
+    REALLIT = 304,
+    RESERVED = 305,
+    INTLIT = 306,
     IFS = 307,
     MUL = 308
   };
@@ -143,11 +143,11 @@ extern int yydebug;
 #define CLASS 299
 #define IF 300
 #define RETURN 301
-#define INTLIT 302
-#define ID 303
-#define STRLIT 304
-#define REALLIT 305
-#define RESERVED 306
+#define ID 302
+#define STRLIT 303
+#define REALLIT 304
+#define RESERVED 305
+#define INTLIT 306
 #define IFS 307
 #define MUL 308
 
@@ -156,7 +156,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 8 "jucompiler.y" /* yacc.c:1909  */
+#line 11 "jucompiler.y" /* yacc.c:1909  */
 
 int ival;
 char * cval;

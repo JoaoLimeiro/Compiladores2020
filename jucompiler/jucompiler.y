@@ -1,5 +1,8 @@
 %{
-    #include <stdio.h>
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
     int yylex(void);
     void yyerror (const char *s);
 %}
@@ -11,10 +14,9 @@ char * cval;
 
 }
 
-%token BOOLLIT PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR  ELSE INT DOUBLE RPAR RSQ
-%token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT BOOL WHILE VOID STRING STATIC PUBLIC CLASS IF RETURN
-%token <ival> INTLIT
-%token <cval> ID STRLIT REALLIT RESERVED
+%token BOOLLIT PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT DOUBLE RPAR RSQ
+%token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT BOOL WHILE VOID STRING STATIC PUBLIC CLASS IF RETURN 
+%token <cval> ID STRLIT REALLIT RESERVED INTLIT
 
 %nonassoc IFS
 %nonassoc ELSE
@@ -57,7 +59,6 @@ MethodDecl:
         ;
     
 FieldDecl:
-
         PUBLIC STATIC Type ID CommaId SEMICOLON
     |   error SEMICOLON
         ;
@@ -65,6 +66,7 @@ FieldDecl:
 
 CommaId:
     |   COMMA ID CommaId
+
     ;
 
 
@@ -72,18 +74,18 @@ Type:
          BOOL
     |    INT
     |    DOUBLE
+    
     ;
 
 MethodHeader:
         VOID ID LPAR FormalParams RPAR
     |   Type ID LPAR FormalParams RPAR
-    |   VOID ID LPAR RPAR
-    |   Type ID LPAR RPAR
     ;
 
 FormalParams:
        Type ID CommaTypeId
-    
+    |  STRING LSQ RSQ ID
+    |
     ;
 
 CommaTypeId:
@@ -137,7 +139,7 @@ MethodInvAssParseArgs:
         MethodInvocation
     |   Assignment
     |   ParseArgs
-    |   error
+    |   error			
     |
     ;
 
@@ -196,5 +198,6 @@ Expr:
 
 
 %%
+
 
 

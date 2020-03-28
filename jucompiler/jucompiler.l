@@ -146,11 +146,11 @@ STRERR (\\({NOESCAPE}|"|"))
 {WHILE} 		{PRINTF("WHILE\n");column += yyleng;if (flagTree ==1) return WHILE;}
 {DOUBLE} 		{PRINTF("DOUBLE\n");column += yyleng;if (flagTree ==1) return DOUBLE;}
 
-{ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng; if (flagTree ==1) return ID;}
-{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return INTLIT;}
-{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return REALLIT;}
+{ID}    		{PRINTF("ID(%s)\n",yytext); column += yyleng; yylval.cval = strdup(yytext); if (flagTree ==1) return ID;}
+{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return INTLIT;}
+{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return REALLIT;}
 
-{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;if (flagTree ==1) return STRLIT;}
+{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;yylval.cval = strdup(yytext);if (flagTree ==1) return STRLIT;}
 {ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
 <STR>{ASPAS}				{BEGIN 0;}
 <STR>{ESCAPE}				{column += yyleng;}
@@ -176,7 +176,7 @@ STRERR (\\({NOESCAPE}|"|"))
 
 <STR>{STRLIT}				{	
 								BEGIN 0;
-								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng; if (flagTree ==1) return STRLIT;
+								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return STRLIT;
 							}
 <STR><<EOF>>			{
 								BEGIN 0;
@@ -258,11 +258,21 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[1], "-t") == 0){
 			flagPrint = 0;
 			flagTree = 1;
+			flagErros = 1;
+			yyparse();
+			yylex();
+      			
+
 
 		}
 		else if (strcmp(argv[1], "-e2") == 0){
 		flagTree = 1;
 		flagErros = 1;
+		flagPrint = 0;
+		yyparse();
+		yylex();
+      		
+
 
 		}
 
@@ -276,6 +286,6 @@ int yywrap() {
 
 void yyerror (char *s) {
 	int beginCol=column- strlen(yytext);
-
-  printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
+  	printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
 }
+
