@@ -151,6 +151,12 @@ STRERR (\\({NOESCAPE}|"|"))
 {REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return REALLIT;}
 
 {ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n"); column += yyleng;yylval.cval = strdup(yytext);if (flagTree ==1) return STRLIT;}
+
+{ASPAS}{STRLIT}				{	
+							
+								PRINTF("STRLIT(%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return STRLIT;
+}
+				
 {ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
 <STR>{ASPAS}				{BEGIN 0;}
 <STR>{ESCAPE}				{column += yyleng;}
@@ -174,10 +180,7 @@ STRERR (\\({NOESCAPE}|"|"))
 		 						
 							}
 
-<STR>{STRLIT}				{	
-								BEGIN 0;
-								PRINTF("STRLIT(\"%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return STRLIT;
-							}
+			
 <STR><<EOF>>			{
 								BEGIN 0;
 								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
@@ -273,7 +276,7 @@ int main(int argc, char *argv[])
 		yylex();
       		
 
-  
+
 		}
 
 
