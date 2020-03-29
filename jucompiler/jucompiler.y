@@ -118,7 +118,7 @@ Statement:
     ;
 
 Statement2:
-	Statement
+	Statement Statement2
     |
 ;
 
@@ -145,6 +145,7 @@ MethodInvAssParseArgs:
 
 MethodInvocation:
        ID LPAR Expr CommaExpr RPAR
+    |  ID LPAR RPAR
     |  ID LPAR Expr error RPAR
     ;
 
