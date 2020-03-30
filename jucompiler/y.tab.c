@@ -155,7 +155,7 @@ extern int yydebug;
     REALLIT = 304,
     RESERVED = 305,
     INTLIT = 306,
-    IFS = 307,
+    IF2 = 307,
     MUL = 308
   };
 #endif
@@ -209,7 +209,7 @@ extern int yydebug;
 #define REALLIT 304
 #define RESERVED 305
 #define INTLIT 306
-#define IFS 307
+#define IF2 307
 #define MUL 308
 
 /* Value type.  */
@@ -565,7 +565,7 @@ static const char *const yytname[] =
   "RSQ", "PLUS", "RBRACE", "SQ", "SEMICOLON", "ARROW", "LSHIFT", "RSHIFT",
   "XOR", "DOTLENGTH", "PRINT", "BOOL", "WHILE", "VOID", "STRING", "STATIC",
   "PUBLIC", "CLASS", "IF", "RETURN", "ID", "STRLIT", "REALLIT", "RESERVED",
-  "INTLIT", "IFS", "MUL", "$accept", "Program", "Declaring", "MethodDecl",
+  "INTLIT", "IF2", "MUL", "$accept", "Program", "Declaring", "MethodDecl",
   "FieldDecl", "CommaId", "Type", "MethodHeader", "FormalParams",
   "CommaTypeId", "MethodBody", "StatementVarDecl", "VarDecl", "Statement",
   "Statement2", "ExprSemicolon", "ExprOrStrlit", "MethodInvAssParseArgs",
@@ -1749,6 +1749,7 @@ yyreturn:
   return yyresult;
 }
 #line 201 "jucompiler.y" /* yacc.c:1906  */
+
 
 
 

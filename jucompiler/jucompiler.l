@@ -158,7 +158,7 @@ STRERR (\\({NOESCAPE}|"|"))
 }
 				
 {ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
-<STR>{ASPAS}				{BEGIN 0;}
+<STR>{ASPAS}				{BEGIN 0; column += yyleng;}
 <STR>{ESCAPE}				{column += yyleng;}
 <STR>{STRERR}   			{
 								
@@ -191,7 +191,7 @@ STRERR (\\({NOESCAPE}|"|"))
 							}	
 						
 <STR>.						{column += yyleng;}	
-<STRERROR>{ASPAS}			{BEGIN 0;}
+<STRERROR>{ASPAS}			{BEGIN 0; column += yyleng;}
 <STRERROR>{ESCAPE}				{column += yyleng;}
 <STRERROR>{STRERR}   			{
 								
@@ -230,12 +230,14 @@ STRERR (\\({NOESCAPE}|"|"))
 
 "//" 				{BEGIN COMMENT2;}
 <COMMENT2>\n|\r|\r\n		{BEGIN 0; line++; column=1;}
-<COMMENT2>. 		{;}
+<COMMENT2>. 		{column += yyleng;}
 
 
 
 {SPACE}|"\f"|"\t"			{column+=yyleng;}
+
 \n|\r|\r\n	{line++; column=1;}
+
 
 . 					{ERRORS("Line %d, col %d: illegal character (%s)\n", line, column, yytext); column+=yyleng;}
 
@@ -261,7 +263,7 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[1], "-t") == 0){
 			flagPrint = 0;
 			flagTree = 1;
-			flagErros = 1;
+			flagErros = 0;
 			yyparse();
 			yylex();
       			
@@ -291,4 +293,5 @@ void yyerror (char *s) {
 	int beginCol=column- strlen(yytext);
   	printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
 }
+
 

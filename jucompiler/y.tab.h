@@ -94,7 +94,7 @@ extern int yydebug;
     REALLIT = 304,
     RESERVED = 305,
     INTLIT = 306,
-    IFS = 307,
+    IF2 = 307,
     MUL = 308
   };
 #endif
@@ -148,7 +148,7 @@ extern int yydebug;
 #define REALLIT 304
 #define RESERVED 305
 #define INTLIT 306
-#define IFS 307
+#define IF2 307
 #define MUL 308
 
 /* Value type.  */

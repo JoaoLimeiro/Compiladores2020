@@ -18,7 +18,7 @@ char * cval;
 %token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT BOOL WHILE VOID STRING STATIC PUBLIC CLASS IF RETURN 
 %token <cval> ID STRLIT REALLIT RESERVED INTLIT
 
-%nonassoc IFS
+%nonassoc IF2
 %nonassoc ELSE
 
 
@@ -109,7 +109,7 @@ VarDecl:
 
 Statement:
         LBRACE Statement2 RBRACE
-    |   IF LPAR Expr RPAR Statement %prec IFS
+    |   IF LPAR Expr RPAR Statement %prec IF2
     |   IF LPAR Expr RPAR Statement ELSE Statement
     |   WHILE LPAR Expr RPAR Statement
     |   RETURN ExprSemicolon
@@ -199,6 +199,7 @@ Expr:
 
 
 %%
+
 
 
 
