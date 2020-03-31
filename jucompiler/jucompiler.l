@@ -221,7 +221,7 @@ STRERR (\\({NOESCAPE}|"|"))
 
 <STRERROR>.					{column += yyleng;}	
 "/*" 				{BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
-<COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); column+=yyleng;}
+<COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); }
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
 <COMMENT1>\n|\r|\r\n		{line++; column=1;}
 <COMMENT1>. 		{column+=yyleng;}
