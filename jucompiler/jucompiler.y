@@ -312,7 +312,6 @@ CommaExpr:
     ;
 
 
-
 Assignment:
 
         ID ASSIGN Expr
@@ -343,9 +342,9 @@ Expr:
 
     |   Expr MOD Expr
 
-    |   Expr AND Expr
+    |   Expr AND Expr1
 
-    |   Expr OR Expr
+    |   Expr OR Expr1
 
     |   Expr XOR Expr
 
@@ -393,7 +392,61 @@ Expr:
 
     ;
 
+Expr1:
 
+        Expr1 PLUS Expr
+
+    |   Expr1 MINUS Expr
+
+    |   Expr1 STAR Expr
+
+    |   Expr1 DIV Expr
+
+    |   Expr1 MOD Expr
+
+    |   Expr1 XOR Expr
+
+    |   Expr1 LSHIFT Expr
+
+    |   Expr1 RSHIFT Expr
+
+    |   Expr1 EQ Expr
+
+    |   Expr1 GE Expr
+
+    |   Expr1 GT Expr
+
+    |   Expr1 LE Expr
+
+    |   Expr1 LT Expr
+
+    |   Expr1 NE Expr
+
+    |   PLUS Expr
+
+    |   MINUS Expr
+
+    |   NOT Expr
+
+    |   LPAR Expr RPAR
+
+    |   LPAR error RPAR
+
+    |   MethodInvocation 
+
+    |   ParseArgs
+
+    |   ID
+
+    |   ID DOTLENGTH
+
+    |   INTLIT
+
+    |   REALLIT
+
+    |   BOOLLIT
+
+    ;
 
 
 
