@@ -1,0 +1,24 @@
+ID(loop)
+Line 2, col 5: illegal character (:)
+ID(cmp)
+INTLIT(0)
+INTLIT(51)
+Line 2, col 14: illegal character (:)
+COMMA
+INTLIT(0)
+ID(xcd10xba)
+Line 3, col 1: illegal character (:)
+ID(ab)
+INTLIT(0)
+ID(x123)
+ID(ret)
+PUBLIC
+RESERVED(this)
+RESERVED(++)
+RESERVED(protected)
+PRINT
+LPAR
+Line 7, col 18: unterminated string literal
+Line 8, col 11: invalid escape sequence (\h)
+Line 8, col 1: unterminated string literal
+Line 12, col 1: unterminated comment
