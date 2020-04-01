@@ -2,6 +2,7 @@
 
 
 %{
+	#include "structures.h"
 	#include "y.tab.h"
 
     #define PRINTF if (flagPrint==1) printf
@@ -14,6 +15,8 @@
 	int column = 1; /* Contador de colunas */
 	int beginning_line;
   	int beginning_col;
+
+  	extern Tree* myprogram;
 %}
 
 %X COMMENT1
@@ -184,6 +187,7 @@ STRERR (\\({NOESCAPE}|"|"))
 <STR><<EOF>>			{
 								BEGIN 0;
 								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+								if (flagTree ==1) return END;
 							}	
 <STR>"\n"|"\r"|"\r\n"			{
 								BEGIN 0;
@@ -213,6 +217,7 @@ STRERR (\\({NOESCAPE}|"|"))
 <STRERROR><<EOF>>	{
 								BEGIN 0;
 								ERRORS("Line %d, col %d: unterminated string literal\n",line, lastASPAS);line++; column=1;
+								if (flagTree ==1) return END;
 							}
 <STRERROR>"\n"|"\r"|"\r\n"	{
 								BEGIN 0;
@@ -221,7 +226,7 @@ STRERR (\\({NOESCAPE}|"|"))
 
 <STRERROR>.					{column += yyleng;}	
 "/*" 				{BEGIN COMMENT1; beginning_col = column; beginning_line = line; column+=yyleng;}
-<COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col);}
+<COMMENT1><<EOF>> 	{BEGIN 0; ERRORS("Line %d, col %d: unterminated comment\n", beginning_line, beginning_col); if (flagTree ==1) return END;}
 <COMMENT1>"*/" 		{BEGIN 0; column+=yyleng;}
 <COMMENT1>\n|\r|\r\n		{line++; column=1;}
 <COMMENT1>. 		{column+=yyleng;}
@@ -271,17 +276,14 @@ int main(int argc, char *argv[])
 
 		}
 		else if (strcmp(argv[1], "-e2") == 0){
-		flagTree = 1;
-		flagErros = 1;
-		flagPrint = 0;
-		yyparse();
-		yylex();
-      		
-
-
+			flagTree = 1;
+			flagErros = 1;
+			flagPrint = 0;
+			yyparse();
+			yylex();
 		}
 
-}
+	}
     
 }
 int yywrap() {

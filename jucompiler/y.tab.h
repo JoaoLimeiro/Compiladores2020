@@ -39,129 +39,128 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     BOOLLIT = 258,
-     PARSEINT = 259,
-     AND = 260,
-     ASSIGN = 261,
-     STAR = 262,
-     COMMA = 263,
-     DIV = 264,
-     EQ = 265,
-     GE = 266,
-     GT = 267,
-     LBRACE = 268,
-     LE = 269,
-     LPAR = 270,
-     LSQ = 271,
-     LT = 272,
-     MINUS = 273,
-     MOD = 274,
-     NE = 275,
-     NOT = 276,
-     OR = 277,
-     ELSE = 278,
-     INT = 279,
-     DOUBLE = 280,
-     RPAR = 281,
-     RSQ = 282,
-     PLUS = 283,
-     RBRACE = 284,
-     SQ = 285,
-     SEMICOLON = 286,
-     ARROW = 287,
-     LSHIFT = 288,
-     RSHIFT = 289,
-     XOR = 290,
-     DOTLENGTH = 291,
-     PRINT = 292,
-     BOOL = 293,
-     WHILE = 294,
-     VOID = 295,
-     STRING = 296,
-     STATIC = 297,
-     PUBLIC = 298,
-     CLASS = 299,
-     IF = 300,
-     RETURN = 301,
-     ID = 302,
-     STRLIT = 303,
-     REALLIT = 304,
-     RESERVED = 305,
-     INTLIT = 306,
-     IF2 = 307,
-     MUL = 308
+     ID = 258,
+     STRLIT = 259,
+     REALLIT = 260,
+     RESERVED = 261,
+     INTLIT = 262,
+     BOOLLIT = 263,
+     PARSEINT = 264,
+     AND = 265,
+     ASSIGN = 266,
+     STAR = 267,
+     COMMA = 268,
+     DIV = 269,
+     EQ = 270,
+     GE = 271,
+     GT = 272,
+     LBRACE = 273,
+     LE = 274,
+     LPAR = 275,
+     LSQ = 276,
+     LT = 277,
+     MINUS = 278,
+     MOD = 279,
+     NE = 280,
+     NOT = 281,
+     OR = 282,
+     ELSE = 283,
+     INT = 284,
+     DOUBLE = 285,
+     RPAR = 286,
+     RSQ = 287,
+     PLUS = 288,
+     RBRACE = 289,
+     SQ = 290,
+     SEMICOLON = 291,
+     ARROW = 292,
+     LSHIFT = 293,
+     RSHIFT = 294,
+     XOR = 295,
+     DOTLENGTH = 296,
+     PRINT = 297,
+     BOOL = 298,
+     WHILE = 299,
+     VOID = 300,
+     STRING = 301,
+     STATIC = 302,
+     PUBLIC = 303,
+     CLASS = 304,
+     IF = 305,
+     RETURN = 306,
+     END = 307,
+     IF2 = 308,
+     MUL = 309
    };
 #endif
 /* Tokens.  */
-#define BOOLLIT 258
-#define PARSEINT 259
-#define AND 260
-#define ASSIGN 261
-#define STAR 262
-#define COMMA 263
-#define DIV 264
-#define EQ 265
-#define GE 266
-#define GT 267
-#define LBRACE 268
-#define LE 269
-#define LPAR 270
-#define LSQ 271
-#define LT 272
-#define MINUS 273
-#define MOD 274
-#define NE 275
-#define NOT 276
-#define OR 277
-#define ELSE 278
-#define INT 279
-#define DOUBLE 280
-#define RPAR 281
-#define RSQ 282
-#define PLUS 283
-#define RBRACE 284
-#define SQ 285
-#define SEMICOLON 286
-#define ARROW 287
-#define LSHIFT 288
-#define RSHIFT 289
-#define XOR 290
-#define DOTLENGTH 291
-#define PRINT 292
-#define BOOL 293
-#define WHILE 294
-#define VOID 295
-#define STRING 296
-#define STATIC 297
-#define PUBLIC 298
-#define CLASS 299
-#define IF 300
-#define RETURN 301
-#define ID 302
-#define STRLIT 303
-#define REALLIT 304
-#define RESERVED 305
-#define INTLIT 306
-#define IF2 307
-#define MUL 308
+#define ID 258
+#define STRLIT 259
+#define REALLIT 260
+#define RESERVED 261
+#define INTLIT 262
+#define BOOLLIT 263
+#define PARSEINT 264
+#define AND 265
+#define ASSIGN 266
+#define STAR 267
+#define COMMA 268
+#define DIV 269
+#define EQ 270
+#define GE 271
+#define GT 272
+#define LBRACE 273
+#define LE 274
+#define LPAR 275
+#define LSQ 276
+#define LT 277
+#define MINUS 278
+#define MOD 279
+#define NE 280
+#define NOT 281
+#define OR 282
+#define ELSE 283
+#define INT 284
+#define DOUBLE 285
+#define RPAR 286
+#define RSQ 287
+#define PLUS 288
+#define RBRACE 289
+#define SQ 290
+#define SEMICOLON 291
+#define ARROW 292
+#define LSHIFT 293
+#define RSHIFT 294
+#define XOR 295
+#define DOTLENGTH 296
+#define PRINT 297
+#define BOOL 298
+#define WHILE 299
+#define VOID 300
+#define STRING 301
+#define STATIC 302
+#define PUBLIC 303
+#define CLASS 304
+#define IF 305
+#define RETURN 306
+#define END 307
+#define IF2 308
+#define MUL 309
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 21 "jucompiler.y"
+#line 25 "jucompiler.y"
 {
 
-int ival;
-
-char * cval;
-
-
-
+    int ival;
+    char * cval;
+    s_Tree tree;
 }
 /* Line 1529 of yacc.c.  */
-#line 165 "y.tab.h"
+#line 164 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

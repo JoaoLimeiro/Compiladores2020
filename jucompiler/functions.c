@@ -4,29 +4,43 @@
 #include <string.h>
 #include <stdio.h>
 
-is_program* insert_program(id_class_list* idclass, type_declaring_list* typeDecl)
+s_Tree new_node(char* value, char* type)
 {
-	is_program* ip=(is_program*)malloc(sizeof(is_program));
+	s_Tree node=(s_Tree)malloc(sizeof(Tree));
+	node->value=strdup(value);
+	node->type=strdup(type);
+	node->father = NULL;
+	node->child = NULL;
+	node->neighbor = NULL;
 
-	ip->idClassList=idclass;
-	ip->typeDeclList=typeDecl;
-
-	return ip;
+	return node;
 }
 
-type_declaring_list* insert_decltype(type_declaring_list* head, is_decl* iv)
+s_Tree insert_node(s_Tree father, s_Tree node){
+	if(father != NULL && node != NULL){
+		father->child = node;
+		node->father = father;
+
+		return node;
+	}
+	return NULL;
+}
+
+s_Tree insert_neighbor(s_Tree father, s_Tree node)
 {
-        type_declaring_list* ivl=(type_declaring_list*)malloc(sizeof(type_declaring_list));
-        type_declaring_list* tmp;
 
-        ivl->val=iv;
-        ivl->next=NULL;
+	if(father != NULL && node != NULL){
+		s_Tree tmp;
 
-        if(head==NULL)
-                return ivl;
+		for(tmp=father; tmp->neighbor; tmp=tmp->neighbor)
+			;
+        tmp->neighbor=node;
 
-        for(tmp=head; tmp->next; tmp=tmp->next);
-        tmp->next=ivl;
+    	if(node->father != NULL)
+    		node->father = tmp->father;
 
-        return head;
+    	return father;
+	}
+ 
+    return NULL;
 }

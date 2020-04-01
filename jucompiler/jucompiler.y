@@ -1,6 +1,6 @@
 %{
 
-
+#define NO_TYPE ""
 
 #include <stdio.h>
 
@@ -8,35 +8,32 @@
 
 #include <string.h>
 
+#include "functions.h"
+
     int yylex(void);
 
     void yyerror (const char *s);
 
-is_program* myprogram;
+s_Tree myprogram;
 
 %}
 
+%token <cval> ID STRLIT REALLIT RESERVED INTLIT
 
+%type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody
 
-%union 
+%union{
 
-{
-
-int ival;
-
-char * cval;
-
-
-
+    int ival;
+    char * cval;
+    s_Tree tree;
 }
 
 
 
 %token BOOLLIT PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT DOUBLE RPAR RSQ
 
-%token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT BOOL WHILE VOID STRING STATIC PUBLIC CLASS IF RETURN 
-
-%token <cval> ID STRLIT REALLIT RESERVED INTLIT
+%token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT BOOL WHILE VOID STRING STATIC PUBLIC CLASS IF RETURN END
 
 
 
@@ -82,9 +79,11 @@ char * cval;
 
 %%
 
-Program: 
+Program:                                   
 
-    	CLASS ID LBRACE Declaring RBRACE                   {$$=myprogram=insert_program($2, $4) }
+    	 ID LBRACE Declaring RBRACE       {    $$=myprogram=new_node("Program",NO_TYPE); 
+                                                insert_node(myprogram,$3);
+                                                }
 
         ;
 
@@ -92,17 +91,13 @@ Program:
 
 Declaring:
 
-         MethodDecl Declaring
+         MethodDecl Declaring                   {$$=insert_node($2, $1);}    
 
-    |    FieldDecl Declaring
+    |    FieldDecl Declaring                    {$$=insert_node($2, $1);}
 
-    |    SEMICOLON Declaring
+    |    SEMICOLON Declaring                    {$$=$2;}  
 
-    |
-
-
-
-
+    |                                           /*{$$=$$;} */
 
     ;
 
@@ -112,7 +107,10 @@ Declaring:
 
 MethodDecl:
 
-        PUBLIC STATIC MethodHeader MethodBody
+        PUBLIC STATIC MethodHeader MethodBody      {$$=new_node("MethodDecl", NO_TYPE);
+                                                    insert_node($$, $3);
+                                                    insert_node($$, $4);
+                                                    }
 
         ;
 
@@ -265,10 +263,6 @@ ExprOrStrlit:
     |	STRLIT
 
 ;
-
-
-
-
 
 
 
@@ -449,35 +443,6 @@ Expr1:
     ;
 
 %%
-
-
-int main (void) {
-    return yyparse ( );
-}
-
-node *mknode(node *left, node *right, char *token) { 
-        /* malloc the node */
-        node *newnode = (node *)malloc(sizeof(node)); 
-        char *newstr = (char *)malloc(strlen(token)+1); 
-        strcpy(newstr, token);
-        newnode->left = left;
-        newnode->right = right;
-        newnode->token = newstr; 
-        return(newnode);
-    }
-
-void printtree(node *tree){ 
-    int i;
-    if (tree->left || tree->right)
-        printf("(");
-    printf(" %s ", tree->token);
-    if (tree->left) 
-        printtree(tree->left);
-    if (tree->right) 
-        printtree(tree->right);
-    if (tree->left || tree->right) 
-        printf(")");
-}
 
 
 
