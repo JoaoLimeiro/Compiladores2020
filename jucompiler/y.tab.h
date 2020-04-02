@@ -44,44 +44,44 @@
      REALLIT = 260,
      RESERVED = 261,
      INTLIT = 262,
-     BOOLLIT = 263,
-     PARSEINT = 264,
-     AND = 265,
-     ASSIGN = 266,
-     STAR = 267,
-     COMMA = 268,
-     DIV = 269,
-     EQ = 270,
-     GE = 271,
-     GT = 272,
-     LBRACE = 273,
-     LE = 274,
-     LPAR = 275,
-     LSQ = 276,
-     LT = 277,
-     MINUS = 278,
-     MOD = 279,
-     NE = 280,
-     NOT = 281,
-     OR = 282,
-     ELSE = 283,
-     INT = 284,
-     DOUBLE = 285,
-     RPAR = 286,
-     RSQ = 287,
-     PLUS = 288,
-     RBRACE = 289,
-     SQ = 290,
-     SEMICOLON = 291,
-     ARROW = 292,
-     LSHIFT = 293,
-     RSHIFT = 294,
-     XOR = 295,
-     DOTLENGTH = 296,
-     PRINT = 297,
-     BOOL = 298,
-     WHILE = 299,
-     VOID = 300,
+     DOUBLE = 263,
+     BOOL = 264,
+     BOOLLIT = 265,
+     VOID = 266,
+     PARSEINT = 267,
+     AND = 268,
+     ASSIGN = 269,
+     STAR = 270,
+     COMMA = 271,
+     DIV = 272,
+     EQ = 273,
+     GE = 274,
+     GT = 275,
+     LBRACE = 276,
+     LE = 277,
+     LPAR = 278,
+     LSQ = 279,
+     LT = 280,
+     MINUS = 281,
+     MOD = 282,
+     NE = 283,
+     NOT = 284,
+     OR = 285,
+     ELSE = 286,
+     INT = 287,
+     RPAR = 288,
+     RSQ = 289,
+     PLUS = 290,
+     RBRACE = 291,
+     SQ = 292,
+     SEMICOLON = 293,
+     ARROW = 294,
+     LSHIFT = 295,
+     RSHIFT = 296,
+     XOR = 297,
+     DOTLENGTH = 298,
+     PRINT = 299,
+     WHILE = 300,
      STRING = 301,
      STATIC = 302,
      PUBLIC = 303,
@@ -99,44 +99,44 @@
 #define REALLIT 260
 #define RESERVED 261
 #define INTLIT 262
-#define BOOLLIT 263
-#define PARSEINT 264
-#define AND 265
-#define ASSIGN 266
-#define STAR 267
-#define COMMA 268
-#define DIV 269
-#define EQ 270
-#define GE 271
-#define GT 272
-#define LBRACE 273
-#define LE 274
-#define LPAR 275
-#define LSQ 276
-#define LT 277
-#define MINUS 278
-#define MOD 279
-#define NE 280
-#define NOT 281
-#define OR 282
-#define ELSE 283
-#define INT 284
-#define DOUBLE 285
-#define RPAR 286
-#define RSQ 287
-#define PLUS 288
-#define RBRACE 289
-#define SQ 290
-#define SEMICOLON 291
-#define ARROW 292
-#define LSHIFT 293
-#define RSHIFT 294
-#define XOR 295
-#define DOTLENGTH 296
-#define PRINT 297
-#define BOOL 298
-#define WHILE 299
-#define VOID 300
+#define DOUBLE 263
+#define BOOL 264
+#define BOOLLIT 265
+#define VOID 266
+#define PARSEINT 267
+#define AND 268
+#define ASSIGN 269
+#define STAR 270
+#define COMMA 271
+#define DIV 272
+#define EQ 273
+#define GE 274
+#define GT 275
+#define LBRACE 276
+#define LE 277
+#define LPAR 278
+#define LSQ 279
+#define LT 280
+#define MINUS 281
+#define MOD 282
+#define NE 283
+#define NOT 284
+#define OR 285
+#define ELSE 286
+#define INT 287
+#define RPAR 288
+#define RSQ 289
+#define PLUS 290
+#define RBRACE 291
+#define SQ 292
+#define SEMICOLON 293
+#define ARROW 294
+#define LSHIFT 295
+#define RSHIFT 296
+#define XOR 297
+#define DOTLENGTH 298
+#define PRINT 299
+#define WHILE 300
 #define STRING 301
 #define STATIC 302
 #define PUBLIC 303
