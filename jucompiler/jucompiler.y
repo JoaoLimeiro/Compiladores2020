@@ -20,7 +20,7 @@ s_Tree myprogram, tmp, tmp1;
  
 %token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
 
-%type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprSemicolon ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId VarDecl
+%type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr 
 
 %union{
 
@@ -31,7 +31,7 @@ s_Tree myprogram, tmp, tmp1;
 
 
 
-%token PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT RPAR RSQ
+%token PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT RPAR RSQ 
 
 %token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT WHILE STRING STATIC PUBLIC CLASS IF RETURN END 
 
@@ -105,7 +105,7 @@ Declaring:
 
     |    SEMICOLON Declaring                    {$$=$2;}  
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
 
     ;
 
@@ -126,14 +126,14 @@ MethodDecl:
 
 FieldDecl:
 
-        PUBLIC STATIC Type ID CommaId SEMICOLON     {   
+        PUBLIC STATIC Type ID SEMICOLON     {   
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         insert_node($$, $3);
                                                         tmp=new_node($4, "Id");
                                                         insert_neighbor($3, tmp);
                                                     }
 
-    |   error SEMICOLON                             {$$=$$;} /* TODO verificar isto */
+    |   error SEMICOLON                             {$$=NULL;} /* TODO verificar isto */
 
         ;
 
@@ -141,14 +141,14 @@ FieldDecl:
 
 
 
-CommaId:
+/*CommaId:
 
         COMMA ID CommaId                             {
                                                         $$=new_node($2, "Id");
                                                         $$=$3; 
                                                     }
 
-    ;
+    ; */
 
 
 
@@ -156,11 +156,11 @@ CommaId:
 
 Type:
     
-         BOOL    {$$=new_node($1, "Bool");}
+         BOOL    {$$=new_node(NO_VALUE, "Bool");}
 
     |    INT        {$$=new_node(NO_VALUE, "Int");}
 
-    |    DOUBLE     {$$=new_node($1, "Double");}
+    |    DOUBLE     {$$=new_node(NO_VALUE, "Double");}
 
     
 
@@ -206,7 +206,7 @@ FormalParams:
                                                     insert_node($$, tmp);
                                                 }
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
 
     ;
 
@@ -222,7 +222,7 @@ CommaTypeId:
                                                     insert_neighbor($$, $4);
                                                 }
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
 
     ;
 
@@ -245,19 +245,19 @@ StatementVarDecl:
                                                     $$=$2;
                                                 }
 
-    |   VarDecl StatementVarDecl                {   
+    /*|   VarDecl StatementVarDecl                {   
                                                     $$=new_node(NO_VALUE, "VarDecl");
                                                     insert_neighbor($$, $1);
                                                     insert_neighbor($1, $2);
-                                                }
+                                                } */
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
  
     ;
 
 
 
-VarDecl:
+/*VarDecl:
 
        Type ID CommaId SEMICOLON                {   
                                                     insert_node($$, $1);
@@ -265,7 +265,7 @@ VarDecl:
                                                     insert_neighbor($2, tmp);
                                                 }
 
-    ;
+    ;*/
 
 
 
@@ -276,7 +276,7 @@ Statement:
                                                             }
 
     |   IF LPAR Expr RPAR Statement %prec IF2               {   
-                                                                $$=new_node("NO_VALUE", "If");
+                                                                $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
                                                                 insert_neighbor($3, $5);
 
@@ -294,13 +294,13 @@ Statement:
                                                             }
 
     |   WHILE LPAR Expr RPAR Statement                      {   
-                                                                $$=new_node("NO_VALUE", "While");
+                                                                $$=new_node(NO_VALUE, "While");
                                                                 insert_node($$, $3);
                                                                 insert_neighbor($3, $5);
                                                             }  
 
-    |   RETURN ExprSemicolon                                {   
-                                                                $$=new_node("NO_VALUE", "Return");
+    |   RETURN Expr SEMICOLON                               {   
+                                                                $$=new_node(NO_VALUE, "Return");
                                                                 insert_node($$, $2);
                                                             }
 
@@ -309,7 +309,7 @@ Statement:
                                                             }  
 
     |   PRINT LPAR ExprOrStrlit RPAR SEMICOLON              {   
-                                                                $$=new_node("NO_VALUE", "Print");
+                                                                $$=new_node(NO_VALUE, "Print");
                                                                 insert_node($$, $3);
                                                             }
 
@@ -324,7 +324,7 @@ Statement2:
                                                     $$=$2;
                                                 }    
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
 
 ;
 
@@ -332,15 +332,15 @@ Statement2:
 
 
 
-ExprSemicolon:
+/* ExprSemicolon:
 
 	Expr SEMICOLON                             {
-                                                    $$=insert_neighbor($$, $1);
+                                                    $$=$1;
                                                 }    
 
-    |	SEMICOLON                                 {$$=NULL;}   /*  rever isto */
+    |	SEMICOLON                                 {$$=NULL;}    rever isto 
 
-;
+; */
 
 
 
@@ -370,9 +370,9 @@ MethodInvAssParseArgs:
                                                     $$=new_node(NO_VALUE, "ParseArgs");
                                                 }     
 
-    |   error			                        {$$=$$;}
+    |   error			                        {$$=NULL;}
 
-    |                                           {$$=$$;}
+    |                                           {$$=NULL;}
 
     ;
 
@@ -407,7 +407,7 @@ CommaExpr:
                                             }
     | INTLIT                                {$$=new_node($1, "IntLit");}
 
-    |                                       {$$=$$;}
+    |                                       {$$=NULL;}
 
     ;
 

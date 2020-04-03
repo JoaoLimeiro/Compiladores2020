@@ -3,6 +3,7 @@
 
 %{
 	#include "structures.h"
+	#include "functions.h"
 	#include "y.tab.h"
 
     #define PRINTF if (flagPrint==1) printf
@@ -270,7 +271,9 @@ int main(int argc, char *argv[])
 			flagTree = 1;
 			flagErros = 0;
 			yyparse();
-			yylex();
+			yylex();\
+			printf("%s\n", myprogram->type);
+			imprime_arvore(myprogram,0);
       			
 
 

@@ -20,7 +20,7 @@ s_Tree insert_node(s_Tree father, s_Tree node){
 	if(father != NULL && node != NULL){
 		father->child = node;
 		node->father = father;
-
+		
 		return node;
 	}
 	return NULL;
@@ -29,7 +29,7 @@ s_Tree insert_node(s_Tree father, s_Tree node){
 s_Tree insert_neighbor(s_Tree father, s_Tree node)
 {
 
-	if(father != NULL && node != NULL){
+	if(father != NULL && node != NULL && father->type != NULL){
 		s_Tree tmp;
 
 		for(tmp=father; tmp->neighbor; tmp=tmp->neighbor)
