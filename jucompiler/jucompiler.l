@@ -272,7 +272,6 @@ int main(int argc, char *argv[])
 			flagErros = 0;
 			yyparse();
 			yylex();\
-			printf("%s\n", myprogram->type);
 			imprime_arvore(myprogram,0);
       			
 
