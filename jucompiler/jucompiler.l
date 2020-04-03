@@ -293,8 +293,11 @@ int yywrap() {
 }
 
 void yyerror (char *s) {
-	int beginCol=column- strlen(yytext);
-  	printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
+	if(flagErros){
+		int beginCol=column- strlen(yytext);
+  		printf("Line %d, col %d: %s: %s\n", line, beginCol, s, yytext);
+	}
+	
 }
 
 
