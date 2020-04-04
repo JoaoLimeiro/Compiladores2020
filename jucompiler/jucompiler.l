@@ -16,6 +16,7 @@
 	int column = 1; /* Contador de colunas */
 	int beginning_line;
   	int beginning_col;
+  	int flagDontPrintTree;
 
   	extern Tree* myprogram;
 
@@ -274,7 +275,8 @@ int main(int argc, char *argv[])
 			flagErros = 0;
 			yyparse();
 			yylex();\
-			imprime_arvore(myprogram,0);
+			if(flagDontPrintTree == 0)
+				imprime_arvore(myprogram,0);
 
 
 		}

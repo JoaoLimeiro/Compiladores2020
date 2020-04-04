@@ -152,7 +152,7 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 20 "jucompiler.y"
+#line 22 "jucompiler.y"
 {
     int ival;
     char * cval;

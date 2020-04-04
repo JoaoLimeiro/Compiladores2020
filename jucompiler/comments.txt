@@ -1,13 +1,14 @@
-class Factorial {
-    public static int factorial(int n) {
-        if (n == 0)
-            return 1;
-        return n * factorial(n-1);
-    }
+class Factorial{
 
-    public static void main(String[] args) {
-        int argument;
-        argument = Integer.parseInt(args[0]);
-        System.out.print(factorial(argument));
+    public static int Factorial(){
+    ;;;;;;;;;
+    {{{{a=2;{b=3;{c=1;};};};};};};
+    ;;;;;;;;
+    X=1000000000000000000000;
+    {{{
+    {a=1;};
+    b=2;};};};
+
+    {{};{};{};}
     }
 }
