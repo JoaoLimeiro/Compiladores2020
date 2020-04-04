@@ -1,24 +1,35 @@
 %{
+
 #define NO_VALUE ""
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "functions.h"
+
     int yylex(void);
     void yyerror (const char *s);
+
 s_Tree myprogram, tmp, tmp1;
+
 %}
+
 %token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
+
 %type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId VarDecl
+
 %union{
     int ival;
     char * cval;
     s_Tree tree;
 }
+
 %token PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT RPAR RSQ
+
 %token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT WHILE STRING STATIC PUBLIC CLASS IF RETURN END
+
 %nonassoc IF2
 %nonassoc ELSE
+
 %right ASSIGN
 %left COMMA
 %left OR
@@ -31,7 +42,11 @@ s_Tree myprogram, tmp, tmp1;
 %left PLUS MINUS
 %left MUL DIV MOD
 %right NOT
+
+
 %%
+
+
 Program:                                
     	CLASS ID LBRACE Declaring RBRACE       {    $$=myprogram=new_node(NO_VALUE,"Program");
                                                     tmp=new_node($2, "Id");
@@ -41,14 +56,15 @@ Program:
         ;
 Declaring:
          MethodDecl Declaring                   {  
-                                                    insert_neighbor($2, $1);
-                                                    $$=$2;
+                                                    insert_neighbor($1, $2);
+                                                    $$=$1;
                                                 } 
     |    FieldDecl Declaring                    {
-                                                    $$=insert_neighbor($2, $1);
-                                                    $$=$2;
+                                                    $$=insert_neighbor($1, $2);
+                                                    $$=$1;
                                                 } 
     |    SEMICOLON Declaring                    {$$=$2;}
+
     |                                           {$$=NULL;}
     ;
 MethodDecl:
@@ -66,6 +82,7 @@ FieldDecl:
                                                     }
     |   error SEMICOLON                             {$$=NULL;} /* TODO verificar isto */
         ;
+
 CommaId:
         COMMA ID CommaId                             {
                                                         $$=new_node($2, "Id");
@@ -100,18 +117,19 @@ FormalParams:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2, "Id");
-                                                    insert_node($$, tmp);
+                                                    insert_neighbor($1, tmp);
                                                 }
     |  STRING LSQ RSQ ID                        {
-                                                    $$=new_node(NO_VALUE, "StringArray");
-                                                    tmp=new_node($4, "Id");
+    												$$=new_node(NO_VALUE, "ParamDecl");
+                                                    tmp=new_node(NO_VALUE, "StringArray");
+                                                    tmp1=new_node($4, "Id");
                                                     insert_node($$, tmp);
+                                                    insert_neighbor(tmp, tmp1);
                                                 }
     |                                           {$$=NULL;}
     ;
 CommaTypeId:
        COMMA Type ID CommaTypeId                {  
-                                                    $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
                                                     tmp=new_node($3, "Id");
                                                     insert_neighbor($2, tmp);
@@ -129,19 +147,24 @@ StatementVarDecl:
         Statement StatementVarDecl              {  
                                                     insert_neighbor($2, $1);
                                                     $$=$2;
+                                                    printf("not null1 \n");
                                                 }
     |   VarDecl StatementVarDecl                {  
-                                                    $$=new_node(NO_VALUE, "VarDecl");
+                                                    
                                                     insert_neighbor($$, $1);
                                                     insert_neighbor($1, $2);
+                                                    printf("not null2 \n");
                                                 }
-    |                                           {$$=NULL;}
+    |                                           {$$=NULL;
+    											printf("vim aqui\n");}
     ;
 VarDecl:
        Type ID CommaId SEMICOLON                {  
+       												$$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2, "Id");
                                                     insert_neighbor($1, tmp);
+                                                    insert_neighbor(tmp, $3);
                                                 }
     ;
 Statement:
@@ -314,7 +337,7 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr EQ OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"Equak");
+                                                $$ = new_node(NO_VALUE,"Equal");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -359,7 +382,7 @@ OtherExpr:
                                                 $$=$2;
                                             }
     |   LPAR error RPAR                     {
-                                                $$=$$;
+                                                $$=NULL;
                                             }
     |   MethodInvocation                    {  
                                                 $$=new_node(NO_VALUE, "Call");

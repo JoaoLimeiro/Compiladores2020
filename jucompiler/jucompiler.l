@@ -18,6 +18,8 @@
   	int beginning_col;
 
   	extern Tree* myprogram;
+
+  	int yyparse();
 %}
 
 %X COMMENT1
@@ -273,7 +275,6 @@ int main(int argc, char *argv[])
 			yyparse();
 			yylex();\
 			imprime_arvore(myprogram,0);
-      			
 
 
 		}
