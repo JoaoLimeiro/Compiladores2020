@@ -11,13 +11,13 @@
 
  	int flagDontPrintTree = 0;
 
-s_Tree myprogram, tmp, tmp1;
+s_Tree myprogram, tmp, tmp1, tmp2;
 
 %}
 
 %token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
 
-%type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId VarDecl ExprSemicolon
+%type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId CommaIdVarDecl VarDecl ExprSemicolon
 
 %union{
     int ival;
@@ -114,7 +114,7 @@ FieldDecl:
 CommaId:
         COMMA ID CommaId                             {
                                                         $$=new_node($2, "Id");
-                                                        insert_neighbor($$, $3);
+                                                        insert_neighbor($$, $3); 
                                                     }
 
 	|	COMMA ID					 				{$$=new_node($2, "Id");}
@@ -178,7 +178,7 @@ FormalParams:
                                                     insert_node($$, $1);
                                                     tmp=new_node($2, "Id");
                                                     insert_neighbor($1, tmp);
-                                                    insert_neighbor(tmp, $3);
+                                                    insert_neighbor($$, $3);
                                                 }
     |  STRING LSQ RSQ ID                        {
     												$$=new_node(NO_VALUE, "ParamDecl");
@@ -199,13 +199,15 @@ FormalParams:
 CommaTypeId:
 
        COMMA Type ID CommaTypeId                {  
+       												$$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
                                                     tmp=new_node($3, "Id");
                                                     insert_neighbor($2, tmp);
-                                                    insert_neighbor(tmp, $4);
+                                                    insert_neighbor($$, $4);
                                                 }
 
-    |   COMMA Type ID                           {  
+    |   COMMA Type ID                           {  	
+    												$$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
                                                     tmp=new_node($3, "Id");
                                                     insert_neighbor($2, tmp);
@@ -232,9 +234,13 @@ MethodBody:
 StatementVarDecl:
 
         Statement StatementVarDecl              {  
-        											
-													insert_neighbor($1,$2);
-													$$=$1; 
+        											if($1 != NULL){
+        												insert_neighbor($1,$2);
+														$$=$1; 
+        											}else{
+        											$$= $2;
+        											}
+													
     												
                                                 }
     |   VarDecl StatementVarDecl                {
@@ -248,14 +254,46 @@ StatementVarDecl:
     											
     ;
 
+CommaIdVarDecl:
+								/* TODO verificar isto que tem um Type em falta no VarDecl    */
+	COMMA ID CommaIdVarDecl                         {
+														$$=new_node(NO_VALUE, "VarDecl");
+                                                        tmp=new_node($2, "Id");
+                                                        insert_node($$, tmp);
+                                                        insert_neighbor(tmp, $3); 
+
+
+                                                    }
+
+	|	COMMA ID					 				{$$=new_node(NO_VALUE, "VarDecl");
+                                                        tmp=new_node($2, "Id");
+                                                        insert_node($$, tmp);
+                                                        }
+
+    ;
+
+
+
 VarDecl:
 
-     	Type ID CommaId SEMICOLON               {  
+     	Type ID CommaIdVarDecl SEMICOLON        {  
        												$$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2, "Id");
                                                     insert_neighbor($1, tmp);
-                                                    insert_neighbor(tmp, $3);
+                                                    insert_neighbor($$, $3);
+
+                                                    tmp1 = $$;
+
+                                                    while(tmp1 != NULL){
+                                                    	if( strcmp(tmp1->child->type,$$->child->type) ){
+                                                    		tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                    		tmp2 = new_node($$->child->value, $$->child->type);
+                                                    		insert_node(tmp1, tmp2);
+                                                    		insert_neighbor(tmp2, tmp);
+                                                    	}
+                                                    	tmp1 = tmp1->neighbor;
+                                                    }  
                                                 }
 
     |	Type ID SEMICOLON  						{  
@@ -297,7 +335,8 @@ VarDecl:
    
     |   RETURN ExprSemicolon				    			{  
                                                                 $$=new_node(NO_VALUE, "Return");
-                                                                insert_node($$, $2);
+                                                                if($2 != NULL)
+                                                                	insert_node($$, $2);
                                                             }
     |   MethodInvAssParseArgs SEMICOLON                     {  
                                                                 $$=$1;
@@ -377,7 +416,6 @@ MethodInvocation:
 	       											$$=new_node(NO_VALUE, "Call");
 	                                                tmp=new_node($1, "Id");
 	                                                insert_node($$, tmp);
-
                                             	}
     |  	ID LPAR Expr error RPAR                 {
 	                                                $$=new_node(NO_VALUE, "Call");
@@ -393,13 +431,13 @@ MethodInvocation:
 CommaExpr:
 
         COMMA Expr CommaExpr                	{
-                                                	insert_neighbor($$, $2);
+                                                	$$=$2;
                                                 	insert_neighbor($2, $3);
                	                            	}
     | 	INTLIT                                	{$$=new_node($1, "IntLit");}
 
     |	COMMA Expr                            	{
-                                                	insert_neighbor($$, $2);
+                                                	$$=$2;
                	                            	}
 
     ;
@@ -541,8 +579,7 @@ OtherExpr:
                                                 flagDontPrintTree = 1;
                                             }
     |   MethodInvocation                    {  
-                                                $$=$1;
-                                            }     
+                                                $$=$1;                                            }     
     |   ParseArgs                           {  
                                                 $$=$1;
                                             }
@@ -551,6 +588,7 @@ OtherExpr:
                                             }
     |   ID DOTLENGTH                        {
                                                 $$=new_node($1, "Id");
+
                                             }
     |   INTLIT                              {$$=new_node($1, "DecLit");}
 

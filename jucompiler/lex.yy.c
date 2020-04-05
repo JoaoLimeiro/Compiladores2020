@@ -2476,7 +2476,7 @@ int main(int argc, char *argv[])
 		else if (strcmp(argv[1], "-t") == 0){
 			flagPrint = 0;
 			flagTree = 1;
-			flagErros = 0;
+			flagErros = 1;
 			yyparse();
 			yylex();
 			if(flagDontPrintTree == 0)
