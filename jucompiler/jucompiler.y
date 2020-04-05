@@ -96,7 +96,19 @@ FieldDecl:
                                                         insert_node($$, $3);
                                                         tmp=new_node($4, "Id");
                                                         insert_neighbor($3, tmp);
-                                                        insert_neighbor(tmp, $5);
+                                                        insert_neighbor($$, $5);
+
+                                                        tmp1 = $$;
+
+	                                                    while(tmp1 != NULL){
+	                                                    	if( strcmp(tmp1->child->type,$$->child->type) ){
+	                                                    		tmp = new_node(tmp1->child->value, tmp1->child->type);
+	                                                    		tmp2 = new_node($$->child->value, $$->child->type);
+	                                                    		insert_node(tmp1, tmp2);
+	                                                    		insert_neighbor(tmp2, tmp);
+	                                                    	}
+	                                                    	tmp1 = tmp1->neighbor;
+	                                                    }  
                                                     }
 
 	|   PUBLIC STATIC Type ID SEMICOLON 			{  
@@ -113,11 +125,17 @@ FieldDecl:
 
 CommaId:
         COMMA ID CommaId                             {
-                                                        $$=new_node($2, "Id");
+        												$$=new_node(NO_VALUE, "FieldDecl");
+                                                        tmp=new_node($2, "Id");
+                                                        insert_node($$, tmp);
                                                         insert_neighbor($$, $3); 
                                                     }
 
-	|	COMMA ID					 				{$$=new_node($2, "Id");}
+	|	COMMA ID					 				{
+														$$=new_node(NO_VALUE, "FieldDecl");
+                                                        tmp=new_node($2, "Id");
+                                                        insert_node($$, tmp);
+													}
 
     ;
 
@@ -260,7 +278,7 @@ CommaIdVarDecl:
 														$$=new_node(NO_VALUE, "VarDecl");
                                                         tmp=new_node($2, "Id");
                                                         insert_node($$, tmp);
-                                                        insert_neighbor(tmp, $3); 
+                                                        insert_neighbor($$, $3); 
 
 
                                                     }
@@ -323,9 +341,7 @@ VarDecl:
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
                                                                 insert_neighbor($3, $5);
-                                                                tmp=new_node(NO_VALUE, "Else");
-                                                                insert_neighbor($$, tmp);
-                                                                insert_node(tmp, $7);
+                                                                insert_neighbor($5, $7);
                                                             }
     |   WHILE LPAR Expr RPAR Statement                      {  
                                                                 $$=new_node(NO_VALUE, "While");
