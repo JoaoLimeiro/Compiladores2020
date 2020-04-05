@@ -73,7 +73,7 @@ void imprime_arvore(s_Tree no, int profundidade){
 
             free(freeMe->type);
             free(freeMe->value);
-            free(freeMe);
+            free(freeMe); 
         }
     }
     return;

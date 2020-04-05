@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
 			flagTree = 1;
 			flagErros = 0;
 			yyparse();
-			yylex();\
+			yylex();
 			if(flagDontPrintTree == 0)
 				imprime_arvore(myprogram,0);
 
