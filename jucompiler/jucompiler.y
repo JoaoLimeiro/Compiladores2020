@@ -341,27 +341,112 @@ VarDecl:
                                                                 if($5 != NULL){
                                                                 	insert_neighbor($3, $5);
                                                                 }
+
+                                                               
+
+                                                              	int contador = 0;
+                                                                tmp1 = $5;
+
+			                                                    while(tmp1 != NULL){
+			                                                    	contador++;
+			                                                    	tmp1 = tmp1->neighbor;
+			                                                    }  
+
+			                                                    tmp=new_node(NO_VALUE, "Block");
+
+                                                                if(contador == 0){
+                                                                	insert_neighbor($3, tmp);
+                                                                } else if (contador > 1){
+                                                                	insert_node(tmp, $3->neighbor);
+                                                                	$3->neighbor = tmp;
+                                                                }
+
+                                                                tmp=new_node(NO_VALUE, "Block");
+
+                                                                insert_neighbor($3, tmp);
+
                                                                 
                                                                 /* TODO isto do prec deve precisar de algo*/
                                                             }
     |   IF LPAR Expr RPAR Statement ELSE Statement          {  
+
+    															int contador1 = 0;
+    															tmp1 = $5;
+
+			                                                    while(tmp1 != NULL){
+			                                                    	contador1++;
+			                                                    	tmp1 = tmp1->neighbor;
+			                                                    }  
+
+			                                                    int contador2 = 0;
+                                                                tmp1 = $7;
+
+			                                                    while(tmp1 != NULL){
+			                                                    	contador2++;
+			                                                    	tmp1 = tmp1->neighbor;
+			                                                    }  
+
+			                                                    tmp=new_node(NO_VALUE, "Block");
+			                                                    tmp1=new_node(NO_VALUE, "Block");
+
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
+
                                                                 if($5 != NULL){
-                                                                	insert_neighbor($3, $5);
+                                                                	if(contador1 > 1){
+                                                                		insert_node($3, tmp);
+                                                                		insert_neighbor(tmp, $5);
+                                                                	}else{
+                                                                		insert_neighbor($3, $5);
+                                                                	}
                                                                 	if($7 != NULL){
-                                                                		insert_neighbor($5, $7);
+                                                                		if(contador2 > 1){
+                                                                			insert_neighbor($5, tmp);
+                                                                			insert_neighbor(tmp, $7);
+                                                                		}else{
+                                                                			insert_neighbor($5, $7);
+                                                                		}
                                                                 	}
                                                                 }else{
+
+                                                                	insert_neighbor($3, tmp); 
+
                                                                 	if($7 != NULL){
-                                                                		insert_neighbor($3, $7);
+                                                                		if(contador2 > 1){
+                                                                			insert_neighbor(tmp, tmp1);
+                                                                			insert_neighbor(tmp1, $7);
+                                                                		}else{
+                                                                			insert_neighbor(tmp, $7);
+                                                                		}
+                                                                	}else{
+                                                                		insert_neighbor(tmp, tmp1);
                                                                 	}
                                                                 }
-                                                                                                                          }
+
+                                                          	}
     |   WHILE LPAR Expr RPAR Statement                      {  
                                                                 $$=new_node(NO_VALUE, "While");
                                                                 insert_node($$, $3);
-                                                                insert_neighbor($3, $5);
+
+                                                                int contador = 0;
+    															tmp1 = $5;
+
+			                                                    while(tmp1 != NULL){
+			                                                    	contador++;
+			                                                    	tmp1 = tmp1->neighbor;
+			                                                    }  
+
+			                                                    tmp=new_node(NO_VALUE, "Block");
+
+			                                                    if(contador == 0){
+			                                                    	insert_neighbor($3, tmp);
+			                                                    }else if(contador > 1){
+			                                                    	insert_neighbor($3, tmp);
+			                                                    	insert_node(tmp, $5);
+			                                                    }else{
+			                                                    	insert_neighbor($3, $5);
+			                                                    }
+                                                                
                                                             }
    
     |   RETURN ExprSemicolon				    			{  
@@ -378,6 +463,7 @@ VarDecl:
     |   PRINT LPAR ExprOrStrlit RPAR SEMICOLON              {  
                                                                 $$=new_node(NO_VALUE, "Print");
                                                                 insert_node($$, $3);
+                                                                
                                                             }
     ;
 
@@ -386,6 +472,8 @@ Statement2:
 
 		Statement Statement2                        		{
                                                     			insert_neighbor($1, $2);
+                                                    			/* tmp=new_node(NO_VALUE, "Block");
+                                                    			insert_neighbor($2, tmp); */
                                                     			$$=$1;
                                                 			} 
 
@@ -516,7 +604,7 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MINUS OtherExpr           {
-                                                $$ = new_node(NO_VALUE,"Sub");
+                                                $$ = new_node(NO_VALUE,"Minus");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -566,27 +654,27 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr GE OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"GE");
+                                                $$ = new_node(NO_VALUE,"Ge");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr GT OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"GT");
+                                                $$ = new_node(NO_VALUE,"Gt");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LE OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"LE");
+                                                $$ = new_node(NO_VALUE,"Le");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LT OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"LT");
+                                                $$ = new_node(NO_VALUE,"Lt");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr NE OtherExpr              {
-                                                $$ = new_node(NO_VALUE,"NE");
+                                                $$ = new_node(NO_VALUE,"Ne");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -595,7 +683,7 @@ OtherExpr:
                                                 insert_node($$,$2);
                                             }
     |   MINUS OtherExpr                     {
-                                                $$ = new_node(NO_VALUE,"Sub");
+                                                $$ = new_node(NO_VALUE,"Minus");
                                                 insert_node($$,$2);
                                             }
     |   NOT OtherExpr                       {
@@ -618,7 +706,9 @@ OtherExpr:
                                                 $$=new_node($1, "Id");
                                             }
     |   ID DOTLENGTH                        {
-                                                $$=new_node($1, "Id");
+    											$$=new_node(NO_VALUE, "Length");
+                                                tmp=new_node($1, "Id");
+                                                insert_node($$, tmp);
 
                                             }
     |   INTLIT                              {$$=new_node($1, "DecLit");}
