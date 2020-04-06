@@ -567,14 +567,14 @@ static const yytype_uint16 yyrline[] =
 {
        0,    54,    54,    63,    67,    72,    74,    76,    78,    85,
       94,   114,   122,   127,   134,   143,   145,   147,   153,   165,
-     173,   184,   194,   201,   208,   219,   227,   240,   245,   254,
-     264,   269,   271,   277,   286,   297,   317,   328,   332,   334,
-     343,   357,   363,   368,   372,   374,   383,   388,   394,   396,
-     403,   405,   411,   414,   417,   420,   427,   435,   442,   447,
-     460,   464,   466,   473,   486,   492,   501,   503,   509,   514,
-     519,   524,   529,   534,   539,   544,   549,   554,   559,   564,
-     569,   574,   579,   584,   589,   593,   597,   601,   604,   608,
-     610,   613,   616,   620,   622,   624
+     175,   186,   198,   205,   212,   223,   231,   244,   249,   258,
+     268,   273,   275,   281,   290,   301,   321,   332,   336,   338,
+     347,   361,   367,   372,   376,   378,   387,   392,   398,   400,
+     407,   409,   415,   418,   421,   424,   431,   439,   446,   451,
+     464,   468,   470,   477,   490,   496,   505,   507,   513,   518,
+     523,   528,   533,   538,   543,   548,   553,   558,   563,   568,
+     573,   578,   583,   588,   593,   597,   601,   605,   608,   612,
+     614,   617,   620,   624,   626,   628
 };
 #endif
 
@@ -1813,11 +1813,13 @@ yyreduce:
                                                     insert_node((yyval.tree), tmp);
                                                     tmp1=new_node((yyvsp[(2) - (4)].cval), "Id");
                                                     insert_neighbor(tmp, tmp1);
+                                                    tmp2=new_node(NO_VALUE, "MethodParams");
+                                                    insert_neighbor(tmp1, tmp2);
                                                 }
     break;
 
   case 20:
-#line 173 "jucompiler.y"
+#line 175 "jucompiler.y"
     {  
                                                     (yyval.tree)=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (5)].tree));
@@ -1831,17 +1833,19 @@ yyreduce:
     break;
 
   case 21:
-#line 184 "jucompiler.y"
+#line 186 "jucompiler.y"
     {
 													(yyval.tree)=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (4)].tree));
                                                     tmp=new_node((yyvsp[(2) - (4)].cval), "Id");
                                                     insert_neighbor((yyvsp[(1) - (4)].tree), tmp);
+                                                    tmp1=new_node(NO_VALUE, "MethodParams");
+                                                    insert_neighbor(tmp, tmp1);
                                                 }
     break;
 
   case 22:
-#line 194 "jucompiler.y"
+#line 198 "jucompiler.y"
     {  
                                                     (yyval.tree)=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (3)].tree));
@@ -1852,7 +1856,7 @@ yyreduce:
     break;
 
   case 23:
-#line 201 "jucompiler.y"
+#line 205 "jucompiler.y"
     {
     												(yyval.tree)=new_node(NO_VALUE, "ParamDecl");
                                                     tmp=new_node(NO_VALUE, "StringArray");
@@ -1863,7 +1867,7 @@ yyreduce:
     break;
 
   case 24:
-#line 208 "jucompiler.y"
+#line 212 "jucompiler.y"
     {  
                                                     (yyval.tree)=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (2)].tree));
@@ -1873,7 +1877,7 @@ yyreduce:
     break;
 
   case 25:
-#line 219 "jucompiler.y"
+#line 223 "jucompiler.y"
     {  
        												(yyval.tree)=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node((yyval.tree), (yyvsp[(2) - (4)].tree));
@@ -1884,7 +1888,7 @@ yyreduce:
     break;
 
   case 26:
-#line 227 "jucompiler.y"
+#line 231 "jucompiler.y"
     {  	
     												(yyval.tree)=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node((yyval.tree), (yyvsp[(2) - (3)].tree));
@@ -1894,7 +1898,7 @@ yyreduce:
     break;
 
   case 27:
-#line 240 "jucompiler.y"
+#line 244 "jucompiler.y"
     {  
                                                     (yyval.tree)=new_node(NO_VALUE, "MethodBody");
                                                     insert_node((yyval.tree), (yyvsp[(2) - (3)].tree));
@@ -1902,14 +1906,14 @@ yyreduce:
     break;
 
   case 28:
-#line 245 "jucompiler.y"
+#line 249 "jucompiler.y"
     {
     												(yyval.tree)=new_node(NO_VALUE, "MethodBody");
     											}
     break;
 
   case 29:
-#line 254 "jucompiler.y"
+#line 258 "jucompiler.y"
     {  
         											if((yyvsp[(1) - (2)].tree) != NULL){
         												insert_neighbor((yyvsp[(1) - (2)].tree),(yyvsp[(2) - (2)].tree));
@@ -1923,7 +1927,7 @@ yyreduce:
     break;
 
   case 30:
-#line 264 "jucompiler.y"
+#line 268 "jucompiler.y"
     {
 													insert_neighbor((yyvsp[(1) - (2)].tree),(yyvsp[(2) - (2)].tree));
 													(yyval.tree)=(yyvsp[(1) - (2)].tree);                                         
@@ -1931,17 +1935,17 @@ yyreduce:
     break;
 
   case 31:
-#line 269 "jucompiler.y"
+#line 273 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 32:
-#line 271 "jucompiler.y"
+#line 275 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 33:
-#line 277 "jucompiler.y"
+#line 281 "jucompiler.y"
     {
 														(yyval.tree)=new_node(NO_VALUE, "VarDecl");
                                                         tmp=new_node((yyvsp[(2) - (3)].cval), "Id");
@@ -1953,7 +1957,7 @@ yyreduce:
     break;
 
   case 34:
-#line 286 "jucompiler.y"
+#line 290 "jucompiler.y"
     {(yyval.tree)=new_node(NO_VALUE, "VarDecl");
                                                         tmp=new_node((yyvsp[(2) - (2)].cval), "Id");
                                                         insert_node((yyval.tree), tmp);
@@ -1961,7 +1965,7 @@ yyreduce:
     break;
 
   case 35:
-#line 297 "jucompiler.y"
+#line 301 "jucompiler.y"
     {  
        												(yyval.tree)=new_node(NO_VALUE, "VarDecl");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (4)].tree));
@@ -1984,7 +1988,7 @@ yyreduce:
     break;
 
   case 36:
-#line 317 "jucompiler.y"
+#line 321 "jucompiler.y"
     {  
        												(yyval.tree)=new_node(NO_VALUE, "VarDecl");
                                                     insert_node((yyval.tree), (yyvsp[(1) - (3)].tree));
@@ -1994,19 +1998,19 @@ yyreduce:
     break;
 
   case 37:
-#line 328 "jucompiler.y"
+#line 332 "jucompiler.y"
     {  
                                                                 (yyval.tree)=(yyvsp[(2) - (3)].tree);
                                                             }
     break;
 
   case 38:
-#line 332 "jucompiler.y"
+#line 336 "jucompiler.y"
     {(yyval.tree)=NULL;}
     break;
 
   case 39:
-#line 334 "jucompiler.y"
+#line 338 "jucompiler.y"
     {  
                                                                 (yyval.tree)=new_node(NO_VALUE, "If");
                                                                 insert_node((yyval.tree), (yyvsp[(3) - (5)].tree));
@@ -2019,7 +2023,7 @@ yyreduce:
     break;
 
   case 40:
-#line 343 "jucompiler.y"
+#line 347 "jucompiler.y"
     {  
                                                                 (yyval.tree)=new_node(NO_VALUE, "If");
                                                                 insert_node((yyval.tree), (yyvsp[(3) - (7)].tree));
@@ -2037,7 +2041,7 @@ yyreduce:
     break;
 
   case 41:
-#line 357 "jucompiler.y"
+#line 361 "jucompiler.y"
     {  
                                                                 (yyval.tree)=new_node(NO_VALUE, "While");
                                                                 insert_node((yyval.tree), (yyvsp[(3) - (5)].tree));
@@ -2046,7 +2050,7 @@ yyreduce:
     break;
 
   case 42:
-#line 363 "jucompiler.y"
+#line 367 "jucompiler.y"
     {  
                                                                 (yyval.tree)=new_node(NO_VALUE, "Return");
                                                                 if((yyvsp[(2) - (2)].tree) != NULL)
@@ -2055,19 +2059,19 @@ yyreduce:
     break;
 
   case 43:
-#line 368 "jucompiler.y"
+#line 372 "jucompiler.y"
     {  
                                                                 (yyval.tree)=(yyvsp[(1) - (2)].tree);
                                                             }
     break;
 
   case 44:
-#line 372 "jucompiler.y"
+#line 376 "jucompiler.y"
     {(yyval.tree)=NULL;}
     break;
 
   case 45:
-#line 374 "jucompiler.y"
+#line 378 "jucompiler.y"
     {  
                                                                 (yyval.tree)=new_node(NO_VALUE, "Print");
                                                                 insert_node((yyval.tree), (yyvsp[(3) - (5)].tree));
@@ -2075,7 +2079,7 @@ yyreduce:
     break;
 
   case 46:
-#line 383 "jucompiler.y"
+#line 387 "jucompiler.y"
     {
                                                     			insert_neighbor((yyvsp[(1) - (2)].tree), (yyvsp[(2) - (2)].tree));
                                                     			(yyval.tree)=(yyvsp[(1) - (2)].tree);
@@ -2083,58 +2087,58 @@ yyreduce:
     break;
 
   case 47:
-#line 388 "jucompiler.y"
+#line 392 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 48:
-#line 394 "jucompiler.y"
+#line 398 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (2)].tree);}
     break;
 
   case 49:
-#line 396 "jucompiler.y"
+#line 400 "jucompiler.y"
     {(yyval.tree)=NULL;}
     break;
 
   case 50:
-#line 403 "jucompiler.y"
+#line 407 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 51:
-#line 405 "jucompiler.y"
+#line 409 "jucompiler.y"
     {(yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "StrLit");}
     break;
 
   case 52:
-#line 411 "jucompiler.y"
+#line 415 "jucompiler.y"
     {  
                                                     (yyval.tree)=(yyvsp[(1) - (1)].tree);
                                                 }
     break;
 
   case 53:
-#line 414 "jucompiler.y"
+#line 418 "jucompiler.y"
     {  
                                                     (yyval.tree)=(yyvsp[(1) - (1)].tree);
                                                 }
     break;
 
   case 54:
-#line 417 "jucompiler.y"
+#line 421 "jucompiler.y"
     {  
                                                     (yyval.tree)=(yyvsp[(1) - (1)].tree);
                                                 }
     break;
 
   case 55:
-#line 420 "jucompiler.y"
+#line 424 "jucompiler.y"
     {(yyval.tree)=NULL;flagDontPrintTree = 1;}
     break;
 
   case 56:
-#line 427 "jucompiler.y"
+#line 431 "jucompiler.y"
     {
 	       											(yyval.tree)=new_node(NO_VALUE, "Call");
 	                                                tmp=new_node((yyvsp[(1) - (5)].cval), "Id");
@@ -2145,7 +2149,7 @@ yyreduce:
     break;
 
   case 57:
-#line 435 "jucompiler.y"
+#line 439 "jucompiler.y"
     {
 	       											(yyval.tree)=new_node(NO_VALUE, "Call");
 	                                                tmp=new_node((yyvsp[(1) - (4)].cval), "Id");
@@ -2155,7 +2159,7 @@ yyreduce:
     break;
 
   case 58:
-#line 442 "jucompiler.y"
+#line 446 "jucompiler.y"
     {   
 	       											(yyval.tree)=new_node(NO_VALUE, "Call");
 	                                                tmp=new_node((yyvsp[(1) - (3)].cval), "Id");
@@ -2164,7 +2168,7 @@ yyreduce:
     break;
 
   case 59:
-#line 447 "jucompiler.y"
+#line 451 "jucompiler.y"
     {
 	                                                (yyval.tree)=new_node(NO_VALUE, "Call");
 	                                                tmp=new_node((yyvsp[(1) - (5)].cval), "Id");
@@ -2176,7 +2180,7 @@ yyreduce:
     break;
 
   case 60:
-#line 460 "jucompiler.y"
+#line 464 "jucompiler.y"
     {
                                                 	(yyval.tree)=(yyvsp[(2) - (3)].tree);
                                                 	insert_neighbor((yyvsp[(2) - (3)].tree), (yyvsp[(3) - (3)].tree));
@@ -2184,19 +2188,19 @@ yyreduce:
     break;
 
   case 61:
-#line 464 "jucompiler.y"
+#line 468 "jucompiler.y"
     {(yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "IntLit");}
     break;
 
   case 62:
-#line 466 "jucompiler.y"
+#line 470 "jucompiler.y"
     {
                                                 	(yyval.tree)=(yyvsp[(2) - (2)].tree);
                	                            	}
     break;
 
   case 63:
-#line 473 "jucompiler.y"
+#line 477 "jucompiler.y"
     {
                                                 (yyval.tree)=new_node(NO_VALUE, "Assign");
                                                 tmp=new_node((yyvsp[(1) - (3)].cval), "Id");
@@ -2206,7 +2210,7 @@ yyreduce:
     break;
 
   case 64:
-#line 486 "jucompiler.y"
+#line 490 "jucompiler.y"
     {
                                                 (yyval.tree)=new_node(NO_VALUE, "ParseArgs");
                                                 tmp=new_node((yyvsp[(3) - (7)].cval), "Id");
@@ -2216,7 +2220,7 @@ yyreduce:
     break;
 
   case 65:
-#line 492 "jucompiler.y"
+#line 496 "jucompiler.y"
     {
                                                 (yyval.tree)=new_node(NO_VALUE, "ParseArgs");
                                                 flagDontPrintTree = 1;
@@ -2225,17 +2229,17 @@ yyreduce:
     break;
 
   case 66:
-#line 501 "jucompiler.y"
+#line 505 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 67:
-#line 503 "jucompiler.y"
+#line 507 "jucompiler.y"
     {(yyval.tree)=(yyvsp[(1) - (1)].tree);}
     break;
 
   case 68:
-#line 509 "jucompiler.y"
+#line 513 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Add");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2244,7 +2248,7 @@ yyreduce:
     break;
 
   case 69:
-#line 514 "jucompiler.y"
+#line 518 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Sub");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2253,7 +2257,7 @@ yyreduce:
     break;
 
   case 70:
-#line 519 "jucompiler.y"
+#line 523 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Mul");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2262,7 +2266,7 @@ yyreduce:
     break;
 
   case 71:
-#line 524 "jucompiler.y"
+#line 528 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Div");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2271,7 +2275,7 @@ yyreduce:
     break;
 
   case 72:
-#line 529 "jucompiler.y"
+#line 533 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Mod");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2280,7 +2284,7 @@ yyreduce:
     break;
 
   case 73:
-#line 534 "jucompiler.y"
+#line 538 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"And");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2289,7 +2293,7 @@ yyreduce:
     break;
 
   case 74:
-#line 539 "jucompiler.y"
+#line 543 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Or");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2298,7 +2302,7 @@ yyreduce:
     break;
 
   case 75:
-#line 544 "jucompiler.y"
+#line 548 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Xor");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2307,7 +2311,7 @@ yyreduce:
     break;
 
   case 76:
-#line 549 "jucompiler.y"
+#line 553 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"LShift");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2316,7 +2320,7 @@ yyreduce:
     break;
 
   case 77:
-#line 554 "jucompiler.y"
+#line 558 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"RShift");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2325,7 +2329,7 @@ yyreduce:
     break;
 
   case 78:
-#line 559 "jucompiler.y"
+#line 563 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Eq");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2334,7 +2338,7 @@ yyreduce:
     break;
 
   case 79:
-#line 564 "jucompiler.y"
+#line 568 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"GE");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2343,7 +2347,7 @@ yyreduce:
     break;
 
   case 80:
-#line 569 "jucompiler.y"
+#line 573 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"GT");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2352,7 +2356,7 @@ yyreduce:
     break;
 
   case 81:
-#line 574 "jucompiler.y"
+#line 578 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"LE");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2361,7 +2365,7 @@ yyreduce:
     break;
 
   case 82:
-#line 579 "jucompiler.y"
+#line 583 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"LT");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2370,7 +2374,7 @@ yyreduce:
     break;
 
   case 83:
-#line 584 "jucompiler.y"
+#line 588 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"NE");
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2379,7 +2383,7 @@ yyreduce:
     break;
 
   case 84:
-#line 589 "jucompiler.y"
+#line 593 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Add");
                                                 insert_node((yyval.tree),(yyvsp[(2) - (2)].tree));
@@ -2387,7 +2391,7 @@ yyreduce:
     break;
 
   case 85:
-#line 593 "jucompiler.y"
+#line 597 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Sub");
                                                 insert_node((yyval.tree),(yyvsp[(2) - (2)].tree));
@@ -2395,7 +2399,7 @@ yyreduce:
     break;
 
   case 86:
-#line 597 "jucompiler.y"
+#line 601 "jucompiler.y"
     {
                                                 (yyval.tree) = new_node(NO_VALUE,"Not");
                                                 insert_node((yyval.tree),(yyvsp[(2) - (2)].tree));
@@ -2403,14 +2407,14 @@ yyreduce:
     break;
 
   case 87:
-#line 601 "jucompiler.y"
+#line 605 "jucompiler.y"
     {
                                                 (yyval.tree)=(yyvsp[(2) - (3)].tree);
                                             }
     break;
 
   case 88:
-#line 604 "jucompiler.y"
+#line 608 "jucompiler.y"
     {
                                                 (yyval.tree)=NULL;
                                                 flagDontPrintTree = 1;
@@ -2418,27 +2422,27 @@ yyreduce:
     break;
 
   case 89:
-#line 608 "jucompiler.y"
+#line 612 "jucompiler.y"
     {  
                                                 (yyval.tree)=(yyvsp[(1) - (1)].tree);                                            }
     break;
 
   case 90:
-#line 610 "jucompiler.y"
+#line 614 "jucompiler.y"
     {  
                                                 (yyval.tree)=(yyvsp[(1) - (1)].tree);
                                             }
     break;
 
   case 91:
-#line 613 "jucompiler.y"
+#line 617 "jucompiler.y"
     {
                                                 (yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "Id");
                                             }
     break;
 
   case 92:
-#line 616 "jucompiler.y"
+#line 620 "jucompiler.y"
     {
                                                 (yyval.tree)=new_node((yyvsp[(1) - (2)].cval), "Id");
 
@@ -2446,23 +2450,23 @@ yyreduce:
     break;
 
   case 93:
-#line 620 "jucompiler.y"
+#line 624 "jucompiler.y"
     {(yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "DecLit");}
     break;
 
   case 94:
-#line 622 "jucompiler.y"
+#line 626 "jucompiler.y"
     {(yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "RealLit");}
     break;
 
   case 95:
-#line 624 "jucompiler.y"
+#line 628 "jucompiler.y"
     {(yyval.tree)=new_node((yyvsp[(1) - (1)].cval), "BoolLit");}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 2466 "y.tab.c"
+#line 2470 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2676,6 +2680,6 @@ yyreturn:
 }
 
 
-#line 627 "jucompiler.y"
+#line 631 "jucompiler.y"
 
 

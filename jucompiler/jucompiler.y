@@ -168,6 +168,8 @@ MethodHeader:
                                                     insert_node($$, tmp);
                                                     tmp1=new_node($2, "Id");
                                                     insert_neighbor(tmp, tmp1);
+                                                    tmp2=new_node(NO_VALUE, "MethodParams");
+                                                    insert_neighbor(tmp1, tmp2);
                                                 }
 
     |   Type ID LPAR FormalParams RPAR          {  
@@ -186,6 +188,8 @@ MethodHeader:
                                                     insert_node($$, $1);
                                                     tmp=new_node($2, "Id");
                                                     insert_neighbor($1, tmp);
+                                                    tmp1=new_node(NO_VALUE, "MethodParams");
+                                                    insert_neighbor(tmp, tmp1);
                                                 }
 
     ;

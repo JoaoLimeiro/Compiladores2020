@@ -1,22 +1,7 @@
-// Se compilarem com a flag -e2, da erro do unterminated string literal
-// Se compilarem com a flag -t, da o erro na mesma, mas a AST e impressa
-// 
-
-class errorsAndAST {
-  public static void main(String[] args) {
-    if(tiago_to) {} else ;
-
-    a(true);
-        if (true)
-            if (false)
-                {}
-            else
-                {}
-        else
-            if (ABC)
-                {}
-            else
-                {}
-    if (false) {} else if (false) {}
-  }
+// teste com o minimo possivel apenas para dar pritn de program, methodParams e methodBody
+class Teste{
+    // tem que dar void, id main e depois methodParams sem filhos
+    public static void main (){
+        // aqui apesar de tar vazio tem que dar methodbody
+    }
 }
