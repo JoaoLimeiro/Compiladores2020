@@ -334,15 +334,26 @@ VarDecl:
     |   IF LPAR Expr RPAR Statement %prec IF2               {  
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
-                                                                insert_neighbor($3, $5);
+                                                                if($5 != NULL){
+                                                                	insert_neighbor($3, $5);
+                                                                }
+                                                                
                                                                 /* TODO isto do prec deve precisar de algo*/
                                                             }
     |   IF LPAR Expr RPAR Statement ELSE Statement          {  
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
-                                                                insert_neighbor($3, $5);
-                                                                insert_neighbor($5, $7);
-                                                            }
+                                                                if($5 != NULL){
+                                                                	insert_neighbor($3, $5);
+                                                                	if($7 != NULL){
+                                                                		insert_neighbor($5, $7);
+                                                                	}
+                                                                }else{
+                                                                	if($7 != NULL){
+                                                                		insert_neighbor($3, $7);
+                                                                	}
+                                                                }
+                                                                                                                          }
     |   WHILE LPAR Expr RPAR Statement                      {  
                                                                 $$=new_node(NO_VALUE, "While");
                                                                 insert_node($$, $3);

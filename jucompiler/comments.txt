@@ -4,40 +4,9 @@
 
 class errorsAndAST {
   public static void main(String[] args) {
-    //a = "nao desistam amigos";
-    "sdfsdfsdf
-    if(A)
-        if(0) System.out.print(0);
-          else
-            if(x) {
-                if (1);
-            } else
-                if(ABC) {
-                    {;}
-                } else x=1;
+    if(tiago_to) {} else ;
 
-    while (tiago_to == manolos_simpaticos){
-        System.out.print("Impossivel sair daqui eheh");
-    }
-    
-    while(a){
-        while (b){
-            while (espero){
-                while (isto){
-                    while (funcione){
-                        while (bem){
-                            System.out.print("RUMO AOS 800!!");
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-
-    if(tiago_to);     else ;
-
-    if (true)
+    a(true);
         if (true)
             if (false)
                 {}

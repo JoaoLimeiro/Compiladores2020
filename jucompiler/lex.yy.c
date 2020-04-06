@@ -1038,7 +1038,7 @@ YY_RULE_SETUP
 case 3:
 YY_RULE_SETUP
 #line 112 "jucompiler.l"
-{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return BOOLLIT;}
+{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng; yylval.cval = strdup(yytext); if (flagTree ==1) return BOOLLIT;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP

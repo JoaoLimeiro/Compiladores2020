@@ -109,7 +109,7 @@ STRERR (\\({NOESCAPE}|"|"))
 					column += yyleng;
 				}
 {RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext);column += yyleng; if (flagTree ==1) return RESERVED ;}
-{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng; if (flagTree ==1) return BOOLLIT;}
+{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); column += yyleng; yylval.cval = strdup(yytext); if (flagTree ==1) return BOOLLIT;}
 {PARSEINT}  	{PRINTF("PARSEINT\n");column += yyleng; if (flagTree ==1) return PARSEINT;}
 {AND}   		{PRINTF("AND\n"); column += yyleng; if (flagTree ==1) return AND;}
 {ASSIGN}    	{PRINTF("ASSIGN\n"); column += yyleng; if (flagTree ==1) return ASSIGN;}
