@@ -32,18 +32,20 @@ s_Tree myprogram, tmp, tmp1, tmp2;
 %nonassoc IF2
 %nonassoc ELSE
 
-%right ASSIGN
 %left COMMA
+%right ASSIGN
 %left OR
-%left AND
 %left XOR
-%left LSHIFT RSHIFT
-%left STAR
+%left AND
 %left EQ NE
 %left LT GT LE GE
+%left LSHIFT RSHIFT
 %left PLUS MINUS
-%left MUL DIV MOD
+%left STAR DIV MOD
 %right NOT
+%right preced
+%left LBRACE LPAR LSQ RSQ RPAR RBRACE
+
 
 
 %%
@@ -604,7 +606,7 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MINUS OtherExpr           {
-                                                $$ = new_node(NO_VALUE,"Minus");
+                                                $$ = new_node(NO_VALUE,"Sub");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -679,7 +681,7 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   PLUS OtherExpr                      {
-                                                $$ = new_node(NO_VALUE,"Add");
+                                                $$ = new_node(NO_VALUE,"Plus");
                                                 insert_node($$,$2);
                                             }
     |   MINUS OtherExpr                     {

@@ -4,3 +4,8 @@ jucompiler2/jucompiler.y
 jucompiler2/jucompiler.zip
 jucompiler2/y.tab.c
 jucompiler2/y.tab.h
+jucompiler3/jucompiler.l
+jucompiler3/jucompiler.y
+jucompiler3/jucompiler.zip
+jucompiler3/y.tab.c
+jucompiler3/y.tab.h
