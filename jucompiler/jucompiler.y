@@ -13,6 +13,8 @@
 
 s_Tree myprogram, tmp, tmp1, tmp2;
 
+int globalContador = 0;
+
 %}
 
 %token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
@@ -73,11 +75,7 @@ Declaring:
 
     |    SEMICOLON Declaring                    {$$=$2;}
 
-    |    FieldDecl  							{$$=$1;}
-
-    |    MethodDecl 							{$$=$1;}
-
-    |    SEMICOLON  							{$$=NULL;}
+    |      							{$$=NULL;}
 
     ;
 
@@ -308,7 +306,6 @@ VarDecl:
                                                     insert_neighbor($$, $3);
 
                                                     tmp1 = $$;
-
                                                     while(tmp1 != NULL){
                                                     	if( strcmp(tmp1->child->type,$$->child->type) ){
                                                     		tmp = new_node(tmp1->child->value, tmp1->child->type);
@@ -332,10 +329,40 @@ VarDecl:
     Statement:
 
         LBRACE Statement2 RBRACE                            {  
-                                                                $$=$2;
+                                                              
+                                                               int flag = 1;
+                                                               int contadorDentroWhile = 0;
+                                                               tmp1 = $2;
+                                                                
+
+                                                                if(globalContador > 1){
+                                                                	while(flag == 1){
+                                                                		if(strcmp(tmp1->type,"Null") != 0 && strcmp(tmp1->type,"Block") != 0 ){
+                                                                			tmp=new_node(NO_VALUE, "Block");
+                                                                			tmp->child = tmp1;
+
+                                                                			flag = 0;
+
+                                                                						
+                                                                					
+                                                                		}else if(strcmp(tmp1->neighbor->type,"Null") == 0 ){
+                                                                			tmp1 = tmp1->neighbor;
+                                                                		}
+                                                                		contadorDentroWhile++;
+                                                                		tmp1 = tmp1->neighbor;
+                                                                	} 
+
+                                                                	
+                                                                	globalContador = 0;
+                                                                	$$=tmp;
+                                                                }else{
+                                                                
+                                                                	$$=$2;
+                                                                	globalContador = 0;
+                                                                }
                                                             }
 
-    |	LBRACE RBRACE 										{$$=NULL;}
+    |	LBRACE RBRACE 										{$$=new_node(NO_VALUE, "Null");}
 
     |   IF LPAR Expr RPAR Statement %prec IF2               {  
                                                                 $$=new_node(NO_VALUE, "If");
@@ -350,7 +377,8 @@ VarDecl:
                                                                 tmp1 = $5;
 
 			                                                    while(tmp1 != NULL){
-			                                                    	contador++;
+			                                                    	if(strcmp(tmp1->type, "Null") != 0)
+			                                                    		contador++;
 			                                                    	tmp1 = tmp1->neighbor;
 			                                                    }  
 
@@ -376,7 +404,8 @@ VarDecl:
     															tmp1 = $5;
 
 			                                                    while(tmp1 != NULL){
-			                                                    	contador1++;
+			                                                    	if(strcmp(tmp1->type, "Null") != 0)
+			                                                    		contador1++;
 			                                                    	tmp1 = tmp1->neighbor;
 			                                                    }  
 
@@ -384,7 +413,9 @@ VarDecl:
                                                                 tmp1 = $7;
 
 			                                                    while(tmp1 != NULL){
-			                                                    	contador2++;
+			                                                    	if(strcmp(tmp1->type, "Null") != 0){
+			                                                    		contador2++;
+			                                                    	}
 			                                                    	tmp1 = tmp1->neighbor;
 			                                                    }  
 
@@ -394,14 +425,14 @@ VarDecl:
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
 
-                                                                if($5 != NULL){
+                                                                if($5 != NULL && contador1 != 0){
                                                                 	if(contador1 > 1){
                                                                 		insert_node($3, tmp);
                                                                 		insert_neighbor(tmp, $5);
                                                                 	}else{
                                                                 		insert_neighbor($3, $5);
                                                                 	}
-                                                                	if($7 != NULL){
+                                                                	if($7 != NULL && contador2 != 0){
                                                                 		if(contador2 > 1){
                                                                 			insert_neighbor($5, tmp);
                                                                 			insert_neighbor(tmp, $7);
@@ -413,7 +444,7 @@ VarDecl:
 
                                                                 	insert_neighbor($3, tmp); 
 
-                                                                	if($7 != NULL){
+                                                                	if($7 != NULL && contador2 != 0){
                                                                 		if(contador2 > 1){
                                                                 			insert_neighbor(tmp, tmp1);
                                                                 			insert_neighbor(tmp1, $7);
@@ -432,9 +463,9 @@ VarDecl:
 
                                                                 int contador = 0;
     															tmp1 = $5;
-
 			                                                    while(tmp1 != NULL){
-			                                                    	contador++;
+			                                                    	if(strcmp(tmp1->type, "Null") != 0)
+			                                                    		contador++;
 			                                                    	tmp1 = tmp1->neighbor;
 			                                                    }  
 
@@ -460,7 +491,7 @@ VarDecl:
                                                                 $$=$1;
                                                             }
 
-    |   SEMICOLON 											{$$=NULL;}
+    |   SEMICOLON 											{$$=new_node(NO_VALUE, "Null");}
 
     |   PRINT LPAR ExprOrStrlit RPAR SEMICOLON              {  
                                                                 $$=new_node(NO_VALUE, "Print");
@@ -474,13 +505,18 @@ Statement2:
 
 		Statement Statement2                        		{
                                                     			insert_neighbor($1, $2);
-                                                    			/* tmp=new_node(NO_VALUE, "Block");
-                                                    			insert_neighbor($2, tmp); */
                                                     			$$=$1;
+                                                    			
+                                                    			if(strcmp($1->type, "Null") != 0)
+                                                    				globalContador++;
                                                 			} 
 
-    |	Statement                                			{$$=$1;} 
+    |	Statement                                			{$$=$1;
+    														if(strcmp($1->type, "Null") != 0)
+    																globalContador++;
+    														} 
 ;
+
 
 
 ExprSemicolon:
@@ -511,7 +547,7 @@ MethodInvAssParseArgs:
     |   ParseArgs                               {  
                                                     $$=$1;
                                                 }  
-    |   error			                        {$$=NULL;flagDontPrintTree = 1;}
+    |   error			                        {$$=new_node(NO_VALUE, "Null");flagDontPrintTree = 1;}
 
     ;
 

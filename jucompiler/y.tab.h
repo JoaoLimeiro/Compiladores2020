@@ -90,7 +90,7 @@
      RETURN = 306,
      END = 307,
      IF2 = 308,
-     MUL = 309
+     preced = 309
    };
 #endif
 /* Tokens.  */
@@ -145,14 +145,14 @@
 #define RETURN 306
 #define END 307
 #define IF2 308
-#define MUL 309
+#define preced 309
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 22 "jucompiler.y"
+#line 24 "jucompiler.y"
 {
     int ival;
     char * cval;
