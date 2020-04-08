@@ -53,7 +53,7 @@ void imprime_arvore(s_Tree no, int profundidade){
         if (strcmp(no->type,"Program") == 0){
             printf("%s\n",no->type);
         }
-        else {
+        else if(strcmp(no->type,"Null") != 0){
             while(prof_aux < profundidade){
                 printf("..");
                 prof_aux++;
