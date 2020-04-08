@@ -73,11 +73,7 @@ Declaring:
 
     |    SEMICOLON Declaring                    {$$=$2;}
 
-    |    FieldDecl  							{$$=$1;}
-
-    |    MethodDecl 							{$$=$1;}
-
-    |    SEMICOLON  							{$$=NULL;}
+    |      							{$$=NULL;}
 
     ;
 
