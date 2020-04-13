@@ -2,6 +2,8 @@
 
 
 %{
+	// Bárbara Vieira 2017246949
+	// João Limeiro 2017262387
 	#include "structures.h"
 	#include "functions.h"
 	#include "y.tab.h"

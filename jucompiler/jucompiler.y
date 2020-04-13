@@ -44,8 +44,8 @@ int globalContador = 0;
 %left LSHIFT RSHIFT
 %left PLUS MINUS
 %left STAR DIV MOD
+%left preced
 %right NOT
-%right preced
 %left LBRACE LPAR LSQ RSQ RPAR RBRACE
 
 
@@ -716,11 +716,11 @@ OtherExpr:
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
-    |   PLUS OtherExpr                      {
+    |   PLUS OtherExpr        %prec preced              {
                                                 $$ = new_node(NO_VALUE,"Plus");
                                                 insert_node($$,$2);
                                             }
-    |   MINUS OtherExpr                     {
+    |   MINUS OtherExpr       %prec preced               {
                                                 $$ = new_node(NO_VALUE,"Minus");
                                                 insert_node($$,$2);
                                             }
