@@ -1,0 +1,1 @@
+lex jucompiler.l && yacc -d jucompiler.y && cc -o jucompiler lex.yy.c y.tab.c functions.c symbol_table.c semantics.c 
