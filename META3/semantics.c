@@ -68,16 +68,18 @@ if (methodHeader->child!=NULL ){
 	    
 		current_symtab=create_table(aux->value, "Method");
 		insert_el(current_symtab,"return",methodHeader->child->type,NULL,0,0);
-		if(check_method(methodHeader)){
+		//if(check_method(methodHeader)){
 		current_el=insert_el(symtab,aux->value,methodHeader->child->type,NULL,0,1);
 		if(methodHeader->child->neighbor->neighbor->child!=NULL){
 			check_paramDecl(methodHeader->child->neighbor->neighbor->child,current_el,1);
- }}
+ }
+/*
 else{
 if(methodHeader->child->neighbor->neighbor->child!=NULL){
 			check_paramDecl(methodHeader->child->neighbor->neighbor->child,	NULL, 0);
-}
-}
+}*/
+
+
 
 check_program(methodHeader->child);
 
@@ -97,9 +99,10 @@ int check_method(Tree *tree){
 	if(comp!=NULL && comp->is_method==1){
 
 		compparams=comp->params;
+
 		for (aux=tree->child->neighbor->neighbor->child;aux; aux=aux->neighbor){
 
-			//printf("%s",compparams->type);	
+			printf("%s",compparams->type);	
 			compare=strdup(aux->child->type);
 			if (strcmp(compare,"StringArray")==0){
 			compare="String[]";

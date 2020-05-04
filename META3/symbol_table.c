@@ -73,10 +73,10 @@ else{
 	{	
 		while(aux->next!=NULL){
 
-			if (strcmp(aux->name, newSymbol->name)==0){
+			if (strcmp(aux->name, newSymbol->name)==0 && aux->is_method==0 && newSymbol->is_method==0 ){
 				flag=1;}
 			aux= aux->next;
-	}	if (strcmp(aux->name, newSymbol->name)==0){
+	}	if (strcmp(aux->name, newSymbol->name)==0 && aux->is_method==0 && newSymbol->is_method==0){
 				flag=1;}
 		if (flag==0 || flagmethod==1)
 			aux->next=newSymbol;
@@ -85,8 +85,13 @@ else{
 			
 		
 	}
-	else	//symtab tem um elemento -> o novo simbolo
-		{table->symbols=newSymbol;	}
+	else if (aux==NULL && table!=NULL )	//symtab tem um elemento -> o novo simbolo
+		{
+//printf("%s",table->name);
+
+
+		table->symbols=newSymbol;	
+}
 
 	
 	return newSymbol; 
