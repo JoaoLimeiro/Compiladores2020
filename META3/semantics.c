@@ -8,9 +8,10 @@
 
 int allow=0;
 int var=0;
-
+int lshiftvar;
 
 int check_program(Tree *tree) {
+int allowb4=0;
 if (tree==NULL){
 return 0;}
     if (strcmp(tree->type, "Program")==0){
@@ -54,7 +55,7 @@ check_program(tree->neighbor);
 
 }
 
- else if ((strcmp(tree->type, "Id") == 0 || strcmp(tree->type, "DecLit") == 0 || strcmp(tree->type, "BoolLit") == 0 || strcmp(tree->type, "RealLit") == 0)){
+ else if ((strcmp(tree->type, "Id") == 0 || strcmp(tree->type, "DecLit") == 0 || strcmp(tree->type, "BoolLit") == 0 || strcmp(tree->type, "RealLit") == 0 || strcmp(tree->type, "StrLit") == 0)){
 		check_type(tree);
 	}
  else if (strcmp(tree->type, "Assign")==0){
@@ -86,18 +87,36 @@ else if (strcmp(tree->type, "Minus")==0 || strcmp(tree->type, "Plus")==0){
 
 else if (strcmp(tree->type, "Lshift")==0 || strcmp(tree->type, "Rshift")==0){
 	tree->annot="none";
+allowb4=allow;
+lshiftvar=1;
 allow=0;
+//allow=1;
 	check_program(tree->child);
 	
-allow=1;
+
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
+lshiftvar=0;
 check_program(tree->neighbor);
 
 }
 
 
 else if (strcmp(tree->type, "If")==0 || strcmp(tree->type, "Else")==0){
+allowb4=allow;
+
+allow=1;
 check_program(tree->child);
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 check_program(tree->neighbor);
+
+
+
 }
 
 
@@ -106,10 +125,16 @@ check_operator_call(tree);
 check_program(tree->neighbor);
 }
 
-  else if (strcmp(tree->type, "Return")==0){
+  else if (strcmp(tree->type, "Return")==0 || strcmp(tree->type, "Print")==0){
+allowb4=allow;
+
 allow=1;
 check_program(tree->child);
-allow=0;
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
+
 check_program(tree->neighbor);
 }
 /*
@@ -151,18 +176,25 @@ if (methodHeader->child!=NULL ){
 	    Tree *aux=methodHeader->child->neighbor;
 
 	    
-		current_symtab=create_table(aux->value, "Method");
-		insert_el(current_symtab,"return",methodHeader->child->type,NULL,0,0);
-		current_el=insert_el(symtab,aux->value,methodHeader->child->type,NULL,0,1);
-		if(methodHeader->child->neighbor->neighbor->child!=NULL){
-			check_paramDecl(methodHeader->child->neighbor->neighbor->child,current_el,1);
+		
+		if (check_signature(symtab,methodHeader)==0){
+current_symtab=create_table(aux->value, "Method");
+		insert_el(current_symtab,"return",methodHeader->child->type,NULL,0,0,1);
+			current_el=insert_el(symtab,aux->value,methodHeader->child->type,NULL,0,1,1);
+			if(methodHeader->child->neighbor->neighbor->child!=NULL){
+				check_paramDecl(methodHeader->child->neighbor->neighbor->child,current_el,1);
  }
+}		/*else{
+			current_el=insert_el(symtab,aux->value,methodHeader->child->type,NULL,0,1,0);
+			if(methodHeader->child->neighbor->neighbor->child!=NULL){
+				check_paramDecl(methodHeader->child->neighbor->neighbor->child,NULL,0);
+}
 
-
+}*/}
 
 check_program(methodHeader->child);
 
-}
+
 
     return current_symtab;
 }
@@ -171,7 +203,7 @@ void check_paramDecl(Tree* paramDecl, symbol* sym,int tipo){
 	Tree *aux;
 if (tipo==1){
 	for (aux=paramDecl;aux; aux=aux->neighbor){
-		insert_el(current_symtab,aux->child->neighbor->value,aux->child->type,NULL,1,0);
+		insert_el(current_symtab,aux->child->neighbor->value,aux->child->type,NULL,1,0,1);
 		insert_param(sym, aux->child->value,aux->child->type);
 		insert_param_table(current_symtab, aux->child->value,aux->child->type);
 
@@ -179,13 +211,135 @@ if (tipo==1){
 	}
 }else{
 	for (aux=paramDecl;aux; aux=aux->neighbor){
-		insert_el(current_symtab,aux->child->neighbor->value,aux->child->type,NULL,1,0);
+		insert_el(current_symtab,aux->child->neighbor->value,aux->child->type,NULL,1,0,1);
 
 		insert_param_table(current_symtab, aux->child->value,aux->child->type);
 }
 
 }
 }
+
+
+
+int check_signature(table_element * table, Tree * method) {
+/*
+    Tree * auxtree;
+    params * params;
+char str[40];
+
+char *type;
+
+    int ngiven = 0;
+    int nparams = 0;
+    int nsimilar = 0;
+    symbol * aux;
+
+
+    for (auxtree =  method -> child -> neighbor -> neighbor->child; auxtree; auxtree = auxtree -> neighbor) {
+      ngiven++;
+
+    }
+
+str[2]='b';
+    if (table -> symbols != NULL) {
+
+      for (aux = table -> symbols; aux; aux = aux -> next) {
+        nparams = 0;
+        nsimilar = 0;
+
+        if (aux -> is_method == 1) {
+	
+
+
+ if (strcmp(method -> child -> type, "Void") == 0)  {
+    type = "void";
+  }
+else if (strcmp(method -> child -> type, "StringArray") == 0 ) {
+    type = "String[]";
+  }
+else	if ( strcmp(method -> child -> type, "Double") == 0 ) {
+    type = "double";
+  }
+  else if ( strcmp(method -> child -> type, "Int") == 0 ) {
+    type = "int";
+  }
+ else if ( strcmp(method -> child -> type, "Boolean") == 0 ) {
+    type = "boolean";}
+else if ( strcmp(method -> child -> type, "String") == 0 ) {
+    type = "String";
+  }
+
+
+
+
+          if (strcmp(aux->type, type) == 0) {
+		//printf("%s -- %s ",aux -> name,method -> child -> neighbor -> value);
+//printf("%s ---- %s ",aux -> name,method -> child -> neighbor -> value);
+            if (strcmp(aux -> name, method -> child -> neighbor -> value) == 0) {
+
+              for (params = aux -> params; params; params = params -> next) {
+                nparams++;
+              }
+              //printf("%d - %d ",nparams,ngiven);
+              if (nparams == ngiven) {
+                if (nparams == 0) {
+                  return 1;
+                }
+
+                params = aux -> params;
+
+                for (auxtree = method -> child -> neighbor -> neighbor->child; auxtree; auxtree = auxtree -> neighbor) { //printf("%s - %s ",auxtree -> child -> type,params -> type);
+			
+ if (strcmp(auxtree -> child -> type, "Void") == 0 ) {
+    type = "void";
+  }
+else if (strcmp(auxtree -> child -> type, "StringArray") == 0)  {
+    type = "String[]";
+  }
+else	if ( strcmp(auxtree -> child -> type, "Double") == 0 ) {
+    type = "double";
+  }
+  else if ( strcmp(auxtree -> child -> type, "Int") == 0 ) {
+    type = "int";
+  }
+ else if ( strcmp(auxtree -> child -> type, "Boolean") == 0)  {
+    type = "boolean";
+  }
+else if ( strcmp(method -> child -> type, "String") == 0 ) {
+    type = "String";
+  }
+
+                  if  ( strcmp(type,params->type) == 0 ) {
+
+			nsimilar++;
+
+}
+		  //else if	((strcmp(auxtree -> child -> type, "Double") == 0 && strcmp("int", params -> type) == 0) || (strcmp(auxtree -> child -> type, "Int") == 0 && strcmp("double", params -> type) == 0) || (strcmp(auxtree -> child -> type, "Double") == 0 && strcmp("double", params -> type) == 0) || (strcmp(auxtree -> child -> type, "Int") == 0 && strcmp("int", params -> type) == 0)) {
+
+
+                  //  nsimilar++;
+                  //}
+                  params = params -> next;
+//printf("%d,,%d", nparams, nsimilar);
+                
+              }if (nparams==nsimilar){
+
+		return 1;}
+
+            }
+          }
+
+        }
+      }
+      }
+    } */
+      return 0;
+
+    }
+
+
+
+
 
 void check_fieldDecl(Tree* fieldDecl){
 	if (fieldDecl->child!=NULL ){
@@ -194,7 +348,7 @@ void check_fieldDecl(Tree* fieldDecl){
 	    char *type=strdup(fieldDecl->child->type);
 
 
-	 insert_el(symtab,aux->value,type,NULL,0,0);
+	 insert_el(symtab,aux->value,type,NULL,0,0,1);
 }
 check_program(fieldDecl->neighbor);
 }
@@ -208,18 +362,28 @@ if (var==1){
 	    char *type=strdup(varDecl->child->type);
 
 
-	 insert_el(current_symtab,aux->value,type,NULL,0,0);
+	 insert_el(current_symtab,aux->value,type,NULL,0,0,1);
 }
 }
 }
 
 
 void check_operator_assign(Tree* operator){
+	int allowb4=allow;
 allow=1;
 	check_program(operator->child);
 
-if (operator->child!=NULL && operator->child->annot!=NULL){
-	if ( strcmp(operator->child->annot, "double") == 0 || strcmp(operator->child->neighbor->annot, "double") == 0) {
+
+
+ if (operator->child!=NULL && operator->child->annot!=NULL){/*
+
+if ( strcmp(operator->child->annot, "int") == 0 && strcmp(operator->child->neighbor->annot, "double") == 0) {
+    operator->annot = "int";
+  }
+else if ( strcmp(operator->child->annot, "double") == 0 && strcmp(operator->child->neighbor->annot, "int") == 0) {
+    operator->annot = "double";
+  }
+	else if ( strcmp(operator->child->annot, "double") == 0 || strcmp(operator->child->neighbor->annot, "double") == 0) {
     operator->annot = "double";
   }
   else if ( strcmp(operator->child->annot, "int") == 0 || strcmp(operator->child->neighbor->annot, "int") == 0) {
@@ -228,48 +392,73 @@ if (operator->child!=NULL && operator->child->annot!=NULL){
 else if (strcmp(operator->child->annot, "boolean") == 0 || strcmp(operator->child->neighbor->annot, "boolean") == 0) {
     operator->annot = "boolean";
   }
- 
+ */
+
+if ( strcmp(operator->child->annot, "double") == 0 ) {
+    operator->annot = "double";
+  }
+  else if ( strcmp(operator->child->annot, "int") == 0 ) {
+    operator->annot = "int";
+  }
+else if (strcmp(operator->child->annot, "boolean") == 0 ){
+    operator->annot = "boolean";
+  }
 
 
 }
-allow=0;
+
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 }
 
 
 
 
 void check_operator_comp(Tree* operator){
+	int allowb4=allow;
 allow=1;
 check_program(operator->child);
     operator->annot = "boolean";
   
  
-allow=0;
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 check_program(operator->neighbor);
 
 
 }
 
 void check_operator_logical(Tree* operator){
+	int allowb4=allow;
 allow=1;
 check_program(operator->child);
     operator->annot = "boolean";
   
- 
-allow=0;
+ if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 check_program(operator->neighbor);
 
 
 }
 
 void check_operator_minplus(Tree* operator){
+	int allowb4=allow;
 allow=1;
 check_program(operator->child);
 
     operator->annot = operator->child->annot;
   
  
-allow=0;
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 check_program(operator->neighbor);
 
 
@@ -277,13 +466,16 @@ check_program(operator->neighbor);
 
 
 void check_operator_ints(Tree* operator){
+	int allowb4=allow;
 allow=1;
 check_program(operator->child);
 
     operator->annot = "int";
   
- 
-allow=0;
+ if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 check_program(operator->neighbor);
 
 
@@ -292,13 +484,17 @@ check_program(operator->neighbor);
 
 
 void check_operator_call(Tree* operator){
+	int allowb4=allow;
 allow=1;
 
 
  check_program(operator->child->neighbor);
 
 
-allow=0;
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
 
 
 
@@ -339,14 +535,15 @@ nparams=0;
 nsimilar=0;
 strcpy(str,str2);
 
-	if(strcmp(aux->name, call->child->value)==0){
+
+	if(strcmp(aux->name, call->child->value)==0 ){
 			for (params=aux->params; params; params=params->next){
 				nparams++;
 				}
 			//printf("%d - %d ",nparams,ngiven);
 			if (nparams==ngiven){
 				if (nparams==0){
-				call->annot="void";
+				call->annot=aux->type;
 				call->child->annot="()";
 flag=1;
 				break;
@@ -433,8 +630,12 @@ flag=2;
 
 
 void check_operator_calc(Tree* operator){
+int allowb4=allow;
+
+	if ( lshiftvar!=1){
 allow=1;
-	check_program(operator->child);
+check_program(operator->child);
+if (operator->child!=NULL && operator->child->annot!=NULL && lshiftvar!=1){
 
  if (strcmp(operator->child->annot, "undef") == 0 || strcmp(operator->child->neighbor->annot, "undef") == 0) {
     operator->annot = "undef";
@@ -450,20 +651,24 @@ else if (operator->child!=NULL && operator->child->annot!=NULL){
     operator->annot = "int";
   }
  else if ( strcmp(operator->child->annot, "boolean") == 0 || strcmp(operator->child->neighbor->annot, "boolean") == 0) {
-    operator->annot = "boolean";
+    operator->annot = "undef";
   }
-  
-allow=0;
+ 
+if (allowb4 ==1)
+	allow=1;
+else
+	allow=0;
+}}}
 check_program(operator->neighbor);
-}
+
 }
 
 void check_type(Tree *tree){
 if (allow==1 ){
 	if (strcmp(tree->type, "Id") == 0 ) {
 
-		symbol *current=search_el(current_symtab,tree->value);
-		symbol *global=search_el(symtab,tree->value);
+		symbol *current=search_el(current_symtab,tree->value,1);
+		symbol *global=search_el(symtab,tree->value,1);
 
 		if (current!=NULL){
 			
@@ -489,7 +694,12 @@ if (allow==1 ){
 	else if (strcmp(tree->type, "BoolLit") == 0) {
 		tree->annot=strdup("boolean");
 	}
+	else if (strcmp(tree->type, "StrLit") == 0) {
+		tree->annot=strdup("String");
+	}
 
+}else{
+tree->annot="none";
 }
 
  

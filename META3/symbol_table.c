@@ -34,7 +34,7 @@ new_table->params = NULL;
 
 
 //Insere um novo identificador na cauda de uma lista ligada de simbolo
-symbol *insert_el(table_element *table, char *str,char *t ,params * params, int flagpar,int flagmethod)
+symbol *insert_el(table_element *table, char *str,char *t ,params * params, int flagpar,int flagmethod, int show)
 {int flag=0;
 	symbol *newSymbol=(symbol*) malloc(sizeof(symbol));
 	symbol *aux;
@@ -66,6 +66,7 @@ else{
 }
 
 	newSymbol->params=params;
+newSymbol->show=show;
 	newSymbol->next=NULL;	
 	aux=table->symbols;
 
@@ -183,16 +184,27 @@ else{
 }
 
 //Procura um identificador, devolve 0 caso nao exista
-symbol *search_el(table_element *table,char *str)
+symbol *search_el(table_element *table,char *str, int flagfield)
 {
 symbol *aux;
-if (table->symbols!=NULL){
-	for(aux=table->symbols; aux; aux=aux->next)
-		if(strcmp(aux->name, str)==0)
-			return aux;}
 
+if (table->symbols!=NULL){
+if (flagfield==1){
+	for(aux=table->symbols; aux; aux=aux->next)
+		{if(strcmp(aux->name, str)==0 && aux->is_method!=1)
+			return aux;}
+}
+else{
+
+	for(aux=table->symbols; aux; aux=aux->next)
+		{if(strcmp(aux->name, str)==0)
+			return aux;}
+}
+
+}
 return NULL;
 }
+
 
 
 //Procura um identificador, devolve 0 caso nao exista
@@ -241,6 +253,7 @@ void show_symbols(symbol *sym, char* table_type)
 	symbol *aux;
 	params *aux2;
 for(aux=sym; aux; aux=aux->next){
+if (aux->show==1){
 	printf("%s\t", aux->name);
 
 	if (strcmp(table_type, "Class")==0 && search_table(aux->name)!=NULL && aux->is_method==1){
@@ -273,6 +286,66 @@ for(aux=sym; aux; aux=aux->next){
 	printf("\tparam");
 	}
 	printf("\n");
-}
+}}
 }
 
+
+void free_tables(table_element *table) {
+  if (table == NULL) {
+    return;
+  }
+
+  if (table->name != NULL) {
+    free(table->name);
+  }
+  if(table->symbols != NULL) {
+    free_symbols(table->symbols);
+  }
+if (table->params != NULL) {
+    free_params(table->params);
+  }
+
+
+
+  free_tables(table->next);
+
+  free(table);
+}
+
+
+void free_params(params *params) {
+  if (params == NULL) {
+    return;
+  }
+
+  if (params->name != NULL) {
+    free(params->name);
+  }
+if (params->type != NULL) {
+    free(params->type);
+  }
+
+  free_params(params->next);
+
+  free(params);
+}
+
+void free_symbols(symbol *symbols) {
+  if (symbols == NULL) {
+    return;
+  }
+
+  if (symbols->name != NULL) {
+    free(symbols->name);
+  }
+  if (symbols->type != NULL) {
+    free(symbols->type);
+  }
+  if (symbols->params != NULL) {
+    free_params(symbols->params);
+  }
+
+  free_symbols(symbols->next);
+
+  free(symbols);
+}
