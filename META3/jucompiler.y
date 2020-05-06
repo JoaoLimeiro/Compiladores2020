@@ -677,12 +677,12 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LSHIFT OtherExpr             {
-                                                $$ = new_node(NO_VALUE,"LShift");
+                                                $$ = new_node(NO_VALUE,"Lshift");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr RSHIFT OtherExpr          {
-                                                $$ = new_node(NO_VALUE,"RShift");
+                                                $$ = new_node(NO_VALUE,"Rshift");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }

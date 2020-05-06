@@ -275,3 +275,4 @@ for(aux=sym; aux; aux=aux->next){
 	printf("\n");
 }
 }
+

@@ -2354,7 +2354,7 @@ yyreduce:
   case 74:
 #line 679 "jucompiler.y" /* yacc.c:1646  */
     {
-                                                (yyval.tree) = new_node(NO_VALUE,"LShift");
+                                                (yyval.tree) = new_node(NO_VALUE,"Lshift");
                                                 insert_node((yyval.tree),(yyvsp[-2].tree));
                                                 insert_neighbor((yyvsp[-2].tree),(yyvsp[0].tree));
                                             }
@@ -2364,7 +2364,7 @@ yyreduce:
   case 75:
 #line 684 "jucompiler.y" /* yacc.c:1646  */
     {
-                                                (yyval.tree) = new_node(NO_VALUE,"RShift");
+                                                (yyval.tree) = new_node(NO_VALUE,"Rshift");
                                                 insert_node((yyval.tree),(yyvsp[-2].tree));
                                                 insert_neighbor((yyvsp[-2].tree),(yyvsp[0].tree));
                                             }

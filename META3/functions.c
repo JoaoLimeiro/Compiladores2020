@@ -11,6 +11,7 @@ s_Tree new_node(char* value, char* type)
 	node->type=strdup(type);
 	node->father = NULL;
 	node->child = NULL;
+	node->annot = NULL;
 	node->neighbor = NULL;
 
 	return node;
@@ -59,11 +60,14 @@ void imprime_arvore(s_Tree no, int profundidade){
                 prof_aux++;
             }
             if(strcmp(no->value,"") == 0){
-                printf("%s\n", no->type);
+                printf("%s", no->type);
             }
             else{
-                printf("%s(%s)\n", no->type, no->value);
+                printf("%s(%s)", no->type, no->value);
             }
+		if (no->annot!=NULL && strcmp(no->annot,"none") != 0)
+			printf(" - %s", no->annot);
+printf("\n");
         }
         aux = no->child;
         while(aux != NULL){

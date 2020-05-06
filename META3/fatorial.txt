@@ -1,13 +1,22 @@
-class ClassTeste {
+class Sum {
+    public static void operator(){
 
-    public static int teste0 , teste1, teste2;
-
-    public static int teste2;
-
-
-    public static void main(String[] args) {
-        int argument;
-        argument = Integer.parseInt(args[0]);
-        System.out.print(factorial(argument));
     }
+
+    public static void main() {
+        int a,b,c;
+        double d,e;
+        boolean x,y;
+
+        if(x==y){
+        	if(a==b){
+        		if(d==b){
+        			x = ((d*e)<=(a>>c))||((x)==(!y));
+        		}
+        	}
+        }
+
+        //operator();
+    }
+
 }
