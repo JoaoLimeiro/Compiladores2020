@@ -193,6 +193,10 @@ if (flagfield==1){
 	for(aux=table->symbols; aux; aux=aux->next)
 		{if(strcmp(aux->name, str)==0 && aux->is_method!=1)
 			return aux;}
+	for(aux=table->symbols; aux; aux=aux->next)
+		{if(strcmp(aux->name, str)==0)
+			return aux;}
+	
 }
 else{
 
