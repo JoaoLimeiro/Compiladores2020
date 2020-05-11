@@ -137,10 +137,21 @@ else
 
 check_program(tree->neighbor);
 }
+    else if (strcmp(tree->type, "While")==0){
+		allowb4=allow;
+
+		allow=0;
+		check_program(tree->child);
+		if (allowb4 ==1)
+			allow=1;
+		else
+			allow=0;
+		check_program(tree->neighbor);
+
+	}
 /*
-    else if (strcmp(tree->type, "Block")==0){}
     else if (strcmp(tree->type, "If")==0){}
-    else if (strcmp(tree->type, "While")==0){}
+    else if (strcmp(tree->type, "Block")==0){}
     else if (strcmp(tree->type, "Return")==0){}
     else if (strcmp(tree->type, "Print")==0){}
     else if (strcmp(tree->type, "StrLit")==0){}
@@ -283,7 +294,7 @@ else if ( strcmp(method -> child -> type, "String") == 0 ) {
               //printf("%d - %d ",nparams,ngiven);
               if (nparams == ngiven) {
                 if (nparams == 0) {
-                  return 1;
+                  return 0;
                 }
 
                 params = aux -> params;
@@ -420,7 +431,14 @@ void check_operator_comp(Tree* operator){
 	int allowb4=allow;
 allow=1;
 check_program(operator->child);
-    operator->annot = "boolean";
+
+
+if (strcmp(operator->child->annot,operator->child->neighbor->annot)==0 ||( strcmp(operator->child->annot,"int")==0 && strcmp(operator->child->neighbor->annot,"double")==0) || ( strcmp(operator->child->annot,"double")==0 && strcmp(operator->child->neighbor->annot,"int")==0))
+	    operator->annot = "boolean";
+	else
+		 operator->annot = "undef";
+
+   // operator->annot = "boolean";
   
  
 if (allowb4 ==1)
@@ -436,7 +454,19 @@ void check_operator_logical(Tree* operator){
 	int allowb4=allow;
 allow=1;
 check_program(operator->child);
-    operator->annot = "boolean";
+
+if (strcmp(operator->type,"Not")==0){
+
+	if (strcmp(operator->child->annot,"boolean")==0)
+	    operator->annot = "boolean";
+	else
+		 operator->annot = "undef";}
+
+else{
+	if (strcmp(operator->child->annot,"boolean")==0 &&strcmp(operator->child->neighbor->annot,"boolean")==0)
+	    operator->annot = "boolean";
+	else
+		 operator->annot = "undef";}
   
  if (allowb4 ==1)
 	allow=1;
@@ -451,8 +481,11 @@ void check_operator_minplus(Tree* operator){
 	int allowb4=allow;
 allow=1;
 check_program(operator->child);
-
-    operator->annot = operator->child->annot;
+if (strcmp(operator->child->annot,"boolean")==0 ||strcmp(operator->child->annot,"String")==0 )
+operator->annot="undef";
+	
+else
+    operator->annot = operator->child->annot;	
   
  
 if (allowb4 ==1)
@@ -469,9 +502,16 @@ void check_operator_ints(Tree* operator){
 	int allowb4=allow;
 allow=1;
 check_program(operator->child);
-
+if (strcmp(operator->child->annot,"String[]")==0 )
     operator->annot = "int";
+
+else 
+operator->annot = "undef";
   
+/*
+else if (strcmp(operator->type,"ParseArgs") ==0)
+	operator->annot = "int";*/
+
  if (allowb4 ==1)
 	allow=1;
 else
