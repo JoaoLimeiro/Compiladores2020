@@ -457,10 +457,11 @@ check_program(operator->child);
 
 if (strcmp(operator->type,"Not")==0){
 
-	if (strcmp(operator->child->annot,"boolean")==0)
+	//if (strcmp(operator->child->annot,"boolean")==0)
 	    operator->annot = "boolean";
-	else
-		 operator->annot = "undef";}
+	//else
+		 //operator->annot = "undef";
+}
 
 else{
 	if (strcmp(operator->child->annot,"boolean")==0 &&strcmp(operator->child->neighbor->annot,"boolean")==0)
@@ -502,11 +503,11 @@ void check_operator_ints(Tree* operator){
 	int allowb4=allow;
 allow=1;
 check_program(operator->child);
-if (strcmp(operator->child->annot,"String[]")==0 )
+//if (strcmp(operator->child->annot,"String[]")==0 )
     operator->annot = "int";
 
-else 
-operator->annot = "undef";
+//else 
+//operator->annot = "undef";
   
 /*
 else if (strcmp(operator->type,"ParseArgs") ==0)
