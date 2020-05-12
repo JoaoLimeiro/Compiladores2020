@@ -7,7 +7,7 @@ typedef struct Tree {
     s_Tree child;
     s_Tree neighbor;
     char* type;
-char* annot;
+	char* annot;
     char* value;
 }Tree;
 
