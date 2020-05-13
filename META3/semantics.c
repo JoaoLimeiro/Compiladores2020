@@ -21,7 +21,9 @@ return 0;}
       //check_program(tree->child) ;
 table_element *auxsymtab;
 auxsymtab=check_methodHeader(tree->child);
-Tree *aux;
+//Tree *aux;
+check_program(tree->neighbor) ;
+/*
 if (tree->child->neighbor->child!=NULL){
 var=1;
 for (aux=tree->child->neighbor->child; aux; aux=aux->neighbor){
@@ -29,8 +31,8 @@ for (aux=tree->child->neighbor->child; aux; aux=aux->neighbor){
 if (strcmp(aux->type,"VarDecl")==0)
 	check_varDecl(aux) ;
 }}
-var=0;
-check_program(tree->neighbor) ;
+var=0;*/
+//check_program(tree->neighbor) ;
 
 current_symtab=auxsymtab;
 check_program(tree->child->neighbor);
@@ -140,7 +142,7 @@ check_program(tree->neighbor);
     else if (strcmp(tree->type, "While")==0){
 		allowb4=allow;
 
-		allow=0;
+		allow=1;
 		check_program(tree->child);
 		if (allowb4 ==1)
 			allow=1;
@@ -365,7 +367,7 @@ check_program(fieldDecl->neighbor);
 }
 
 void check_varDecl(Tree* varDecl){
-if (var==1){
+//if (var==){
 	if (varDecl->child!=NULL ){
 
 
@@ -374,7 +376,7 @@ if (var==1){
 
 
 	 insert_el(current_symtab,aux->value,type,NULL,0,0,1);
-}
+//}
 }
 }
 
@@ -740,8 +742,20 @@ if (allow==1 ){
 	}
 
 }else{
+
 tree->annot="none";
 }
-
+if (strcmp(tree->type, "RealLit") == 0) {
+		tree->annot=strdup("double");
+	}
+	else if (strcmp(tree->type, "DecLit") == 0) {
+		tree->annot=strdup("int");
+	}
+	else if (strcmp(tree->type, "BoolLit") == 0) {
+		tree->annot=strdup("boolean");
+	}
+	else if (strcmp(tree->type, "StrLit") == 0) {
+		tree->annot=strdup("String");
+	}
  
     check_program(tree->neighbor);}
