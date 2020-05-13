@@ -1,6 +1,5 @@
 
 
-
 %{
 	// Bárbara Vieira 2017246949
 	// João Limeiro 2017262387
@@ -337,5 +336,3 @@ void yyerror (char *s) {
 	}
 	
 }
-
-

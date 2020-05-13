@@ -7,8 +7,18 @@ typedef struct Tree {
     s_Tree child;
     s_Tree neighbor;
     char* type;
-	char* annot;
+    char* annot;
     char* value;
+    int line;
+    int col;
 }Tree;
+
+typedef struct Token* s_Token;
+typedef struct Token {
+   	char * cval;
+  	int line;
+  	int col;
+}Token;
+
 
 #endif
