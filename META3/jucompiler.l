@@ -112,60 +112,60 @@ STRERR (\\({NOESCAPE}|"|"))
 					PRINTF("\n");
 					column += yyleng;
 				}
-{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext); yylval.ival = column; column += yyleng; if (flagTree ==1) return RESERVED ;}
-{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); yylval.ival = column; column += yyleng; yylval.cval = strdup(yytext); if (flagTree ==1) return BOOLLIT;}
-{PARSEINT}  	{PRINTF("PARSEINT\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return PARSEINT;}
-{AND}   		{PRINTF("AND\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return AND;}
-{ASSIGN}    	{PRINTF("ASSIGN\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return ASSIGN;}
-{STAR}  		{PRINTF("STAR\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return STAR;}
-{COMMA}     	{PRINTF("COMMA\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return COMMA;}
-{DIV}   		{PRINTF("DIV\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return DIV;}
-{EQ}    		{PRINTF("EQ\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return EQ;}
-{GE}    		{PRINTF("GE\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return GE;}
-{GT}    		{PRINTF("GT\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return GT;}
-{LBRACE}    	{PRINTF("LBRACE\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return LBRACE;}
-{LE}    		{PRINTF("LE\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return LE;}
-{LPAR}  		{PRINTF("LPAR\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return LPAR;}
-{LSQ}   		{PRINTF("LSQ\n"); yylval.ival = column; column += yyleng; if (flagTree ==1) return LSQ;}
-{LT}    		{PRINTF("LT\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return LT;}
-{MINUS} 		{PRINTF("MINUS\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return MINUS;}
-{MOD}   		{PRINTF("MOD\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return MOD;}
-{NE}    		{PRINTF("NE\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return NE;}
-{NOT}   		{PRINTF("NOT\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return NOT;}
-{OR}    		{PRINTF("OR\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return OR;}
-{PLUS}  		{PRINTF("PLUS\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return PLUS;}
-{RBRACE}    	{PRINTF("RBRACE\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return RBRACE;}
-{RPAR}  		{PRINTF("RPAR\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return RPAR;}
-{RSQ}   		{PRINTF("RSQ\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return RSQ;}
-{SEMICOLON} 	{PRINTF("SEMICOLON\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return SEMICOLON;}
-{ARROW} 		{PRINTF("ARROW\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return ARROW;}
-{LSHIFT}    	{PRINTF("LSHIFT\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return LSHIFT;}
-{RSHIFT}    	{PRINTF("RSHIFT\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return RSHIFT;}
-{XOR}   		{PRINTF("XOR\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return XOR;}
-{DOTLENGTH}     	{PRINTF("DOTLENGTH\n");yylval.ival = column;  column += yyleng; if (flagTree ==1) return DOTLENGTH;}
-{PRINT} 		{PRINTF("PRINT\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return PRINT;}
-{BOOL} 			{PRINTF("BOOL\n");yylval.ival = column; column += yyleng; if (flagTree ==1) return BOOL;}
-{INT}   		{PRINTF("INT\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return INT;}
-{ELSE}  		{PRINTF("ELSE\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return ELSE;}
-{IF}    		{PRINTF("IF\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return IF; }
-{CLASS} 		{PRINTF("CLASS\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return CLASS;}
-{PUBLIC}		    {PRINTF("PUBLIC\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return PUBLIC; }
-{RETURN}		    {PRINTF("RETURN\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return RETURN; }
-{STATIC}		    {PRINTF("STATIC\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return STATIC;}
-{STRING}		    {PRINTF("STRING\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return STRING;}
-{VOID}  		{PRINTF("VOID\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return VOID;}
-{WHILE} 		{PRINTF("WHILE\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return WHILE;}
-{DOUBLE} 		{PRINTF("DOUBLE\n");yylval.ival = column; column += yyleng;if (flagTree ==1) return DOUBLE;}
+{RESERVED}  	{PRINTF("RESERVED(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng; if (flagTree ==1) return RESERVED ;}
+{BOOLLIT}   	{PRINTF("BOOLLIT(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng;  if (flagTree ==1) return BOOLLIT;}
+{PARSEINT}  	{PRINTF("PARSEINT\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return PARSEINT;}
+{AND}   		{PRINTF("AND\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return AND;}
+{ASSIGN}    	{PRINTF("ASSIGN\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return ASSIGN;}
+{STAR}  		{PRINTF("STAR\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return STAR;}
+{COMMA}     	{PRINTF("COMMA\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return COMMA;}
+{DIV}   		{PRINTF("DIV\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return DIV;}
+{EQ}    		{PRINTF("EQ\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return EQ;}
+{GE}    		{PRINTF("GE\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return GE;}
+{GT}    		{PRINTF("GT\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return GT;}
+{LBRACE}    	{PRINTF("LBRACE\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LBRACE;}
+{LE}    		{PRINTF("LE\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LE;}
+{LPAR}  		{PRINTF("LPAR\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LPAR;}
+{LSQ}   		{PRINTF("LSQ\n"); yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LSQ;}
+{LT}    		{PRINTF("LT\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LT;}
+{MINUS} 		{PRINTF("MINUS\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return MINUS;}
+{MOD}   		{PRINTF("MOD\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return MOD;}
+{NE}    		{PRINTF("NE\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return NE;}
+{NOT}   		{PRINTF("NOT\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return NOT;}
+{OR}    		{PRINTF("OR\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return OR;}
+{PLUS}  		{PRINTF("PLUS\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return PLUS;}
+{RBRACE}    	{PRINTF("RBRACE\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return RBRACE;}
+{RPAR}  		{PRINTF("RPAR\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return RPAR;}
+{RSQ}   		{PRINTF("RSQ\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return RSQ;}
+{SEMICOLON} 	{PRINTF("SEMICOLON\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return SEMICOLON;}
+{ARROW} 		{PRINTF("ARROW\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return ARROW;}
+{LSHIFT}    	{PRINTF("LSHIFT\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return LSHIFT;}
+{RSHIFT}    	{PRINTF("RSHIFT\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return RSHIFT;}
+{XOR}   		{PRINTF("XOR\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return XOR;}
+{DOTLENGTH}     	{PRINTF("DOTLENGTH\n");yylval.tok = new_token("NULL", line, column);  column += yyleng; if (flagTree ==1) return DOTLENGTH;}
+{PRINT} 		{PRINTF("PRINT\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return PRINT;}
+{BOOL} 			{PRINTF("BOOL\n");yylval.tok = new_token("NULL", line, column); column += yyleng; if (flagTree ==1) return BOOL;}
+{INT}   		{PRINTF("INT\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return INT;}
+{ELSE}  		{PRINTF("ELSE\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return ELSE;}
+{IF}    		{PRINTF("IF\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return IF; }
+{CLASS} 		{PRINTF("CLASS\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return CLASS;}
+{PUBLIC}		    {PRINTF("PUBLIC\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return PUBLIC; }
+{RETURN}		    {PRINTF("RETURN\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return RETURN; }
+{STATIC}		    {PRINTF("STATIC\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return STATIC;}
+{STRING}		    {PRINTF("STRING\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return STRING;}
+{VOID}  		{PRINTF("VOID\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return VOID;}
+{WHILE} 		{PRINTF("WHILE\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return WHILE;}
+{DOUBLE} 		{PRINTF("DOUBLE\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return DOUBLE;}
 
-{ID}    		{PRINTF("ID(%s)\n",yytext); yylval.ival = column; column += yyleng; yylval.cval = strdup(yytext); if (flagTree ==1) return ID;}
-{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); yylval.ival = column; column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return INTLIT;}
-{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); yylval.ival = column; column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return REALLIT;}
+{ID}    		{PRINTF("ID(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng;  if (flagTree ==1) return ID;}
+{INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng; if (flagTree ==1) return INTLIT;}
+{REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng; if (flagTree ==1) return REALLIT;}
 
-{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n");yylval.ival = column; column += yyleng;yylval.cval = strdup(yytext);if (flagTree ==1) return STRLIT;}
+{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return STRLIT;}
 
 {ASPAS}{STRLIT}				{	
 							
-								PRINTF("STRLIT(%s)\n",yytext); column += yyleng;yylval.cval = strdup(yytext); if (flagTree ==1) return STRLIT;
+								PRINTF("STRLIT(%s)\n",yytext); column += yyleng;yylval.tok = new_token(yytext, line, column); if (flagTree ==1) return STRLIT;
 }
 				
 {ASPAS}						{BEGIN STR;lastASPAS = column; column+=yyleng;}
