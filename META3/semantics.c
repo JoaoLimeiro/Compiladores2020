@@ -369,7 +369,7 @@ void check_fieldDecl(Tree* fieldDecl){
 
 
 	  if(search_el(symtab, aux->value, 1) != NULL ){
-	    	printf("Line 0, col 0: Symbol %s already defined\n", aux->value );
+	    	printf("Line %d, col %d: Symbol %s already defined\n",aux->line, aux->col, aux->value );
 	    }else{
 	    	insert_el(symtab,aux->value,type,NULL,0,0,1);
 	    }
@@ -567,7 +567,7 @@ void check_operator_call(Tree* operator){
 			}
 		}
 		strcat(str,")");
-		printf("Line 99, col 99: Cannot find symbol %s%s\n", operator->child->value, str);
+		printf("Line %d, col %d: Cannot find symbol %s%s\n",operator->child->line, operator->child->col, operator->child->value, str);
 	}
 
 }
