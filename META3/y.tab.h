@@ -48,47 +48,47 @@
      BOOL = 264,
      BOOLLIT = 265,
      VOID = 266,
-     PARSEINT = 267,
-     AND = 268,
-     ASSIGN = 269,
-     STAR = 270,
-     COMMA = 271,
-     DIV = 272,
-     EQ = 273,
-     GE = 274,
-     GT = 275,
-     LBRACE = 276,
-     LE = 277,
-     LPAR = 278,
-     LSQ = 279,
-     LT = 280,
-     MINUS = 281,
-     MOD = 282,
-     NE = 283,
-     NOT = 284,
-     OR = 285,
-     ELSE = 286,
-     INT = 287,
-     RPAR = 288,
-     RSQ = 289,
-     PLUS = 290,
-     RBRACE = 291,
-     SQ = 292,
-     SEMICOLON = 293,
-     ARROW = 294,
-     LSHIFT = 295,
-     RSHIFT = 296,
-     XOR = 297,
-     DOTLENGTH = 298,
-     PRINT = 299,
-     WHILE = 300,
-     STRING = 301,
-     STATIC = 302,
-     PUBLIC = 303,
-     CLASS = 304,
-     IF = 305,
-     RETURN = 306,
-     END = 307,
+     PLUS = 267,
+     RBRACE = 268,
+     SQ = 269,
+     SEMICOLON = 270,
+     ARROW = 271,
+     LSHIFT = 272,
+     RSHIFT = 273,
+     XOR = 274,
+     DOTLENGTH = 275,
+     PRINT = 276,
+     WHILE = 277,
+     STRING = 278,
+     STATIC = 279,
+     PUBLIC = 280,
+     CLASS = 281,
+     IF = 282,
+     RETURN = 283,
+     END = 284,
+     PARSEINT = 285,
+     AND = 286,
+     ASSIGN = 287,
+     STAR = 288,
+     COMMA = 289,
+     DIV = 290,
+     EQ = 291,
+     GE = 292,
+     GT = 293,
+     LBRACE = 294,
+     LE = 295,
+     LPAR = 296,
+     LSQ = 297,
+     LT = 298,
+     MINUS = 299,
+     MOD = 300,
+     NE = 301,
+     NOT = 302,
+     OR = 303,
+     ELSE = 304,
+     INT = 305,
+     RPAR = 306,
+     RSQ = 307,
      IF2 = 308,
      preced = 309
    };
@@ -103,47 +103,47 @@
 #define BOOL 264
 #define BOOLLIT 265
 #define VOID 266
-#define PARSEINT 267
-#define AND 268
-#define ASSIGN 269
-#define STAR 270
-#define COMMA 271
-#define DIV 272
-#define EQ 273
-#define GE 274
-#define GT 275
-#define LBRACE 276
-#define LE 277
-#define LPAR 278
-#define LSQ 279
-#define LT 280
-#define MINUS 281
-#define MOD 282
-#define NE 283
-#define NOT 284
-#define OR 285
-#define ELSE 286
-#define INT 287
-#define RPAR 288
-#define RSQ 289
-#define PLUS 290
-#define RBRACE 291
-#define SQ 292
-#define SEMICOLON 293
-#define ARROW 294
-#define LSHIFT 295
-#define RSHIFT 296
-#define XOR 297
-#define DOTLENGTH 298
-#define PRINT 299
-#define WHILE 300
-#define STRING 301
-#define STATIC 302
-#define PUBLIC 303
-#define CLASS 304
-#define IF 305
-#define RETURN 306
-#define END 307
+#define PLUS 267
+#define RBRACE 268
+#define SQ 269
+#define SEMICOLON 270
+#define ARROW 271
+#define LSHIFT 272
+#define RSHIFT 273
+#define XOR 274
+#define DOTLENGTH 275
+#define PRINT 276
+#define WHILE 277
+#define STRING 278
+#define STATIC 279
+#define PUBLIC 280
+#define CLASS 281
+#define IF 282
+#define RETURN 283
+#define END 284
+#define PARSEINT 285
+#define AND 286
+#define ASSIGN 287
+#define STAR 288
+#define COMMA 289
+#define DIV 290
+#define EQ 291
+#define GE 292
+#define GT 293
+#define LBRACE 294
+#define LE 295
+#define LPAR 296
+#define LSQ 297
+#define LT 298
+#define MINUS 299
+#define MOD 300
+#define NE 301
+#define NOT 302
+#define OR 303
+#define ELSE 304
+#define INT 305
+#define RPAR 306
+#define RSQ 307
 #define IF2 308
 #define preced 309
 
@@ -152,10 +152,10 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 24 "jucompiler.y"
+#line 26 "jucompiler.y"
 {
     int ival;
-    char * cval;
+    s_Token tok;
     s_Tree tree;
 }
 /* Line 1529 of yacc.c.  */

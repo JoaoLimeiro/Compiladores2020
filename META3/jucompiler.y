@@ -9,27 +9,25 @@
     int yylex(void);
     void yyerror (const char *s);
 
- 	int flagDontPrintTree = 0;
+    int flagDontPrintTree = 0;
 
 s_Tree myprogram, tmp, tmp1, tmp2;
 
 int globalContador = 0;
 
+extern int line, column, yyleng;
+
 %}
 
-%token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
+%token <tok> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT WHILE STRING STATIC PUBLIC CLASS IF RETURN END PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT RPAR RSQ
 
 %type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId CommaIdVarDecl VarDecl ExprSemicolon
 
 %union{
     int ival;
-    char * cval;
+    s_Token tok;
     s_Tree tree;
 }
-
-%token PARSEINT AND ASSIGN STAR COMMA DIV EQ GE GT LBRACE LE LPAR LSQ LT MINUS MOD NE NOT OR ELSE INT RPAR RSQ
-
-%token PLUS RBRACE SQ SEMICOLON ARROW LSHIFT RSHIFT XOR DOTLENGTH PRINT WHILE STRING STATIC PUBLIC CLASS IF RETURN END
 
 %nonassoc IF2
 %nonassoc ELSE
@@ -55,10 +53,14 @@ int globalContador = 0;
 
 Program:  
 
-    	CLASS ID LBRACE Declaring RBRACE       {    $$=myprogram=new_node(NO_VALUE,"Program");
-                                                    tmp=new_node($2, "Id");
+        CLASS ID LBRACE Declaring RBRACE       {    $$=myprogram=new_node(NO_VALUE,"Program");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, $4);
+                                                    $$->line = line;
+                                                    $$->col = column;
                                                 }
         ;
 
@@ -75,7 +77,7 @@ Declaring:
 
     |    SEMICOLON Declaring                    {$$=$2;}
 
-    |      							{$$=NULL;}
+    |                               {$$=NULL;}
 
     ;
 
@@ -83,9 +85,9 @@ Declaring:
 MethodDecl:
 
         PUBLIC STATIC MethodHeader MethodBody      {
-	        											$$=new_node(NO_VALUE, "MethodDecl");
-	                                                    insert_node($$, $3);
-	                                                    insert_neighbor($3, $4);
+                                                        $$=new_node(NO_VALUE, "MethodDecl");
+                                                        insert_node($$, $3);
+                                                        insert_neighbor($3, $4);
                                                     }
         ;
 
@@ -94,27 +96,31 @@ FieldDecl:
         PUBLIC STATIC Type ID CommaId SEMICOLON     {  
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         insert_node($$, $3);
-                                                        tmp=new_node($4, "Id");
+                                                        tmp=new_node($4->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_neighbor($3, tmp);
                                                         insert_neighbor($$, $5);
 
                                                         tmp1 = $$;
 
-	                                                    while(tmp1 != NULL){
-	                                                    	if( strcmp(tmp1->child->type,$$->child->type) ){
-	                                                    		tmp = new_node(tmp1->child->value, tmp1->child->type);
-	                                                    		tmp2 = new_node($$->child->value, $$->child->type);
-	                                                    		insert_node(tmp1, tmp2);
-	                                                    		insert_neighbor(tmp2, tmp);
-	                                                    	}
-	                                                    	tmp1 = tmp1->neighbor;
-	                                                    }  
+                                                        while(tmp1 != NULL){
+                                                            if( strcmp(tmp1->child->type,$$->child->type) ){
+                                                                tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                                tmp2 = new_node($$->child->value, $$->child->type);
+                                                                insert_node(tmp1, tmp2);
+                                                                insert_neighbor(tmp2, tmp);
+                                                            }
+                                                            tmp1 = tmp1->neighbor;
+                                                        }  
                                                     }
 
-	|   PUBLIC STATIC Type ID SEMICOLON 			{  
+    |   PUBLIC STATIC Type ID SEMICOLON             {  
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         insert_node($$, $3);
-                                                        tmp=new_node($4, "Id");
+                                                        tmp=new_node($4->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_neighbor($3, tmp);
                                                     }
 
@@ -125,22 +131,26 @@ FieldDecl:
 
 CommaId:
         COMMA ID CommaId                             {
-        												$$=new_node(NO_VALUE, "FieldDecl");
-                                                        tmp=new_node($2, "Id");
+                                                        $$=new_node(NO_VALUE, "FieldDecl");
+                                                        tmp=new_node($2->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_node($$, tmp);
                                                         insert_neighbor($$, $3); 
                                                     }
 
-	|	COMMA ID					 				{
-														$$=new_node(NO_VALUE, "FieldDecl");
-                                                        tmp=new_node($2, "Id");
+    |   COMMA ID                                    {
+                                                        $$=new_node(NO_VALUE, "FieldDecl");
+                                                        tmp=new_node($2->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_node($$, tmp);
-													}
+                                                    }
 
     ;
 
 Type:
-         BOOL    	{$$=new_node(NO_VALUE, "Bool");}
+         BOOL       {$$=new_node(NO_VALUE, "Bool");}
 
     |    INT        {$$=new_node(NO_VALUE, "Int");}
 
@@ -154,7 +164,9 @@ MethodHeader:
                                                     $$=new_node(NO_VALUE, "MethodHeader");
                                                     tmp=new_node("", "Void");
                                                     insert_node($$, tmp);
-                                                    tmp1=new_node($2, "Id");
+                                                    tmp1=new_node($2->cval, "Id");
+                                                    tmp1->line = line;
+                                                    tmp1->col = column;
                                                     insert_neighbor(tmp, tmp1);
                                                     tmp=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp1, tmp);
@@ -162,11 +174,13 @@ MethodHeader:
                                                     
                                                 }
 
-	|   VOID ID LPAR RPAR						{  
+    |   VOID ID LPAR RPAR                       {  
                                                     $$=new_node(NO_VALUE, "MethodHeader");
                                                     tmp=new_node("", "Void");
                                                     insert_node($$, tmp);
-                                                    tmp1=new_node($2, "Id");
+                                                    tmp1=new_node($2->cval, "Id");
+                                                    tmp1->line = line;
+                                                    tmp1->col = column;
                                                     insert_neighbor(tmp, tmp1);
                                                     tmp2=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp1, tmp2);
@@ -175,7 +189,9 @@ MethodHeader:
     |   Type ID LPAR FormalParams RPAR          {  
                                                     $$=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                     tmp1=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp, tmp1);
@@ -183,10 +199,12 @@ MethodHeader:
                                                     
                                                 }
 
-	|   Type ID LPAR RPAR                     	{
-													$$=new_node(NO_VALUE, "MethodHeader");
+    |   Type ID LPAR RPAR                       {
+                                                    $$=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                     tmp1=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp, tmp1);
@@ -198,21 +216,27 @@ FormalParams:
        Type ID CommaTypeId                      {  
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                     insert_neighbor($$, $3);
                                                 }
     |  STRING LSQ RSQ ID                        {
-    												$$=new_node(NO_VALUE, "ParamDecl");
+                                                    $$=new_node(NO_VALUE, "ParamDecl");
                                                     tmp=new_node(NO_VALUE, "StringArray");
-                                                    tmp1=new_node($4, "Id");
+                                                    tmp1=new_node($4->cval, "Id");
+                                                    tmp1->line = line;
+                                                    tmp1->col = column;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, tmp1);
                                                 }
     |   Type ID                                 {  
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                 }
 
@@ -221,17 +245,21 @@ FormalParams:
 CommaTypeId:
 
        COMMA Type ID CommaTypeId                {  
-       												$$=new_node(NO_VALUE, "ParamDecl");
+                                                    $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
-                                                    tmp=new_node($3, "Id");
+                                                    tmp=new_node($3->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($2, tmp);
                                                     insert_neighbor($$, $4);
                                                 }
 
-    |   COMMA Type ID                           {  	
-    												$$=new_node(NO_VALUE, "ParamDecl");
+    |   COMMA Type ID                           {   
+                                                    $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
-                                                    tmp=new_node($3, "Id");
+                                                    tmp=new_node($3->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($2, tmp);
                                                 }
 
@@ -241,14 +269,14 @@ CommaTypeId:
 
 MethodBody:
 
-    	LBRACE StatementVarDecl RBRACE           {  
+        LBRACE StatementVarDecl RBRACE           {  
                                                     $$=new_node(NO_VALUE, "MethodBody");
                                                     insert_node($$, $2);
                                                 }
 
-    |	LBRACE RBRACE 							{
-    												$$=new_node(NO_VALUE, "MethodBody");
-    											}
+    |   LBRACE RBRACE                           {
+                                                    $$=new_node(NO_VALUE, "MethodBody");
+                                                }
 
     ;
 
@@ -256,39 +284,43 @@ MethodBody:
 StatementVarDecl:
 
         Statement StatementVarDecl              {  
-        											if($1 != NULL){
-        												insert_neighbor($1,$2);
-														$$=$1; 
-        											}else{
-        											$$= $2;
-        											}
-													
-    												
+                                                    if($1 != NULL){
+                                                        insert_neighbor($1,$2);
+                                                        $$=$1; 
+                                                    }else{
+                                                    $$= $2;
+                                                    }
+                                                    
+                                                    
                                                 }
     |   VarDecl StatementVarDecl                {
-													insert_neighbor($1,$2);
-													$$=$1;                                         
-    											}
+                                                    insert_neighbor($1,$2);
+                                                    $$=$1;                                         
+                                                }
 
- 	|	Statement   							{$$=$1;}
+    |   Statement                               {$$=$1;}
 
-    |   VarDecl   								{$$=$1;}
-    											
+    |   VarDecl                                 {$$=$1;}
+                                                
     ;
 
 CommaIdVarDecl:
-								/* TODO verificar isto que tem um Type em falta no VarDecl    */
-	COMMA ID CommaIdVarDecl                         {
-														$$=new_node(NO_VALUE, "VarDecl");
-                                                        tmp=new_node($2, "Id");
+                                /* TODO verificar isto que tem um Type em falta no VarDecl    */
+    COMMA ID CommaIdVarDecl                         {
+                                                        $$=new_node(NO_VALUE, "VarDecl");
+                                                        tmp=new_node($2->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_node($$, tmp);
                                                         insert_neighbor($$, $3); 
 
 
                                                     }
 
-	|	COMMA ID					 				{$$=new_node(NO_VALUE, "VarDecl");
-                                                        tmp=new_node($2, "Id");
+    |   COMMA ID                                    {$$=new_node(NO_VALUE, "VarDecl");
+                                                        tmp=new_node($2->cval, "Id");
+                                                        tmp->line = line;
+                                                        tmp->col = column;
                                                         insert_node($$, tmp);
                                                         }
 
@@ -298,29 +330,33 @@ CommaIdVarDecl:
 
 VarDecl:
 
-     	Type ID CommaIdVarDecl SEMICOLON        {  
-       												$$=new_node(NO_VALUE, "VarDecl");
+        Type ID CommaIdVarDecl SEMICOLON        {  
+                                                    $$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                     insert_neighbor($$, $3);
 
                                                     tmp1 = $$;
                                                     while(tmp1 != NULL){
-                                                    	if( strcmp(tmp1->child->type,$$->child->type) ){
-                                                    		tmp = new_node(tmp1->child->value, tmp1->child->type);
-                                                    		tmp2 = new_node($$->child->value, $$->child->type);
-                                                    		insert_node(tmp1, tmp2);
-                                                    		insert_neighbor(tmp2, tmp);
-                                                    	}
-                                                    	tmp1 = tmp1->neighbor;
+                                                        if( strcmp(tmp1->child->type,$$->child->type) ){
+                                                            tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                            tmp2 = new_node($$->child->value, $$->child->type);
+                                                            insert_node(tmp1, tmp2);
+                                                            insert_neighbor(tmp2, tmp);
+                                                        }
+                                                        tmp1 = tmp1->neighbor;
                                                     }  
                                                 }
 
-    |	Type ID SEMICOLON  						{  
-       												$$=new_node(NO_VALUE, "VarDecl");
+    |   Type ID SEMICOLON                       {  
+                                                    $$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
-                                                    tmp=new_node($2, "Id");
+                                                    tmp=new_node($2->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = column;
                                                     insert_neighbor($1, tmp);
                                                 }
     ;
@@ -336,59 +372,59 @@ VarDecl:
                                                                 
 
                                                                 if(globalContador > 1){
-                                                                	while(flag == 1){
-                                                                		if(strcmp(tmp1->type,"Null") != 0 && strcmp(tmp1->type,"Block") != 0 ){
-                                                                			tmp=new_node(NO_VALUE, "Block");
-                                                                			tmp->child = tmp1;
+                                                                    while(flag == 1){
+                                                                        if(strcmp(tmp1->type,"Null") != 0 && strcmp(tmp1->type,"Block") != 0 ){
+                                                                            tmp=new_node(NO_VALUE, "Block");
+                                                                            tmp->child = tmp1;
 
-                                                                			flag = 0;
+                                                                            flag = 0;
 
-                                                                						
-                                                                					
-                                                                		}else if(strcmp(tmp1->neighbor->type,"Null") == 0 ){
-                                                                			tmp1 = tmp1->neighbor;
-                                                                		}
-                                                                		contadorDentroWhile++;
-                                                                		tmp1 = tmp1->neighbor;
-                                                                	} 
+                                                                                        
+                                                                                    
+                                                                        }else if(strcmp(tmp1->neighbor->type,"Null") == 0 ){
+                                                                            tmp1 = tmp1->neighbor;
+                                                                        }
+                                                                        contadorDentroWhile++;
+                                                                        tmp1 = tmp1->neighbor;
+                                                                    } 
 
-                                                                	
-                                                                	globalContador = 0;
-                                                                	$$=tmp;
+                                                                    
+                                                                    globalContador = 0;
+                                                                    $$=tmp;
                                                                 }else{
                                                                 
-                                                                	$$=$2;
-                                                                	globalContador = 0;
+                                                                    $$=$2;
+                                                                    globalContador = 0;
                                                                 }
                                                             }
 
-    |	LBRACE RBRACE 										{$$=new_node(NO_VALUE, "Null");}
+    |   LBRACE RBRACE                                       {$$=new_node(NO_VALUE, "Null");}
 
     |   IF LPAR Expr RPAR Statement %prec IF2               {  
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
                                                                 if($5 != NULL){
-                                                                	insert_neighbor($3, $5);
+                                                                    insert_neighbor($3, $5);
                                                                 }
 
                                                                
 
-                                                              	int contador = 0;
+                                                                int contador = 0;
                                                                 tmp1 = $5;
 
-			                                                    while(tmp1 != NULL){
-			                                                    	if(strcmp(tmp1->type, "Null") != 0)
-			                                                    		contador++;
-			                                                    	tmp1 = tmp1->neighbor;
-			                                                    }  
+                                                                while(tmp1 != NULL){
+                                                                    if(strcmp(tmp1->type, "Null") != 0)
+                                                                        contador++;
+                                                                    tmp1 = tmp1->neighbor;
+                                                                }  
 
-			                                                    tmp=new_node(NO_VALUE, "Block");
+                                                                tmp=new_node(NO_VALUE, "Block");
 
                                                                 if(contador == 0){
-                                                                	insert_neighbor($3, tmp);
+                                                                    insert_neighbor($3, tmp);
                                                                 } else if (contador > 1){
-                                                                	insert_node(tmp, $3->neighbor);
-                                                                	$3->neighbor = tmp;
+                                                                    insert_node(tmp, $3->neighbor);
+                                                                    $3->neighbor = tmp;
                                                                 }
 
                                                                 tmp=new_node(NO_VALUE, "Block");
@@ -400,98 +436,98 @@ VarDecl:
                                                             }
     |   IF LPAR Expr RPAR Statement ELSE Statement          {  
 
-    															int contador1 = 0;
-    															tmp1 = $5;
+                                                                int contador1 = 0;
+                                                                tmp1 = $5;
 
-			                                                    while(tmp1 != NULL){
-			                                                    	if(strcmp(tmp1->type, "Null") != 0)
-			                                                    		contador1++;
-			                                                    	tmp1 = tmp1->neighbor;
-			                                                    }  
+                                                                while(tmp1 != NULL){
+                                                                    if(strcmp(tmp1->type, "Null") != 0)
+                                                                        contador1++;
+                                                                    tmp1 = tmp1->neighbor;
+                                                                }  
 
-			                                                    int contador2 = 0;
+                                                                int contador2 = 0;
                                                                 tmp1 = $7;
 
-			                                                    while(tmp1 != NULL){
-			                                                    	if(strcmp(tmp1->type, "Null") != 0){
-			                                                    		contador2++;
-			                                                    	}
-			                                                    	tmp1 = tmp1->neighbor;
-			                                                    }  
+                                                                while(tmp1 != NULL){
+                                                                    if(strcmp(tmp1->type, "Null") != 0){
+                                                                        contador2++;
+                                                                    }
+                                                                    tmp1 = tmp1->neighbor;
+                                                                }  
 
-			                                                    tmp=new_node(NO_VALUE, "Block");
-			                                                    tmp1=new_node(NO_VALUE, "Block");
+                                                                tmp=new_node(NO_VALUE, "Block");
+                                                                tmp1=new_node(NO_VALUE, "Block");
 
                                                                 $$=new_node(NO_VALUE, "If");
                                                                 insert_node($$, $3);
 
                                                                 if($5 != NULL && contador1 != 0){
-                                                                	if(contador1 > 1){
-                                                                		insert_node($3, tmp);
-                                                                		insert_neighbor(tmp, $5);
-                                                                	}else{
-                                                                		insert_neighbor($3, $5);
-                                                                	}
-                                                                	if($7 != NULL && contador2 != 0){
-                                                                		if(contador2 > 1){
-                                                                			insert_neighbor($5, tmp);
-                                                                			insert_neighbor(tmp, $7);
-                                                                		}else{
-                                                                			insert_neighbor($5, $7);
-                                                                		}
-                                                                	}
+                                                                    if(contador1 > 1){
+                                                                        insert_node($3, tmp);
+                                                                        insert_neighbor(tmp, $5);
+                                                                    }else{
+                                                                        insert_neighbor($3, $5);
+                                                                    }
+                                                                    if($7 != NULL && contador2 != 0){
+                                                                        if(contador2 > 1){
+                                                                            insert_neighbor($5, tmp);
+                                                                            insert_neighbor(tmp, $7);
+                                                                        }else{
+                                                                            insert_neighbor($5, $7);
+                                                                        }
+                                                                    }
                                                                 }else{
 
-                                                                	insert_neighbor($3, tmp); 
+                                                                    insert_neighbor($3, tmp); 
 
-                                                                	if($7 != NULL && contador2 != 0){
-                                                                		if(contador2 > 1){
-                                                                			insert_neighbor(tmp, tmp1);
-                                                                			insert_neighbor(tmp1, $7);
-                                                                		}else{
-                                                                			insert_neighbor(tmp, $7);
-                                                                		}
-                                                                	}else{
-                                                                		insert_neighbor(tmp, tmp1);
-                                                                	}
+                                                                    if($7 != NULL && contador2 != 0){
+                                                                        if(contador2 > 1){
+                                                                            insert_neighbor(tmp, tmp1);
+                                                                            insert_neighbor(tmp1, $7);
+                                                                        }else{
+                                                                            insert_neighbor(tmp, $7);
+                                                                        }
+                                                                    }else{
+                                                                        insert_neighbor(tmp, tmp1);
+                                                                    }
                                                                 }
 
-                                                          	}
+                                                            }
     |   WHILE LPAR Expr RPAR Statement                      {  
                                                                 $$=new_node(NO_VALUE, "While");
                                                                 insert_node($$, $3);
 
                                                                 int contador = 0;
-    															tmp1 = $5;
-			                                                    while(tmp1 != NULL){
-			                                                    	if(strcmp(tmp1->type, "Null") != 0)
-			                                                    		contador++;
-			                                                    	tmp1 = tmp1->neighbor;
-			                                                    }  
+                                                                tmp1 = $5;
+                                                                while(tmp1 != NULL){
+                                                                    if(strcmp(tmp1->type, "Null") != 0)
+                                                                        contador++;
+                                                                    tmp1 = tmp1->neighbor;
+                                                                }  
 
-			                                                    tmp=new_node(NO_VALUE, "Block");
+                                                                tmp=new_node(NO_VALUE, "Block");
 
-			                                                    if(contador == 0){
-			                                                    	insert_neighbor($3, tmp);
-			                                                    }else if(contador > 1){
-			                                                    	insert_neighbor($3, tmp);
-			                                                    	insert_node(tmp, $5);
-			                                                    }else{
-			                                                    	insert_neighbor($3, $5);
-			                                                    }
+                                                                if(contador == 0){
+                                                                    insert_neighbor($3, tmp);
+                                                                }else if(contador > 1){
+                                                                    insert_neighbor($3, tmp);
+                                                                    insert_node(tmp, $5);
+                                                                }else{
+                                                                    insert_neighbor($3, $5);
+                                                                }
                                                                 
                                                             }
    
-    |   RETURN ExprSemicolon				    			{  
+    |   RETURN ExprSemicolon                                {  
                                                                 $$=new_node(NO_VALUE, "Return");
                                                                 if($2 != NULL)
-                                                                	insert_node($$, $2);
+                                                                    insert_node($$, $2);
                                                             }
     |   MethodInvAssParseArgs SEMICOLON                     {  
                                                                 $$=$1;
                                                             }
 
-    |   SEMICOLON 											{$$=new_node(NO_VALUE, "Null");}
+    |   SEMICOLON                                           {$$=new_node(NO_VALUE, "Null");}
 
     |   PRINT LPAR ExprOrStrlit RPAR SEMICOLON              {  
                                                                 $$=new_node(NO_VALUE, "Print");
@@ -503,36 +539,36 @@ VarDecl:
 
 Statement2:
 
-		Statement Statement2                        		{
-                                                    			insert_neighbor($1, $2);
-                                                    			$$=$1;
-                                                    			
-                                                    			if(strcmp($1->type, "Null") != 0)
-                                                    				globalContador++;
-                                                			} 
+        Statement Statement2                                {
+                                                                insert_neighbor($1, $2);
+                                                                $$=$1;
+                                                                
+                                                                if(strcmp($1->type, "Null") != 0)
+                                                                    globalContador++;
+                                                            } 
 
-    |	Statement                                			{$$=$1;
-    														if(strcmp($1->type, "Null") != 0)
-    																globalContador++;
-    														} 
+    |   Statement                                           {$$=$1;
+                                                            if(strcmp($1->type, "Null") != 0)
+                                                                    globalContador++;
+                                                            } 
 ;
 
 
 
 ExprSemicolon:
 
-    	Expr SEMICOLON  							{$$=$1;}
+        Expr SEMICOLON                              {$$=$1;}
 
-    |   SEMICOLON 								{$$=NULL;}
+    |   SEMICOLON                               {$$=NULL;}
 
 ;
 
 
 
 ExprOrStrlit:
-		Expr                                       {$$=$1;}
+        Expr                                       {$$=$1;}
 
-    |	STRLIT                                 {$$=new_node($1, "StrLit");}
+    |   STRLIT                                 {$$=new_node($1->cval, "StrLit");}
 ;
 
 
@@ -547,62 +583,68 @@ MethodInvAssParseArgs:
     |   ParseArgs                               {  
                                                     $$=$1;
                                                 }  
-    |   error			                        {$$=new_node(NO_VALUE, "Null");flagDontPrintTree = 1;}
+    |   error                                   {$$=new_node(NO_VALUE, "Null");flagDontPrintTree = 1;}
 
     ;
 
 
 MethodInvocation:
 
-	    ID LPAR Expr CommaExpr RPAR         	{
-	       											$$=new_node(NO_VALUE, "Call");
-	                                                tmp=new_node($1, "Id");
-	                                                insert_node($$, tmp);
-	                                                insert_neighbor(tmp, $3);
-	                                                insert_neighbor($3, $4);
-	                                            }
+        ID LPAR Expr CommaExpr RPAR             {
+                                                    $$=new_node(NO_VALUE, "Call");
+                                                    tmp=new_node($1->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = 1;
+                                                    insert_node($$, tmp);
+                                                    insert_neighbor(tmp, $3);
+                                                    insert_neighbor($3, $4);
+                                                }
 
-    |   ID LPAR Expr RPAR 						{
-	       											$$=new_node(NO_VALUE, "Call");
-	                                                tmp=new_node($1, "Id");
-	                                                insert_node($$, tmp);
-	                                                insert_neighbor(tmp, $3);
-	                                            }	
+    |   ID LPAR Expr RPAR                       {
+                                                    $$=new_node(NO_VALUE, "Call");
+                                                    tmp=new_node($1->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = $1->col;
+                                                    insert_node($$, tmp);
+                                                    insert_neighbor(tmp, $3);
+                                                }   
 
-    |  	ID LPAR RPAR                            {   
-	       											$$=new_node(NO_VALUE, "Call");
-	                                                tmp=new_node($1, "Id");
-	                                                insert_node($$, tmp);
-                                            	}
-    |  	ID LPAR Expr error RPAR                 {
-	                                                $$=new_node(NO_VALUE, "Call");
-	                                                tmp=new_node($1, "Id");
-	                                                insert_node($$, tmp);
-	                                                insert_neighbor(tmp, $3);
-	                                                flagDontPrintTree = 1;
-	                                                /* TODO verificar se devemos inserir o erro */
-                                            	}
+    |   ID LPAR RPAR                            {   
+                                                    $$=new_node(NO_VALUE, "Call");
+                                                    tmp=new_node($1->cval, "Id");
+                                                    tmp->line = line;
+                                                    tmp->col = 3;
+                                                    insert_node($$, tmp);
+                                                }
+    |   ID LPAR Expr error RPAR                 {
+                                                    $$=new_node(NO_VALUE, "Call");
+                                                    tmp=new_node($1->cval, "Id");
+                                                    insert_node($$, tmp);
+                                                    insert_neighbor(tmp, $3);
+                                                    flagDontPrintTree = 1;
+                                                    /* TODO verificar se devemos inserir o erro */
+                                                }
     ;
 
 
 CommaExpr:
 
-        COMMA Expr CommaExpr                	{
-                                                	$$=$2;
-                                                	insert_neighbor($2, $3);
-               	                            	}
-    | 	INTLIT                                	{$$=new_node($1, "IntLit");}
+        COMMA Expr CommaExpr                    {
+                                                    $$=$2;
+                                                    insert_neighbor($2, $3);
+                                                }
+    |   INTLIT                                  {$$=new_node($1->cval, "IntLit");}
 
-    |	COMMA Expr                            	{
-                                                	$$=$2;
-               	                            	}
+    |   COMMA Expr                              {
+                                                    $$=$2;
+                                                }
 
     ;
 
 Assignment:
         ID ASSIGN Expr                     {
                                                 $$=new_node(NO_VALUE, "Assign");
-                                                tmp=new_node($1, "Id");
+                                                tmp=new_node($1->cval, "Id");
                                                 insert_node($$, tmp);
                                                 insert_neighbor(tmp, $3);
                                             }
@@ -615,7 +657,7 @@ ParseArgs:
 
         PARSEINT LPAR ID LSQ Expr RSQ RPAR  {
                                                 $$=new_node(NO_VALUE, "ParseArgs");
-                                                tmp=new_node($3, "Id");
+                                                tmp=new_node($3->cval, "Id");
                                                 insert_node($$, tmp);
                                                 insert_neighbor(tmp, $5);
                                             }
@@ -628,11 +670,11 @@ ParseArgs:
 
 
 Expr:
-	    Assignment                              {$$=$1;}
+        Assignment                              {$$=$1;}
 
-	|   OtherExpr                               {$$=$1;}
+    |   OtherExpr                               {$$=$1;}
 
-	;
+    ;
 
 OtherExpr:
 
@@ -741,20 +783,36 @@ OtherExpr:
                                                 $$=$1;
                                             }
     |   ID                                  {
-                                                $$=new_node($1, "Id");
+                                                $$=new_node($1->cval, "Id");
+                                                $$->line = line;
+                                                $$->col = column;
+
                                             }
     |   ID DOTLENGTH                        {
-    											$$=new_node(NO_VALUE, "Length");
-                                                tmp=new_node($1, "Id");
+                                                $$=new_node(NO_VALUE, "Length");
+                                                tmp=new_node($1->cval, "Id");
+                                                $$->line = line;
+                                                //$$->col = column-strlen($1)-strlen($2);
                                                 insert_node($$, tmp);
 
                                             }
-    |   INTLIT                              {$$=new_node($1, "DecLit");}
+    |   INTLIT                              {
+                                                $$=new_node($1->cval, "DecLit");
+                                                $$->line = line;
+                                                $$->col = column;
+                                            }
 
-    |   REALLIT                             {$$=new_node($1, "RealLit");}
+    |   REALLIT                             {
+                                                $$=new_node($1->cval, "RealLit");
+                                                $$->line = line;
+                                                $$->col = column;
+                                            }
 
-    |   BOOLLIT                             {$$=new_node($1, "BoolLit");}
+    |   BOOLLIT                             {
+                                                $$=new_node($1->cval, "BoolLit");
+                                                $$->line = line;
+                                                $$->col = column;
+                                            }
 
     ;
 %%
-

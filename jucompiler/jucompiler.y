@@ -17,13 +17,13 @@ int globalContador = 0;
 
 %}
 
-%token <cval> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
+%token <toke> ID STRLIT REALLIT RESERVED INTLIT DOUBLE BOOL BOOLLIT VOID
 
 %type <tree> Program Declaring MethodDecl FieldDecl  MethodHeader MethodBody Statement Type FormalParams CommaTypeId StatementVarDecl Statement2 Expr ExprOrStrlit MethodInvAssParseArgs MethodInvocation CommaExpr Assignment ParseArgs OtherExpr CommaId CommaIdVarDecl VarDecl ExprSemicolon
 
 %union{
     int ival;
-    char * cval;
+    s_Token toke;
     s_Tree tree;
 }
 

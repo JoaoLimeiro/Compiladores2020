@@ -368,8 +368,14 @@ void check_fieldDecl(Tree* fieldDecl){
 	    char *type=strdup(fieldDecl->child->type);
 
 
-	 insert_el(symtab,aux->value,type,NULL,0,0,1);
-}
+	  if(search_el(symtab, aux->value, 1) != NULL ){
+	    	printf("Line %d, col %d: Symbol %s already defined\n",aux->line, aux->col, aux->value );
+	    }else{
+	    	insert_el(symtab,aux->value,type,NULL,0,0,1);
+	    }
+		
+	}
+	
 	check_program(fieldDecl->neighbor);
 }
 
@@ -536,9 +542,10 @@ void check_operator_ints(Tree* operator){
 
 
 void check_operator_call(Tree* operator){
+	Tree* aux;
+	char str[40]="(";
 	int allowb4=allow;
 	allow=1;
-
 
 	check_program(operator->child->neighbor);
 
@@ -548,15 +555,20 @@ void check_operator_call(Tree* operator){
 	else
 		allow=0;
 
-
-
 	search_method(symtab,operator);
 	if (operator->annot==NULL){
 		operator->annot="undef";
 		operator->child->annot="undef";
+		for(aux=operator->child->neighbor; aux; aux=aux->neighbor){
 
+			strcat(str, aux->annot);
+			if (aux->neighbor != NULL){
+				strcat(str,",");
+			}
+		}
+		strcat(str,")");
+		printf("Line %d, col %d: Cannot find symbol %s%s\n",operator->child->line, operator->child->col, operator->child->value, str);
 	}
-
 
 }
 

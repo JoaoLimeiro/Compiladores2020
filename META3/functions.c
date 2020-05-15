@@ -4,8 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 
-s_Tree new_node(char* value, char* type)
-{
+s_Tree new_node(char* value, char* type){
 	s_Tree node=(s_Tree)malloc(sizeof(Tree));
 	node->value=strdup(value);
 	node->type=strdup(type);
@@ -13,6 +12,8 @@ s_Tree new_node(char* value, char* type)
 	node->child = NULL;
 	node->annot = NULL;
 	node->neighbor = NULL;
+    node->line = 0;
+    node->col = 0;
 
 	return node;
 }
@@ -82,4 +83,24 @@ printf("\n");
     }
     return;
 }
+
+s_Token new_token (char * cval, int line, int col) {
+  s_Token token = (s_Token) malloc (sizeof(Token));
+  if (cval != NULL) {
+    token->cval = strdup(cval);
+  }
+  else {
+    token->cval = NULL;
+  }
+
+  token->line = line;
+  token->col = col;
+
+  return token;
+}
+
+
+
+
+
 
