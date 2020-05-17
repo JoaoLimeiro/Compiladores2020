@@ -322,7 +322,7 @@ else{
 				check_program(myprogram);
 				show_tables(symtab);
 				imprime_arvore(myprogram,0);
-				free_tables(symtab);
+				//free_tables(symtab);
     
 }}}
 int yywrap() {
