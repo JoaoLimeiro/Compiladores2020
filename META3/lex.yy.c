@@ -1273,7 +1273,7 @@ YY_RULE_SETUP
 case 49:
 YY_RULE_SETUP
 #line 164 "jucompiler.l"
-{PRINTF("STRLIT(\"\")\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return STRLIT;}
+{PRINTF("STRLIT(\"\")\n");yylval.tok = new_token("\"\"", line, column); column += yyleng;if (flagTree ==1) return STRLIT;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
@@ -2525,9 +2525,9 @@ else{
 			//mudar isto depois para ver os erros
 			if (flagDontPrintTree == 0 && erro==0){
 				check_program(myprogram);
-				show_tables(symtab);
-				imprime_arvore(myprogram,0);
-				free_tables(symtab);
+				//show_tables(symtab);
+				//imprime_arvore(myprogram,0);
+				//free_tables(symtab);
     
 }}}
 int yywrap() {

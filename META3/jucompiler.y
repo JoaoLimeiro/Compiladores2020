@@ -55,12 +55,12 @@ Program:
 
         CLASS ID LBRACE Declaring RBRACE       {    $$=myprogram=new_node(NO_VALUE,"Program");
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, $4);
-                                                    $$->line = line;
-                                                    $$->col = column;
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                 }
         ;
 
@@ -97,8 +97,8 @@ FieldDecl:
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         insert_node($$, $3);
                                                         tmp=new_node($4->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $4->line;
+                                                        tmp->col = $4->col;
                                                         insert_neighbor($3, tmp);
                                                         insert_neighbor($$, $5);
 
@@ -107,7 +107,11 @@ FieldDecl:
                                                         while(tmp1 != NULL){
                                                             if( strcmp(tmp1->child->type,$$->child->type) ){
                                                                 tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                                tmp->line = tmp1->child->line;
+                                                                tmp->col = tmp1->child->col;
                                                                 tmp2 = new_node($$->child->value, $$->child->type);
+                                                                tmp2->line = $$->child->line;
+                                                                tmp2->col = $$->child->col;
                                                                 insert_node(tmp1, tmp2);
                                                                 insert_neighbor(tmp2, tmp);
                                                             }
@@ -119,8 +123,8 @@ FieldDecl:
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         insert_node($$, $3);
                                                         tmp=new_node($4->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $4->line;
+                                                        tmp->col = $4->col;
                                                         insert_neighbor($3, tmp);
                                                     }
 
@@ -133,8 +137,8 @@ CommaId:
         COMMA ID CommaId                             {
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         tmp=new_node($2->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $2->line;
+                                                        tmp->col = $2->col;
                                                         insert_node($$, tmp);
                                                         insert_neighbor($$, $3); 
                                                     }
@@ -142,8 +146,8 @@ CommaId:
     |   COMMA ID                                    {
                                                         $$=new_node(NO_VALUE, "FieldDecl");
                                                         tmp=new_node($2->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $2->line;
+                                                        tmp->col = $2->col;
                                                         insert_node($$, tmp);
                                                     }
 
@@ -165,8 +169,8 @@ MethodHeader:
                                                     tmp=new_node("", "Void");
                                                     insert_node($$, tmp);
                                                     tmp1=new_node($2->cval, "Id");
-                                                    tmp1->line = line;
-                                                    tmp1->col = column;
+                                                    tmp1->line = $2->line;
+                                                    tmp1->col = $2->col;
                                                     insert_neighbor(tmp, tmp1);
                                                     tmp=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp1, tmp);
@@ -179,8 +183,8 @@ MethodHeader:
                                                     tmp=new_node("", "Void");
                                                     insert_node($$, tmp);
                                                     tmp1=new_node($2->cval, "Id");
-                                                    tmp1->line = line;
-                                                    tmp1->col = column;
+                                                    tmp1->line = $2->line;
+                                                    tmp1->col = $2->col;
                                                     insert_neighbor(tmp, tmp1);
                                                     tmp2=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp1, tmp2);
@@ -190,8 +194,8 @@ MethodHeader:
                                                     $$=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                     tmp1=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp, tmp1);
@@ -203,8 +207,8 @@ MethodHeader:
                                                     $$=new_node(NO_VALUE, "MethodHeader");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                     tmp1=new_node(NO_VALUE, "MethodParams");
                                                     insert_neighbor(tmp, tmp1);
@@ -217,8 +221,8 @@ FormalParams:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                     insert_neighbor($$, $3);
                                                 }
@@ -226,8 +230,8 @@ FormalParams:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     tmp=new_node(NO_VALUE, "StringArray");
                                                     tmp1=new_node($4->cval, "Id");
-                                                    tmp1->line = line;
-                                                    tmp1->col = column;
+                                                    tmp->line = $4->line;
+                                                    tmp->col = $4->col;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, tmp1);
                                                 }
@@ -235,8 +239,8 @@ FormalParams:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                 }
 
@@ -248,8 +252,8 @@ CommaTypeId:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
                                                     tmp=new_node($3->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $3->line;
+                                                    tmp->col = $3->col;
                                                     insert_neighbor($2, tmp);
                                                     insert_neighbor($$, $4);
                                                 }
@@ -258,8 +262,8 @@ CommaTypeId:
                                                     $$=new_node(NO_VALUE, "ParamDecl");
                                                     insert_node($$, $2);
                                                     tmp=new_node($3->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $3->line;
+                                                    tmp->col = $3->col;
                                                     insert_neighbor($2, tmp);
                                                 }
 
@@ -271,11 +275,13 @@ MethodBody:
 
         LBRACE StatementVarDecl RBRACE           {  
                                                     $$=new_node(NO_VALUE, "MethodBody");
+                                                    $$->tableOut = 1;
                                                     insert_node($$, $2);
                                                 }
 
     |   LBRACE RBRACE                           {
                                                     $$=new_node(NO_VALUE, "MethodBody");
+                                                    $$->tableOut = 1;
                                                 }
 
     ;
@@ -309,20 +315,21 @@ CommaIdVarDecl:
     COMMA ID CommaIdVarDecl                         {
                                                         $$=new_node(NO_VALUE, "VarDecl");
                                                         tmp=new_node($2->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $2->line;
+                                                        tmp->col = $2->col;
                                                         insert_node($$, tmp);
                                                         insert_neighbor($$, $3); 
 
 
                                                     }
 
-    |   COMMA ID                                    {$$=new_node(NO_VALUE, "VarDecl");
+    |   COMMA ID                                    {
+                                                        $$=new_node(NO_VALUE, "VarDecl");
                                                         tmp=new_node($2->cval, "Id");
-                                                        tmp->line = line;
-                                                        tmp->col = column;
+                                                        tmp->line = $2->line;
+                                                        tmp->col = $2->col;
                                                         insert_node($$, tmp);
-                                                        }
+                                                    }
 
     ;
 
@@ -334,8 +341,8 @@ VarDecl:
                                                     $$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                     insert_neighbor($$, $3);
 
@@ -343,7 +350,11 @@ VarDecl:
                                                     while(tmp1 != NULL){
                                                         if( strcmp(tmp1->child->type,$$->child->type) ){
                                                             tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                            tmp->line = tmp1->child->line;
+                                                            tmp->col = tmp1->child->col;
                                                             tmp2 = new_node($$->child->value, $$->child->type);
+                                                            tmp2->line = $$->child->line;
+                                                            tmp2->col = $$->child->col;
                                                             insert_node(tmp1, tmp2);
                                                             insert_neighbor(tmp2, tmp);
                                                         }
@@ -355,8 +366,8 @@ VarDecl:
                                                     $$=new_node(NO_VALUE, "VarDecl");
                                                     insert_node($$, $1);
                                                     tmp=new_node($2->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = column;
+                                                    tmp->line = $2->line;
+                                                    tmp->col = $2->col;
                                                     insert_neighbor($1, tmp);
                                                 }
     ;
@@ -520,6 +531,8 @@ VarDecl:
    
     |   RETURN ExprSemicolon                                {  
                                                                 $$=new_node(NO_VALUE, "Return");
+                                                                $$->line = $1->line;
+                                                                $$->col = $1->col;
                                                                 if($2 != NULL)
                                                                     insert_node($$, $2);
                                                             }
@@ -568,7 +581,9 @@ ExprSemicolon:
 ExprOrStrlit:
         Expr                                       {$$=$1;}
 
-    |   STRLIT                                 {$$=new_node($1->cval, "StrLit");}
+    |   STRLIT                                  {
+                                                    $$=new_node($1->cval, "StrLit");
+                                                }
 ;
 
 
@@ -592,9 +607,11 @@ MethodInvocation:
 
         ID LPAR Expr CommaExpr RPAR             {
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = 1;
+                                                    tmp->line = $1->line;
+                                                    tmp->col = $1->col;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, $3);
                                                     insert_neighbor($3, $4);
@@ -602,8 +619,10 @@ MethodInvocation:
 
     |   ID LPAR Expr RPAR                       {
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
-                                                    tmp->line = line;
+                                                    tmp->line = $1->line;
                                                     tmp->col = $1->col;
                                                     insert_node($$, tmp);
                                                     insert_neighbor(tmp, $3);
@@ -611,9 +630,11 @@ MethodInvocation:
 
     |   ID LPAR RPAR                            {   
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
-                                                    tmp->line = line;
-                                                    tmp->col = 3;
+                                                    tmp->line = $1->line;
+                                                    tmp->col = $1->col;
                                                     insert_node($$, tmp);
                                                 }
     |   ID LPAR Expr error RPAR                 {
@@ -643,8 +664,12 @@ CommaExpr:
 
 Assignment:
         ID ASSIGN Expr                     {
-                                                $$=new_node(NO_VALUE, "Assign");
+                                                $$=new_node("=", "Assign");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 tmp=new_node($1->cval, "Id");
+                                                tmp->line = $1->line;
+                                                tmp->col = $1->col;
                                                 insert_node($$, tmp);
                                                 insert_neighbor(tmp, $3);
                                             }
@@ -657,7 +682,11 @@ ParseArgs:
 
         PARSEINT LPAR ID LSQ Expr RSQ RPAR  {
                                                 $$=new_node(NO_VALUE, "ParseArgs");
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                                 tmp=new_node($3->cval, "Id");
+                                                tmp->line = $3->line;
+                                                tmp->col = $3->col;
                                                 insert_node($$, tmp);
                                                 insert_neighbor(tmp, $5);
                                             }
@@ -679,139 +708,183 @@ Expr:
 OtherExpr:
 
         OtherExpr PLUS OtherExpr            {
-                                                $$ = new_node(NO_VALUE,"Add");
+                                                $$ = new_node("+","Add");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MINUS OtherExpr           {
-                                                $$ = new_node(NO_VALUE,"Sub");
+                                                $$ = new_node("-","Sub");
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr STAR OtherExpr            {
-                                                $$ = new_node(NO_VALUE,"Mul");
+                                                $$ = new_node("*","Mul");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr DIV OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Div");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MOD OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Mod");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr AND OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"And");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr OR OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Or");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr XOR OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Xor");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LSHIFT OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Lshift");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr RSHIFT OtherExpr          {
                                                 $$ = new_node(NO_VALUE,"Rshift");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr EQ OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Eq");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr GE OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Ge");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr GT OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Gt");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LE OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Le");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LT OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Lt");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr NE OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Ne");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
-    |   PLUS OtherExpr        %prec preced              {
-                                                $$ = new_node(NO_VALUE,"Plus");
+    |   PLUS OtherExpr        %prec preced  {
+                                                $$ = new_node("+","Plus");
                                                 insert_node($$,$2);
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
-    |   MINUS OtherExpr       %prec preced               {
-                                                $$ = new_node(NO_VALUE,"Minus");
+    |   MINUS OtherExpr       %prec preced  {
+                                                $$ = new_node("-","Minus");
                                                 insert_node($$,$2);
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
     |   NOT OtherExpr                       {
                                                 $$ = new_node(NO_VALUE,"Not");
                                                 insert_node($$,$2);
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
     |   LPAR Expr RPAR                      {
                                                 $$=$2;
+                                                
                                             }
     |   LPAR error RPAR                     {
                                                 $$=NULL;
                                                 flagDontPrintTree = 1;
                                             }
     |   MethodInvocation                    {  
-                                                $$=$1;                                            }     
+                                                $$=$1;  
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;                                         
+                                            }     
     |   ParseArgs                           {  
                                                 $$=$1;
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
     |   ID                                  {
                                                 $$=new_node($1->cval, "Id");
-                                                $$->line = line;
-                                                $$->col = column;
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
 
                                             }
     |   ID DOTLENGTH                        {
                                                 $$=new_node(NO_VALUE, "Length");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 tmp=new_node($1->cval, "Id");
-                                                $$->line = line;
-                                                //$$->col = column-strlen($1)-strlen($2);
+                                                tmp->line = $1->line;
+                                                tmp->col = $1->col;
                                                 insert_node($$, tmp);
 
                                             }
     |   INTLIT                              {
                                                 $$=new_node($1->cval, "DecLit");
-                                                $$->line = line;
-                                                $$->col = column;
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
 
     |   REALLIT                             {
                                                 $$=new_node($1->cval, "RealLit");
-                                                $$->line = line;
-                                                $$->col = column;
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
 
     |   BOOLLIT                             {
                                                 $$=new_node($1->cval, "BoolLit");
-                                                $$->line = line;
-                                                $$->col = column;
+                                                $$->line = $1->line;
+                                                $$->col = $1->col;
                                             }
 
     ;

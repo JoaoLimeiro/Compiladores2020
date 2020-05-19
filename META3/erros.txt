@@ -1,0 +1,1 @@
+doubleprecisioErrors - penso que foi retirado os double

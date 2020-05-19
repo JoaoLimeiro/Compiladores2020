@@ -161,7 +161,7 @@ STRERR (\\({NOESCAPE}|"|"))
 {INTLIT}    	{PRINTF("INTLIT(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng; if (flagTree ==1) return INTLIT;}
 {REALLIT}   	{PRINTF("REALLIT(%s)\n",yytext); yylval.tok = new_token(yytext, line, column); column += yyleng; if (flagTree ==1) return REALLIT;}
 
-{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n");yylval.tok = new_token("NULL", line, column); column += yyleng;if (flagTree ==1) return STRLIT;}
+{ASPAS}{ASPAS}				{PRINTF("STRLIT(\"\")\n");yylval.tok = new_token("\"\"", line, column); column += yyleng;if (flagTree ==1) return STRLIT;}
 
 {ASPAS}{STRLIT}				{	
 							
@@ -320,9 +320,9 @@ else{
 			//mudar isto depois para ver os erros
 			if (flagDontPrintTree == 0 && erro==0){
 				check_program(myprogram);
-				show_tables(symtab);
-				imprime_arvore(myprogram,0);
-				free_tables(symtab);
+				//show_tables(symtab);
+				//imprime_arvore(myprogram,0);
+				//free_tables(symtab);
     
 }}}
 int yywrap() {
