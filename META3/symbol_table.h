@@ -33,6 +33,7 @@ params * params;
 void show_table();
 symbol *insert_el(table_element *table, char *str,char *t ,params * params,int flagpar,int flagmethod,int show);
 table_element *create_table(char * name,char * type);
+table_element *create_temp_table();
 table_element *search_table(char *str);
 params *insert_param(symbol *sym, char *name, char* type);
 params *insert_param_table(table_element* table, char *name, char* type);

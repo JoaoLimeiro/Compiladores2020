@@ -107,7 +107,11 @@ FieldDecl:
                                                         while(tmp1 != NULL){
                                                             if( strcmp(tmp1->child->type,$$->child->type) ){
                                                                 tmp = new_node(tmp1->child->value, tmp1->child->type);
+                                                                tmp->line = tmp1->child->line;
+                                                                tmp->col = tmp1->child->col;
                                                                 tmp2 = new_node($$->child->value, $$->child->type);
+                                                                tmp2->line = $$->child->line;
+                                                                tmp2->col = $$->child->col;
                                                                 insert_node(tmp1, tmp2);
                                                                 insert_neighbor(tmp2, tmp);
                                                             }
@@ -577,7 +581,9 @@ ExprSemicolon:
 ExprOrStrlit:
         Expr                                       {$$=$1;}
 
-    |   STRLIT                                 {$$=new_node($1->cval, "StrLit");}
+    |   STRLIT                                  {
+                                                    $$=new_node($1->cval, "StrLit");
+                                                }
 ;
 
 
@@ -601,6 +607,8 @@ MethodInvocation:
 
         ID LPAR Expr CommaExpr RPAR             {
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
                                                     tmp->line = $1->line;
                                                     tmp->col = $1->col;
@@ -611,6 +619,8 @@ MethodInvocation:
 
     |   ID LPAR Expr RPAR                       {
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
                                                     tmp->line = $1->line;
                                                     tmp->col = $1->col;
@@ -620,6 +630,8 @@ MethodInvocation:
 
     |   ID LPAR RPAR                            {   
                                                     $$=new_node(NO_VALUE, "Call");
+                                                    $$->line = $1->line;
+                                                    $$->col = $1->col;
                                                     tmp=new_node($1->cval, "Id");
                                                     tmp->line = $1->line;
                                                     tmp->col = $1->col;
@@ -704,6 +716,8 @@ OtherExpr:
                                             }
     |   OtherExpr MINUS OtherExpr           {
                                                 $$ = new_node("-","Sub");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -716,36 +730,50 @@ OtherExpr:
                                             }
     |   OtherExpr DIV OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Div");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MOD OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Mod");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr AND OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"And");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr OR OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Or");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr XOR OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Xor");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr LSHIFT OtherExpr             {
                                                 $$ = new_node(NO_VALUE,"Lshift");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr RSHIFT OtherExpr          {
                                                 $$ = new_node(NO_VALUE,"Rshift");
+                                                $$->line = $2->line;
+                                                $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
@@ -783,8 +811,6 @@ OtherExpr:
                                                 $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
-                                                $$->line = $1->line;
-                                                $$->col = $1->col;
                                             }
     |   OtherExpr NE OtherExpr              {
                                                 $$ = new_node(NO_VALUE,"Ne");
@@ -792,8 +818,6 @@ OtherExpr:
                                                 $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
-                                                $$->line = $1->line;
-                                                $$->col = $1->col;
                                             }
     |   PLUS OtherExpr        %prec preced  {
                                                 $$ = new_node("+","Plus");
@@ -815,8 +839,7 @@ OtherExpr:
                                             }
     |   LPAR Expr RPAR                      {
                                                 $$=$2;
-                                                $$->line = $1->line;
-                                                $$->col = $1->col;
+                                                
                                             }
     |   LPAR error RPAR                     {
                                                 $$=NULL;

@@ -29,7 +29,17 @@ table_element *create_table(char * name,char * type){
 	return new_table;
 }
 	
+table_element *create_temp_table(){
+	table_element *new_table = (table_element *)malloc(sizeof(table_element));
 
+	new_table->name = NULL;
+	new_table->type = NULL;
+	new_table->symbols = NULL;
+	new_table->params = NULL;
+	new_table->next = NULL;
+
+	return new_table;
+}
 
 //Insere um novo identificador na cauda de uma lista ligada de simbolo
 symbol *insert_el(table_element *table, char *str,char *t ,params * params, int flagpar,int flagmethod, int show){
