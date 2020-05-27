@@ -16,6 +16,7 @@ void check_operator_logical(Tree* op);
 void check_operator_ints(Tree* op);
 void check_operator_call(Tree* op);
 void check_operator_return(Tree* op);
+void check_shift(Tree* operator);
 int check_method(Tree *tree);
 int check_signature(table_element * table, Tree * method);
 int  search_method(table_element * table, Tree * call);

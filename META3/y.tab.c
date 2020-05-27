@@ -2463,7 +2463,7 @@ yyreduce:
   case 69:
 #line 731 "jucompiler.y"
     {
-                                                (yyval.tree) = new_node(NO_VALUE,"Div");
+                                                (yyval.tree) = new_node("/","Div");
                                                 (yyval.tree)->line = (yyvsp[(2) - (3)].tok)->line;
                                                 (yyval.tree)->col = (yyvsp[(2) - (3)].tok)->col;
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));
@@ -2474,7 +2474,7 @@ yyreduce:
   case 70:
 #line 738 "jucompiler.y"
     {
-                                                (yyval.tree) = new_node(NO_VALUE,"Mod");
+                                                (yyval.tree) = new_node("%","Mod");
                                                 (yyval.tree)->line = (yyvsp[(2) - (3)].tok)->line;
                                                 (yyval.tree)->col = (yyvsp[(2) - (3)].tok)->col;
                                                 insert_node((yyval.tree),(yyvsp[(1) - (3)].tree));

@@ -1,8 +1,7 @@
 class Factorial {
-	
-	public static boolean a(){}
-    public static boolean a;
-    public static boolean a(int arg){}
-    public static boolean a(int a){}
-    public static void a(String[] a){}
+    public static int factorial(int n, int i) {
+        if (b == a){}
+        A = A;
+    }
+ 
 }

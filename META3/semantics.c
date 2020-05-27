@@ -13,9 +13,11 @@ int lshiftvar = 0;
 int onlyOneTime = 1;
 int is_if = 0;
 int is_if_first = 0;
+int is_while = 0;
 int is_print = 0;
 int is_print_first = 0;
 int tableOut = 1;
+int is_call = 0;
 int assignAllow = 0;
 
 int check_program(Tree *tree) {
@@ -78,11 +80,11 @@ int check_program(Tree *tree) {
 			//if(tableOut){
 				check_operator_assign(tree);
 			//}
-			/*else{
-				assignAllow = 1;
-				check_program(tree->child);
-				assignAllow = 0;
-			}*/
+			
+				//assignAllow = 1;
+				//check_program(tree->child);
+				//assignAllow = 0;
+			
 			check_program(tree->neighbor);
 
 	}
@@ -102,21 +104,14 @@ int check_program(Tree *tree) {
 			check_operator_ints(tree);
 	}
 	else if (strcmp(tree->type, "Lshift")==0 || strcmp(tree->type, "Rshift")==0){
-			tree->annot="none";
 			allowb4=allow;
-			lshiftvar=1;
-			allow=0;
-			//allow=1;
-			check_program(tree->child);
-				
+		
+			check_shift(tree);
 
 			if (allowb4 ==1)
 				allow=1;
 			else
 				allow=0;
-			lshiftvar=0;
-
-			check_program(tree->neighbor);
 	}
 	else if (strcmp(tree->type, "If")==0 || strcmp(tree->type, "Else")==0){
 			allowb4=allow;
@@ -131,7 +126,7 @@ int check_program(Tree *tree) {
 				allow=0;
 			is_if = 0; is_if_first = 0;
 
-			if( strcmp(tree->child->annot, "boolean") != 0 && strcmp(tree->child->annot, "none") != 0 )
+			if( strcmp(tree->child->annot, "boolean") != 0  )
 				printf("Line %d, col %d: Incompatible type %s in if statement\n",tree->child->line, tree->child->col, tree->child->annot);
 
 			check_program(tree->neighbor);
@@ -142,17 +137,16 @@ int check_program(Tree *tree) {
 			
 			
 	}
-	else if (strcmp(tree->type, "Print")==0 || strcmp(tree->type, "Return")==0){
+	else if (strcmp(tree->type, "Print")==0){
 			allowb4=allow;
 
 			allow=1;
-			if(strcmp(tree->type, "Print")==0){
 				is_print = 1; is_print_first = 1;
-			}
+			
 			check_program(tree->child);
 
-			if(strcmp(tree->type, "Return")==0)
-				check_operator_return(tree);
+			if( !(strcmp(tree->child->annot,"String") == 0 || strcmp(tree->child->annot,"int") == 0 || strcmp(tree->child->annot,"boolean") == 0 || strcmp(tree->child->annot,"double") == 0 ) )
+				printf("Line %d, col %d: Incompatible type %s in System.out.print statement\n",tree->child->line, tree->child->col, tree->child->annot);
 
 			if (allowb4 ==1)
 				allow=1;
@@ -161,15 +155,38 @@ int check_program(Tree *tree) {
 			is_print = 0; is_print_first = 0;
 			check_program(tree->neighbor);
 	}
-	else if (strcmp(tree->type, "While")==0){
+
+	
+	else if ( strcmp(tree->type, "Return")==0){
 			allowb4=allow;
 
 			allow=1;
+			
 			check_program(tree->child);
+
+			check_operator_return(tree);
+
 			if (allowb4 ==1)
 				allow=1;
 			else
 				allow=0;
+		
+			check_program(tree->neighbor);
+	}
+	else if (strcmp(tree->type, "While")==0){
+			allowb4=allow;
+			is_while = 1;
+			allow=1;
+			check_program(tree->child);
+
+			if(strcmp(tree->child->annot,"boolean")!=0)
+				printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->child->line, tree->child->col, tree->child->annot);
+	
+			if (allowb4 ==1)
+				allow=1;
+			else
+				allow=0;
+			is_while = 0;
 			check_program(tree->neighbor);
 
 	}
@@ -433,12 +450,13 @@ void check_operator_assign(Tree* operator){
 	}
 
 	if(strcmp(operator->child->neighbor->annot, operator->child->annot) != 0){
-		if( !(strcmp(operator->child->annot,"double") == 0 && strcmp(operator->child->neighbor->annot,"int") == 0 ))
+		if( !(strcmp(operator->child->annot,"double") == 0 && strcmp(operator->child->neighbor->annot,"int") == 0 )){
 			printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", operator->line, operator->col,operator->value, operator->child->annot, operator->child->neighbor->annot);
+		}
 	}else if(strcmp(operator->child->annot,"String[]") == 0 && strcmp(operator->child->neighbor->annot,"String[]") == 0)
 			printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", operator->line, operator->col,operator->value, operator->child->annot, operator->child->neighbor->annot);
-
-
+	else if(strcmp(operator->child->annot,"undef") == 0 && strcmp(operator->child->neighbor->annot,"undef") == 0)
+			printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", operator->line, operator->col,operator->value, operator->child->annot, operator->child->neighbor->annot);
 
 	if (allowb4 ==1)
 		allow=1;
@@ -464,31 +482,32 @@ void check_operator_comp(Tree* operator){
 		( strcmp(operator->child->annot,"int")==0 && strcmp(operator->child->neighbor->annot,"double")==0 ) || 
 		( strcmp(operator->child->annot,"double")==0 && strcmp(operator->child->neighbor->annot,"int")==0) ) || ( 
 		strcmp(operator->child->neighbor->annot,"none") == 0 || 
-		strcmp(operator->child->neighbor->annot,"none") == 0 || 
+		strcmp(operator->child->neighbor->annot,"undef") == 0 || 
 		strcmp(operator->child->annot,"none") == 0 || 
-		strcmp(operator->child->annot,"none") == 0 
+		strcmp(operator->child->annot,"undef") == 0 
+
 		)  ){
 		if(strcmp(operator->type, "Eq") == 0){
 			printf("Line %d, col %d: Operator == cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}else if(strcmp(operator->type, "Ne") == 0){
 			printf("Line %d, col %d: Operator != cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}else if(strcmp(operator->type, "Le") == 0){
 			printf("Line %d, col %d: Operator <= cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}
 		else if(strcmp(operator->type, "Ge") == 0){
 			printf("Line %d, col %d: Operator >= cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}
 		else if(strcmp(operator->type, "Lt") == 0){
 			printf("Line %d, col %d: Operator < cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}
 		else if(strcmp(operator->type, "Gt") == 0){
 			printf("Line %d, col %d: Operator > cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
-			operator->annot = "undef";
+			//operator->annot = "undef";
 		}
 	}       
 	
@@ -501,6 +520,42 @@ void check_operator_comp(Tree* operator){
 
 
 }
+
+
+void check_shift(Tree* operator){
+	int allowb4=allow;
+	allow=1;
+	lshiftvar = 1;
+	check_program(operator->child);
+
+	operator->annot = "none";
+
+	/*if (strcmp(operator->type,"Rshift")==0){
+			if (strcmp(operator->child->annot,"int") != 0 || strcmp(operator->child->neighbor->annot,"int") != 0 ){
+				printf("Line %d, col %d: Operator >> cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
+				operator->annot = "undef";
+		}
+	}
+	else if (strcmp(operator->type,"Lshift")==0){
+			if (strcmp(operator->child->annot,"int") != 0 || strcmp(operator->child->neighbor->annot,"int") != 0 ){
+				printf("Line %d, col %d: Operator << cannot be applied to types %s, %s\n", operator->line, operator->col, operator->child->annot, operator->child->neighbor->annot);
+				operator->annot = "undef";
+			}
+				
+	}
+*/
+	
+	
+	if (allowb4 ==1)
+		allow=1;
+	else
+		allow=0;
+	lshiftvar = 0;
+	check_program(operator->neighbor);
+
+
+}
+
 
 void check_operator_logical(Tree* operator){
 	int allowb4=allow;
@@ -575,13 +630,13 @@ void check_operator_ints(Tree* operator){
 
 	operator->annot = "int";
 
-	if(strcmp(operator->child->annot,"undef") == 0 )
-		printf("Line %d, col %d: Cannot find symbol %s\n", operator->child->line, operator->child->col, operator->child->value);
+	//if(strcmp(operator->child->annot,"undef") == 0 )
+	//	printf("Line %d, col %d: Cannot find symbol %s\n", operator->child->line, operator->child->col, operator->child->value);
 	
-	if(strcmp(operator->type,"ParseArgs") == 0){
-		if(strcmp(operator->child->neighbor->annot,"undef") == 0)
-			printf("Line %d, col %d: Cannot find symbol %s\n", operator->child->neighbor->line, operator->child->neighbor->col, operator->child->neighbor->value);
-	}
+	//if(strcmp(operator->type,"ParseArgs") == 0){
+	//	if(strcmp(operator->child->neighbor->annot,"undef") == 0)
+	//		printf("Line %d, col %d: Cannot find symbol %s\n", operator->child->neighbor->line, operator->child->neighbor->col, operator->child->neighbor->value);
+	//}
 	
 	
 	if (strcmp(operator->child->annot,"String[]") != 0){
@@ -614,9 +669,9 @@ void check_operator_call(Tree* operator){
 	// 0 cannot find
 	// 1 chill
 	// 2 ambiguous
-
+	is_call = 1;
 	check_program(operator->child);
-
+	is_call = 0;
 
 	if (allowb4 ==1)
 		allow=1;
@@ -655,12 +710,6 @@ void check_operator_call(Tree* operator){
 		printf("Line %d, col %d: Reference to method %s%s is ambiguous\n",operator->child->line, operator->child->col, operator->child->value, str);
 	}
 
-	if(is_print == 1 && strcmp(operator->annot,"undef") == 0 )
-		printf("Line %d, col %d: Incompatible type undef in System.out.print statement\n",operator->child->line, operator->child->col);
-	
-	if(is_print == 1 && strcmp(operator->annot,"void") == 0 )
-		printf("Line %d, col %d: Incompatible type void in System.out.print statement\n",operator->child->line, operator->child->col);
-	
 }
 
 void check_operator_return(Tree* op){
@@ -722,7 +771,7 @@ int  search_method(table_element * table, Tree * call){
 			nsimilar=0;
 			strcpy(str,str2);
 
-			if(strcmp(aux->name, call->child->value)==0 ){
+			if(strcmp(aux->name, call->child->value)==0 && aux->is_method == 1){
 				for (params=aux->params; params; params=params->next){
 					nparams++;
 				}
@@ -755,7 +804,6 @@ int  search_method(table_element * table, Tree * call){
 							}
 						}
 						strcat(str,")");
-
 						call->child->annot=strdup(str);	
 						flag=1;
 						break;
@@ -798,7 +846,7 @@ void check_operator_calc(Tree* operator){
 	if ( lshiftvar!=1){
 		allow=1;
 		check_program(operator->child);
-		if (operator->child!=NULL && operator->child->annot!=NULL && lshiftvar!=1){
+		if (operator->child!=NULL && operator->child->annot!=NULL){
 
 			if(strcmp(operator->child->annot, "undef") == 0 && strcmp(operator->child->type,"Mul") != 0 && strcmp(operator->child->type,"Add") != 0 && strcmp(operator->child->type,"Div") != 0 && strcmp(operator->child->type,"Sub") != 0 && strcmp(operator->child->type,"Mod") != 0 && strcmp(operator->child->type,"Call") != 0)
 				printf("Line %d, col %d: Cannot find symbol %s\n", operator->child->line, operator->child->col, operator->child->value);
@@ -809,8 +857,8 @@ void check_operator_calc(Tree* operator){
 			if (strcmp(operator->child->annot, "undef") == 0 || strcmp(operator->child->neighbor->annot, "undef") == 0) {
 				operator->annot = "undef";
 				printf("Line %d, col %d: Operator %s cannot be applied to types %s, %s\n", operator->line, operator->col,operator->value, operator->child->annot, operator->child->neighbor->annot);
-				if(is_if == 1)
-					printf("Line %d, col %d: Incompatible type undef in if statement\n", operator->line, operator->col);
+				//if(is_if == 1)
+				//	printf("Line %d, col %d: Incompatible type undef in if statement\n", operator->line, operator->col);
 			}
 			else if (strcmp(operator->child->annot, "none") == 0 || strcmp(operator->child->neighbor->annot, "none") == 0) {
 				operator->annot = "undef";
@@ -847,8 +895,7 @@ void check_operator_calc(Tree* operator){
 }
 
 void check_type(Tree *tree){
-
-	if (allow==1 || assignAllow == 1){
+	if (allow==1 /*|| assignAllow == 1*/){
 		if (strcmp(tree->type, "Id") == 0 ) {
 
 			symbol *current=search_el(current_symtab,tree->value,1);
@@ -863,18 +910,23 @@ void check_type(Tree *tree){
 						tree->annot=global->type;
 			}
 			else{
-				if(assignAllow == 0)
+				if(assignAllow == 0){
 					tree->annot =strdup( "undef");
-			}
-			if(tree->annot != NULL){
-				if (strcmp(tree->annot, "String[]") == 0 && is_print_first){
-					printf("Line %d, col %d: Incompatible type String[] in System.out.print statement\n", tree->line, tree->col);
+					if(is_call != 1)
+						printf("Line %d, col %d: Cannot find symbol %s\n", tree->line, tree->col, tree->value);
 				}
 
-				if (is_if_first && strcmp(tree->annot, "int") == 0 ){
-					printf("Line %d, col %d: Incompatible type %s in if statement\n", tree->line, tree->col,tree->annot);
-				}
 			}
+			//if(tree->annot != NULL){
+
+				//if (is_if_first && strcmp(tree->annot, "int") == 0 ){
+				//	printf("Line %d, col %d: Incompatible type %s in if statement\n", tree->line, tree->col,tree->annot);
+				//}
+
+			//	if (is_while && strcmp(tree->annot, "boolean") != 0 ){
+			//		printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->line, tree->col,tree->annot);
+			//	}
+			//}
 			
 			is_if_first = 0;
 
@@ -886,12 +938,18 @@ void check_type(Tree *tree){
 		else if (strcmp(tree->type, "RealLit") == 0) {
 			if(assignAllow == 0)
 				tree->annot=strdup("double");
+			//if (is_while && lshiftvar == 0){
+			//		printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->line, tree->col,tree->annot);
+			//	}
 			//verificaBonds(tree);
 		}
 		else if (strcmp(tree->type, "DecLit") == 0) {
 			if(assignAllow == 0)
 				tree->annot=strdup("int");
 			verificaBonds(tree);
+			//if (is_while && lshiftvar == 0){
+			//		printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->line, tree->col,tree->annot);
+			//	}
 			
 			
 		}
@@ -902,11 +960,17 @@ void check_type(Tree *tree){
 		else if (strcmp(tree->type, "StrLit") == 0) {
 			if(assignAllow == 0)
 				tree->annot=strdup("String");
+			//if (is_while && lshiftvar == 0){
+			//		printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->line, tree->col,tree->annot);
+			//	}
 		}
 
 	}else{
 		if(assignAllow == 0)
 			tree->annot="none";
+		//if (is_while){
+		//			printf("Line %d, col %d: Incompatible type %s in while statement\n", tree->line, tree->col,tree->annot);
+		//		}
 	}
 
 	/* if (strcmp(tree->type, "RealLit") == 0) {

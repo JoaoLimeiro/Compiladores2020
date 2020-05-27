@@ -729,14 +729,14 @@ OtherExpr:
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr DIV OtherExpr             {
-                                                $$ = new_node(NO_VALUE,"Div");
+                                                $$ = new_node("/","Div");
                                                 $$->line = $2->line;
                                                 $$->col = $2->col;
                                                 insert_node($$,$1);
                                                 insert_neighbor($1,$3);
                                             }
     |   OtherExpr MOD OtherExpr             {
-                                                $$ = new_node(NO_VALUE,"Mod");
+                                                $$ = new_node("%","Mod");
                                                 $$->line = $2->line;
                                                 $$->col = $2->col;
                                                 insert_node($$,$1);

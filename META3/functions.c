@@ -60,7 +60,7 @@ void imprime_arvore(s_Tree no, int profundidade){
                 printf("..");
                 prof_aux++;
             }
-            if(strcmp(no->value,"") == 0 || strcmp(no->value,"*") == 0 || strcmp(no->value,"=") == 0 || strcmp(no->value,"+") == 0 || strcmp(no->value,"-") == 0){
+            if(strcmp(no->value,"") == 0 || strcmp(no->value,"*") == 0 || strcmp(no->value,"=") == 0 || strcmp(no->value,"+") == 0 || strcmp(no->value,"-") == 0 || strcmp(no->value,"/") == 0 || strcmp(no->value,"%") == 0){
                 printf("%s", no->type);
             }
             else{
